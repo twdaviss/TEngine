@@ -7,9 +7,22 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Engine", "Engine", "{51E4C3
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework", "Framework", "{565AA442-336C-4CE9-9BFF-95D18EFC77C8}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TEngine", "TEngine\TEngine.vcxproj", "{8D5553E9-1D40-4DE7-B791-CD2671A6D079}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "VSProps", "VSProps", "{881829A6-33A5-4B9A-854C-1EFC53FE3FF8}"
+	ProjectSection(SolutionItems) = preProject
+		VSProps\EngineLib.props = VSProps\EngineLib.props
+		VSProps\FrameworkLib.props = VSProps\FrameworkLib.props
+		VSProps\TEngine.props = VSProps\TEngine.props
+	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Core", "Core\Core.vcxproj", "{8A6D7F1E-6295-417B-B030-098BDFB7FE82}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{2A31C51B-68BD-4408-A0E8-9F5AFB77F227}"
+	ProjectSection(SolutionItems) = preProject
+		VSProps\Common\Common.props = VSProps\Common\Common.props
+		VSProps\Common\Library.props = VSProps\Common\Library.props
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TEngine", "Engine\TEngine\TEngine.vcxproj", "{FCEB8285-08F9-48A6-A185-839D890CD801}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Core", "Framework\Core\Core.vcxproj", "{59201557-9D7E-434F-BCE0-6BA9DD8C50BB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,29 +32,30 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{8D5553E9-1D40-4DE7-B791-CD2671A6D079}.Debug|x64.ActiveCfg = Debug|x64
-		{8D5553E9-1D40-4DE7-B791-CD2671A6D079}.Debug|x64.Build.0 = Debug|x64
-		{8D5553E9-1D40-4DE7-B791-CD2671A6D079}.Debug|x86.ActiveCfg = Debug|Win32
-		{8D5553E9-1D40-4DE7-B791-CD2671A6D079}.Debug|x86.Build.0 = Debug|Win32
-		{8D5553E9-1D40-4DE7-B791-CD2671A6D079}.Release|x64.ActiveCfg = Release|x64
-		{8D5553E9-1D40-4DE7-B791-CD2671A6D079}.Release|x64.Build.0 = Release|x64
-		{8D5553E9-1D40-4DE7-B791-CD2671A6D079}.Release|x86.ActiveCfg = Release|Win32
-		{8D5553E9-1D40-4DE7-B791-CD2671A6D079}.Release|x86.Build.0 = Release|Win32
-		{8A6D7F1E-6295-417B-B030-098BDFB7FE82}.Debug|x64.ActiveCfg = Debug|x64
-		{8A6D7F1E-6295-417B-B030-098BDFB7FE82}.Debug|x64.Build.0 = Debug|x64
-		{8A6D7F1E-6295-417B-B030-098BDFB7FE82}.Debug|x86.ActiveCfg = Debug|Win32
-		{8A6D7F1E-6295-417B-B030-098BDFB7FE82}.Debug|x86.Build.0 = Debug|Win32
-		{8A6D7F1E-6295-417B-B030-098BDFB7FE82}.Release|x64.ActiveCfg = Release|x64
-		{8A6D7F1E-6295-417B-B030-098BDFB7FE82}.Release|x64.Build.0 = Release|x64
-		{8A6D7F1E-6295-417B-B030-098BDFB7FE82}.Release|x86.ActiveCfg = Release|Win32
-		{8A6D7F1E-6295-417B-B030-098BDFB7FE82}.Release|x86.Build.0 = Release|Win32
+		{FCEB8285-08F9-48A6-A185-839D890CD801}.Debug|x64.ActiveCfg = Debug|x64
+		{FCEB8285-08F9-48A6-A185-839D890CD801}.Debug|x64.Build.0 = Debug|x64
+		{FCEB8285-08F9-48A6-A185-839D890CD801}.Debug|x86.ActiveCfg = Debug|Win32
+		{FCEB8285-08F9-48A6-A185-839D890CD801}.Debug|x86.Build.0 = Debug|Win32
+		{FCEB8285-08F9-48A6-A185-839D890CD801}.Release|x64.ActiveCfg = Release|x64
+		{FCEB8285-08F9-48A6-A185-839D890CD801}.Release|x64.Build.0 = Release|x64
+		{FCEB8285-08F9-48A6-A185-839D890CD801}.Release|x86.ActiveCfg = Release|Win32
+		{FCEB8285-08F9-48A6-A185-839D890CD801}.Release|x86.Build.0 = Release|Win32
+		{59201557-9D7E-434F-BCE0-6BA9DD8C50BB}.Debug|x64.ActiveCfg = Debug|x64
+		{59201557-9D7E-434F-BCE0-6BA9DD8C50BB}.Debug|x64.Build.0 = Debug|x64
+		{59201557-9D7E-434F-BCE0-6BA9DD8C50BB}.Debug|x86.ActiveCfg = Debug|Win32
+		{59201557-9D7E-434F-BCE0-6BA9DD8C50BB}.Debug|x86.Build.0 = Debug|Win32
+		{59201557-9D7E-434F-BCE0-6BA9DD8C50BB}.Release|x64.ActiveCfg = Release|x64
+		{59201557-9D7E-434F-BCE0-6BA9DD8C50BB}.Release|x64.Build.0 = Release|x64
+		{59201557-9D7E-434F-BCE0-6BA9DD8C50BB}.Release|x86.ActiveCfg = Release|Win32
+		{59201557-9D7E-434F-BCE0-6BA9DD8C50BB}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{8D5553E9-1D40-4DE7-B791-CD2671A6D079} = {51E4C3C3-B8B9-4DDF-9C03-2E5789A607C7}
-		{8A6D7F1E-6295-417B-B030-098BDFB7FE82} = {565AA442-336C-4CE9-9BFF-95D18EFC77C8}
+		{2A31C51B-68BD-4408-A0E8-9F5AFB77F227} = {881829A6-33A5-4B9A-854C-1EFC53FE3FF8}
+		{FCEB8285-08F9-48A6-A185-839D890CD801} = {51E4C3C3-B8B9-4DDF-9C03-2E5789A607C7}
+		{59201557-9D7E-434F-BCE0-6BA9DD8C50BB} = {565AA442-336C-4CE9-9BFF-95D18EFC77C8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E4FB7743-29E0-4790-9AF3-4645E035E654}
