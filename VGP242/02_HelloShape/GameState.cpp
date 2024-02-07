@@ -167,3 +167,97 @@ void SquareState::CreateShape()
 	mVertices.push_back({ { 0.5, 0.75f, 0.0f}, Colors::Blue });
 	mVertices.push_back({ { 0.5f, 0.0f, 0.0f}, Colors::Green });
 }
+
+void TriforceState::Update(float deltaTime)
+{
+	if (InputSystem::Get()->IsKeyPressed(KeyCode::TWO))
+	{
+		MainApp().ChangeState("PyramidState");
+	}
+	if (InputSystem::Get()->IsKeyPressed(KeyCode::THREE))
+	{
+		MainApp().ChangeState("DiamondState");
+	}
+}
+
+void TriforceState::CreateShape()
+{
+	mVertices.push_back({ {-0.25f, 0.0f, 0.0f}, Colors::Red });
+	mVertices.push_back({ { 0.0f, 0.5f, 0.0f}, Colors::Blue });
+	mVertices.push_back({ { 0.25f, 0.0f, 0.0f}, Colors::Green });
+
+	mVertices.push_back({ {-0.5f, -0.5f, 0.0f}, Colors::Red });
+	mVertices.push_back({ { -0.25f, 0.0f, 0.0f}, Colors::Blue });
+	mVertices.push_back({ { 0.0f, -0.5f, 0.0f}, Colors::Green });
+
+	mVertices.push_back({ {0.0f, -0.5f, 0.0f}, Colors::Red });
+	mVertices.push_back({ { 0.25f, 0.0f, 0.0f}, Colors::Blue });
+	mVertices.push_back({ { 0.5f, -0.5f, 0.0f}, Colors::Green });
+}
+
+void PyramidState::Update(float deltaTime)
+{
+	if (InputSystem::Get()->IsKeyPressed(KeyCode::ONE))
+	{
+		MainApp().ChangeState("TriforceState");
+	}
+	if (InputSystem::Get()->IsKeyPressed(KeyCode::THREE))
+	{
+		MainApp().ChangeState("DiamondState");
+	}
+}
+
+void PyramidState::CreateShape()
+{
+	mVertices.push_back({ {-0.25f, 0.0f, 0.0f}, Colors::Red });
+	mVertices.push_back({ { 0.0f, 0.5f, 0.0f}, Colors::Blue });
+	mVertices.push_back({ { 0.0f, 0.1f, 0.0f}, Colors::Green });
+
+	mVertices.push_back({ { 0.0f, 0.1f, 0.0f}, Colors::Red });
+	mVertices.push_back({ { 0.0f, 0.5f, 0.0f}, Colors::Blue });
+	mVertices.push_back({ { 0.25f, 0.0f, 0.0f}, Colors::Green });
+
+	mVertices.push_back({ {-0.25f, 0.0f, 0.0f}, Colors::Red });
+	mVertices.push_back({ { 0.0f, 0.1f, 0.0f}, Colors::Blue });
+	mVertices.push_back({ { 0.25f, 0.0f, 0.0f}, Colors::Green });
+
+}
+
+void DiamondState::Update(float deltaTime)
+{
+	if (InputSystem::Get()->IsKeyPressed(KeyCode::ONE))
+	{
+		MainApp().ChangeState("TriforceState");
+	}
+	if (InputSystem::Get()->IsKeyPressed(KeyCode::TWO))
+	{
+		MainApp().ChangeState("PyramidState");
+	}
+}
+
+void DiamondState::CreateShape()
+{
+	//main triangle
+	mVertices.push_back({ { 0.0f, -0.5f, 0.0f}, Colors::Red });
+	mVertices.push_back({ {-0.25f, 0.0f, 0.0f}, Colors::Blue });
+	mVertices.push_back({ { 0.25f, 0.0f, 0.0f}, Colors::Green });
+
+	//square
+	mVertices.push_back({ {-0.15f, 0.0f, 0.0f}, Colors::Red });
+	mVertices.push_back({ { -0.15f, 0.15f, 0.0f}, Colors::Blue });
+	mVertices.push_back({ { 0.15f, 0.0f, 0.0f}, Colors::Green });
+
+	mVertices.push_back({ {-0.15f, 0.15f, 0.0f}, Colors::Red });
+	mVertices.push_back({ { 0.15f, 0.15f, 0.0f}, Colors::Blue });
+	mVertices.push_back({ { 0.15f, 0.0f, 0.0f}, Colors::Green });
+
+	//left corner triangle
+	mVertices.push_back({ {-0.25f, 0.0f, 0.0f}, Colors::Red });
+	mVertices.push_back({ { -0.15f, 0.15f, 0.0f}, Colors::Blue });
+	mVertices.push_back({ {-0.15f, 0.0f, 0.0f}, Colors::Green });
+
+	//right corner triangle
+	mVertices.push_back({ { 0.15f, 0.0f, 0.0f}, Colors::Red });
+	mVertices.push_back({ { 0.15f, 0.15f, 0.0f}, Colors::Blue });
+	mVertices.push_back({ { 0.25f, 0.0f, 0.0f}, Colors::Green });
+}

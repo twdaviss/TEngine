@@ -50,3 +50,19 @@ public:
 protected:
 	void CreateShape() override;
 };
+
+class PyramidState : public GameState
+{
+public:
+	void Update(float deltaTime) override;
+protected:
+	void CreateShape() override;
+};
+
+class DiamondState : public GameState
+{
+public:
+	void Update(float deltaTime) override;
+protected:
+	void CreateShape() override;
+};
