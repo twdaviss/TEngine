@@ -3,7 +3,7 @@
 #include "Common.h"
 #include "Colors.h"
 
-namespace DubEngine::Graphics
+namespace TEngine::Graphics
 {
 	// Vertex element flags
 	constexpr uint32_t VE_Position		= 0x1 << 0;
@@ -20,21 +20,21 @@ namespace DubEngine::Graphics
 	struct VertexP
 	{
 		VERTEX_FORMAT(VE_Position);
-		DEMath::Vector3 position;
+		TMath::Vector3 position;
 	};
 
 	struct VertexPC
 	{
 		VERTEX_FORMAT(VE_Position | VE_Color);
-		DEMath::Vector3 position;
+		TMath::Vector3 position;
 		Color color;
 	};
 
 	struct VertexPX
 	{
 		VERTEX_FORMAT(VE_Position | VE_TexCoord);
-		DEMath::Vector3 position;
-		DEMath::Vector2 uvCoord;
+		TMath::Vector3 position;
+		TMath::Vector2 uvCoord;
 	};
 
 	struct Vertex
@@ -42,10 +42,10 @@ namespace DubEngine::Graphics
 		VERTEX_FORMAT(VE_Position | VE_Normal | VE_Tangent | VE_TexCoord | VE_BlendIndex | VE_BlendWeight);
 		static constexpr int MaxBoneWeights = 4;
 
-		DEMath::Vector3 position;
-		DEMath::Vector3 normal;
-		DEMath::Vector3 tangent;
-		DEMath::Vector2 uvCoord;
+		TMath::Vector3 position;
+		TMath::Vector3 normal;
+		TMath::Vector3 tangent;
+		TMath::Vector2 uvCoord;
 		int boneIndices[MaxBoneWeights] = {};
 		float boneWeights[MaxBoneWeights] = {};
 	};
