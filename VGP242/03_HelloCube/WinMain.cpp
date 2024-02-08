@@ -8,9 +8,7 @@ using namespace TEngine::Graphics;
 int WINAPI WinMain(HINSTANCE instance, HINSTANCE, LPSTR, int)
 {
 	App& myApp = TEngine::MainApp();
-	myApp.AddState<TriforceState>("TriforceState");
-	myApp.AddState<PyramidState>("PyramidState");
-	myApp.AddState<DiamondState>("DiamondState");
+	myApp.AddState<GameState>("GameState");
 
 	AppConfig config;
 	config.appName = L"Hello Shape";
