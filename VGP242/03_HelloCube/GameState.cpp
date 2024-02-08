@@ -12,17 +12,37 @@ void GameState::Initialize()
 	auto device = GraphicsSystem::Get()->GetDevice();
 
 	//create a shape
-	mMesh.vertices.push_back({ {-0.5f, -0.5f, 0.0f}, Colors::Red });
-	mMesh.vertices.push_back({ { -0.5f, 0.5f, 0.0f}, Colors::Blue });
-	mMesh.vertices.push_back({ { 0.5f, 0.5f, 0.0f}, Colors::Green });
-	mMesh.vertices.push_back({ {0.5f, -0.5f, 0.0f}, Colors::Yellow });
+
+	//front side
+	mMesh.vertices.push_back({ {-0.5f, -0.5f, 0.0f}, Colors::Red }); //0
+	mMesh.vertices.push_back({ { -0.5f, 0.5f, 0.0f}, Colors::Blue }); //1
+	mMesh.vertices.push_back({ { 0.5f, 0.5f, 0.0f}, Colors::Green }); //2
+	mMesh.vertices.push_back({ {0.5f, -0.5f, 0.0f}, Colors::Yellow }); //3
+
+	//left side
+	mMesh.vertices.push_back({ {-0.5f, -0.5f, 1.0f}, Colors::Red }); //4
+	mMesh.vertices.push_back({ { -0.5f, 0.5f, 1.0f}, Colors::Blue }); //5
+
+	//right side
+	mMesh.vertices.push_back({ { 0.5f, 0.5f, 1.0f}, Colors::Green }); //6
+	mMesh.vertices.push_back({ {0.5f, -0.5f, 1.0f}, Colors::Yellow }); //7
+
+	//back side and bottom do not need new vertices thanks to the magic of indices
 
 	mMesh.indices = {
 		0, 1, 2,
-		0, 2, 3
+		0, 2, 3,
+		4, 5, 1,
+		4, 1, 0, 
+		3, 2, 6,
+		3, 6, 7,
+		7, 6, 5,
+		7, 5, 4,
+		1, 5, 6,
+		1, 6, 2,
+		4, 0, 3,
+		4, 3, 7,
 	};
-	
-
 
 	std::filesystem::path shaderFilePath = L"../../Assets/Shaders/DoSomething.fx";
 	mConstantBuffer.Initialize(sizeof(TMath::Matrix4));
