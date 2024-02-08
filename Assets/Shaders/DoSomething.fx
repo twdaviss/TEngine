@@ -1,5 +1,10 @@
 //simple shader that only uses position and color
 
+cbuffer ConstantBuffer : register(b0)
+{
+    matrix wvp;
+};
+
 struct VS_INPUT
 {
     float3 position : POSITION;
@@ -15,7 +20,7 @@ struct VS_OUTPUT
 VS_OUTPUT VS(VS_INPUT input)
 {
     VS_OUTPUT output;
-    output.position = float4(input.position, 1.0f);
+    output.position = mul(float4(input.position, 1.0f), wvp);
     output.color = input.color;
     return output;
 }

@@ -11,7 +11,9 @@ public:
 	void Render() override;
 
 protected:
+	TEngine::Graphics::Camera mCamera;
 	TEngine::Graphics::MeshPC mMesh;
+	TEngine::Graphics::ConstantBuffer mConstantBuffer;
 	TEngine::Graphics::MeshBuffer mMeshBuffer;
 	TEngine::Graphics::VertexShader mVertexShader;
 	TEngine::Graphics::PixelShader mPixelShader;
