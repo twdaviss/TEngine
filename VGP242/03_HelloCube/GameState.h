@@ -14,6 +14,5 @@ protected:
 	TEngine::Graphics::MeshPC mMesh;
 	TEngine::Graphics::MeshBuffer mMeshBuffer;
 	TEngine::Graphics::VertexShader mVertexShader;
-	
-	ID3D11PixelShader* mPixelShader = nullptr;
+	TEngine::Graphics::PixelShader mPixelShader;
 };
