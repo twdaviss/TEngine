@@ -47,8 +47,11 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shaders", "Shaders", "{50E71F3D-9DB9-4F32-A510-D60781986911}"
 	ProjectSection(SolutionItems) = preProject
 		Assets\Shaders\DoSomething.fx = Assets\Shaders\DoSomething.fx
+		Assets\Shaders\DoTexturing.fx = Assets\Shaders\DoTexturing.fx
 		Assets\Shaders\DoTransform.fx = Assets\Shaders\DoTransform.fx
 	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "04_HelloMeshBuilder", "VGP242\04_HelloMeshBuilder\04_HelloMeshBuilder.vcxproj", "{8CCC0BC5-7FDD-4EAC-91A9-D76A4012293B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -130,6 +133,14 @@ Global
 		{1898EDC1-A238-42F1-8089-CB5613881C97}.Release|x64.Build.0 = Release|x64
 		{1898EDC1-A238-42F1-8089-CB5613881C97}.Release|x86.ActiveCfg = Release|Win32
 		{1898EDC1-A238-42F1-8089-CB5613881C97}.Release|x86.Build.0 = Release|Win32
+		{8CCC0BC5-7FDD-4EAC-91A9-D76A4012293B}.Debug|x64.ActiveCfg = Debug|x64
+		{8CCC0BC5-7FDD-4EAC-91A9-D76A4012293B}.Debug|x64.Build.0 = Debug|x64
+		{8CCC0BC5-7FDD-4EAC-91A9-D76A4012293B}.Debug|x86.ActiveCfg = Debug|Win32
+		{8CCC0BC5-7FDD-4EAC-91A9-D76A4012293B}.Debug|x86.Build.0 = Debug|Win32
+		{8CCC0BC5-7FDD-4EAC-91A9-D76A4012293B}.Release|x64.ActiveCfg = Release|x64
+		{8CCC0BC5-7FDD-4EAC-91A9-D76A4012293B}.Release|x64.Build.0 = Release|x64
+		{8CCC0BC5-7FDD-4EAC-91A9-D76A4012293B}.Release|x86.ActiveCfg = Release|Win32
+		{8CCC0BC5-7FDD-4EAC-91A9-D76A4012293B}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -146,6 +157,7 @@ Global
 		{3629F01A-6FED-42EB-B308-E9F7F1346EAF} = {565AA442-336C-4CE9-9BFF-95D18EFC77C8}
 		{1898EDC1-A238-42F1-8089-CB5613881C97} = {F2F10162-26CE-4F43-84CF-DD81C2348AEC}
 		{50E71F3D-9DB9-4F32-A510-D60781986911} = {96A8100A-9392-4B14-A8FC-98695208229E}
+		{8CCC0BC5-7FDD-4EAC-91A9-D76A4012293B} = {F2F10162-26CE-4F43-84CF-DD81C2348AEC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E4FB7743-29E0-4790-9AF3-4645E035E654}

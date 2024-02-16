@@ -30,18 +30,24 @@ void GameState::Initialize()
 	//back side and bottom do not need new vertices thanks to the magic of indices
 
 	mMesh.indices = {
+		//front
 		0, 1, 2,
 		0, 2, 3,
+		//left
 		4, 5, 1,
 		4, 1, 0, 
+		//right
 		3, 2, 6,
 		3, 6, 7,
+		//back
 		7, 6, 5,
 		7, 5, 4,
+		//top
 		1, 5, 6,
 		1, 6, 2,
-		4, 0, 3,
-		4, 3, 7,
+		//bottom
+		0, 3, 7,
+		0, 7, 4
 	};
 
 	std::filesystem::path shaderFilePath = L"../../Assets/Shaders/DoSomething.fx";
