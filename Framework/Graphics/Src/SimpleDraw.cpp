@@ -271,7 +271,6 @@ void SimpleDraw::AddTransform(const Matrix4& matrix)
 	AddLine(pos, pos + side, Colors::Red);
 	AddLine(pos, pos + up, Colors::Green);
 	AddLine(pos, pos + fwd, Colors::Blue);
-
 }
 
 void SimpleDraw::Render(const Camera& camera)
