@@ -117,6 +117,42 @@ MeshPC MeshBuilder::CreateVerticalPlanePC(uint32_t numRows, uint32_t numCols, fl
 	return mesh;
 }
 
+MeshPX MeshBuilder::CreateVerticalPlanePX(uint32_t numRows, uint32_t numCols, float spacing)
+{
+	srand(time(nullptr));
+	int index = rand() % 100;
+
+	MeshPX mesh;
+
+	const float hpw = static_cast<float>(numCols) * spacing * 0.5f;
+	const float hph = static_cast<float>(numRows) * spacing * 0.5f;
+	const float uInc = 1.0f / static_cast<float>(numCols);
+	const float vInc = 1.0f / static_cast<float>(numRows);
+
+	float x = -hpw;
+	float y = -hph;
+	float u = 0.0f;
+	float v = 1.0f;
+
+	for (uint32_t r = 0; r <= numRows; ++r)
+	{
+		for (uint32_t c = 0; c <= numCols; ++c)
+		{
+			mesh.vertices.push_back({ {x, y, 0.0f}, {u,v} });
+			x += spacing;
+			u += uInc;
+		}
+		x = -hpw;
+		y += spacing;
+		u = 0.0f;
+		v += (-vInc);
+	}
+
+	CreatePlaneIndices(mesh.indices, numRows, numCols);
+
+	return mesh;
+}
+
 MeshPC MeshBuilder::CreateHorizontalPlanePC(uint32_t numRows, uint32_t numCols, float spacing)
 {
 	srand(time(nullptr));
@@ -139,6 +175,42 @@ MeshPC MeshBuilder::CreateHorizontalPlanePC(uint32_t numRows, uint32_t numCols, 
 		}
 		x = -hpw;
 		z += spacing;
+	}
+
+	CreatePlaneIndices(mesh.indices, numRows, numCols);
+
+	return mesh;
+}
+
+MeshPX MeshBuilder::CreateHorizontalPlanePX(uint32_t numRows, uint32_t numCols, float spacing)
+{
+	srand(time(nullptr));
+	int index = rand() % 100;
+
+	MeshPX mesh;
+
+	const float hpw = static_cast<float>(numCols) * spacing * 0.5f;
+	const float hph = static_cast<float>(numRows) * spacing * 0.5f;
+	const float uInc = 1.0f / static_cast<float>(numCols);
+	const float vInc = 1.0f / static_cast<float>(numRows);
+
+	float x = -hpw;
+	float z = -hph;
+	float u = 0.0f;
+	float v = 1.0f;
+
+	for (uint32_t r = 0; r <= numRows; ++r)
+	{
+		for (uint32_t c = 0; c <= numCols; ++c)
+		{
+			mesh.vertices.push_back({ {x, 0.0f, z}, {u,v} });
+			x += spacing;
+			u += uInc;
+		}
+		x = -hpw;
+		z += spacing;
+		u = 0.0f;
+		v += (-vInc);
 	}
 
 	CreatePlaneIndices(mesh.indices, numRows, numCols);
@@ -225,6 +297,150 @@ MeshPC MeshBuilder::CreateSpherePC(uint32_t slices, uint32_t rings, float radius
 	}
 
 	CreatePlaneIndices(mesh.indices, rings, slices);
+
+	return mesh;
+}
+
+MeshPX MeshBuilder::CreateSpherePX(uint32_t slices, uint32_t rings, float radius)
+{
+	srand(time(nullptr));
+	int index = rand() % 100;
+
+	MeshPX mesh;
+
+	const float vertRotation = (TMath::Constants::Pi / static_cast<float>(rings));
+	const float horzRotation = (TMath::Constants::TwoPi / static_cast<float>(slices));
+	const float uInc = 1.0f / static_cast<float>(slices);
+	const float vInc = 1.0f / static_cast<float>(rings);
+
+	for (uint32_t r = 0; r <= rings; ++r)
+	{
+		float ringPos = static_cast<float>(r);
+		float phi = ringPos * vertRotation;
+		for (uint32_t s = 0; s <= slices; ++s)
+		{
+			float slicePos = static_cast<float>(s);
+			float rotation = slicePos * horzRotation;
+
+			float u = 1.0f - (uInc * slicePos);
+			float v = vInc * ringPos;
+
+			mesh.vertices.push_back({ {
+					radius * sin(rotation) * sin(phi),
+					radius * cos(phi),
+					radius * cos(rotation) * sin(phi) },
+					{u, v} });
+		}
+	}
+
+	CreatePlaneIndices(mesh.indices, rings, slices);
+
+	return mesh;
+}
+
+MeshPX MeshBuilder::CreateSkySpherePX(uint32_t slices, uint32_t rings, float radius)
+{
+	srand(time(nullptr));
+	int index = rand() % 100;
+
+	MeshPX mesh;
+
+	const float vertRotation = (TMath::Constants::Pi / static_cast<float>(rings));
+	const float horzRotation = (TMath::Constants::TwoPi / static_cast<float>(slices));
+	const float uInc = 1.0f / static_cast<float>(slices);
+	const float vInc = 1.0f / static_cast<float>(rings);
+
+	for (uint32_t r = 0; r <= rings; ++r)
+	{
+		float ringPos = static_cast<float>(r);
+		float phi = ringPos * vertRotation;
+		for (uint32_t s = 0; s <= slices; ++s)
+		{
+			float slicePos = static_cast<float>(s);
+			float rotation = slicePos * horzRotation;
+
+			float u = 1.0f - (uInc * slicePos);
+			float v = vInc * ringPos;
+
+			mesh.vertices.push_back({ {
+					radius* cos(rotation)* sin(phi),
+					radius * cos(phi),
+					radius* sin(rotation)* sin(phi) },
+					{u, v} });
+		}
+	}
+
+	CreatePlaneIndices(mesh.indices, rings, slices);
+
+	return mesh;
+}
+
+MeshPX MeshBuilder::CreateSkyBoxPX(float size)
+{
+	MeshPX mesh;
+	const float hs = size * 0.5f;
+	const float q = 0.25f;
+	const float q2 = 2.0f * q;
+	const float q3 = 3.0f * q;
+	const float t = 1.0f / 3.0f;
+	const float t2 = 2.0f * t;
+
+	//left
+	mesh.vertices.push_back({ { hs, -hs, -hs}, {0.0f, t2} });
+	mesh.vertices.push_back({ { hs,  hs, -hs}, {0.0f, t} });
+	mesh.vertices.push_back({ { hs,  hs,  hs}, {q, t} });
+	mesh.vertices.push_back({ { hs, -hs,  hs}, {q, t2} });
+										 
+	//top								 
+	mesh.vertices.push_back({ { hs,  hs,  hs}, {q, t} });
+	mesh.vertices.push_back({ { hs,  hs, -hs}, {q, 0.0f} });
+	mesh.vertices.push_back({ {-hs,  hs, -hs}, {q2, 0.0f} });
+	mesh.vertices.push_back({ {-hs,  hs,  hs}, {q2, t} });
+										 
+	//front 							 
+	mesh.vertices.push_back({ {-hs, -hs,  hs}, {q2, t2} });
+	mesh.vertices.push_back({ {-hs,  hs,  hs}, {q2, t} });
+	mesh.vertices.push_back({ { hs,  hs,  hs}, {q, t} });
+	mesh.vertices.push_back({ { hs, -hs,  hs}, {q, t2} });
+										 
+	//bottom								 
+	mesh.vertices.push_back({ { hs, -hs,  hs}, {q, t2} });
+	mesh.vertices.push_back({ { hs, -hs, -hs}, {q, 1.0f} });
+	mesh.vertices.push_back({ {-hs, -hs, -hs}, {q2, 1.0f} });
+	mesh.vertices.push_back({ {-hs, -hs,  hs}, {q2, t2} });
+
+	//right
+	mesh.vertices.push_back({ {-hs, -hs, -hs}, {q3, t2} });
+	mesh.vertices.push_back({ {-hs,  hs, -hs}, {q3, t} });
+	mesh.vertices.push_back({ {-hs,  hs,  hs}, {q2, t} });
+	mesh.vertices.push_back({ {-hs, -hs,  hs}, {q2, t2} });
+
+	//back
+	mesh.vertices.push_back({ {-hs, -hs, -hs}, {q3, t2} });
+	mesh.vertices.push_back({ {-hs,  hs, -hs}, {q3, t} });
+	mesh.vertices.push_back({ { hs,  hs, -hs}, {1.0f, t} });
+	mesh.vertices.push_back({ { hs, -hs, -hs}, {1.0f, t2} });
+
+	mesh.indices = {
+		//left
+		2, 1, 0,
+		2, 0, 3,
+		//top
+		6, 5, 4,
+		6, 4, 7,
+		//front
+		8, 9, 10,
+		11, 8, 10,
+		//bottom
+		12, 13, 14,
+		15, 12, 14,
+		//right
+		16, 17, 18,
+		19, 16, 18,
+		//back
+		22, 21, 20,
+		22, 20, 23
+	};
 
 	return mesh;
 }
