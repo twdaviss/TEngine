@@ -6,6 +6,7 @@ using namespace TEngine;
 using namespace TEngine::Core;
 using namespace TEngine::Graphics;
 using namespace TEngine::Input;
+using namespace TEngine::Graphics::SimpleDraw;
 
 
 void App::ChangeState(const std::string& stateName)
@@ -32,6 +33,7 @@ void App::Run(const AppConfig& config)
 	auto handle = myWindow.GetWindowHandle();
 	GraphicsSystem::StaticInitialize(handle, false);
 	InputSystem::StaticInitialize(handle);
+	SimpleDraw::StaticInitialize(config.maxVertexCount);
 
 	ASSERT(mCurrentState != nullptr, "App: need an app state");
 	mCurrentState->Initialize();
@@ -64,6 +66,7 @@ void App::Run(const AppConfig& config)
 
 	mCurrentState->Terminate();
 
+	SimpleDraw::StaticTerminate();
 	InputSystem::StaticTerminate();
 	GraphicsSystem::StaticTerminate();
 	myWindow.Terminate();

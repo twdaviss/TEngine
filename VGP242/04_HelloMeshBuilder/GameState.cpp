@@ -12,23 +12,7 @@ void GameState::Initialize()
 	auto device = GraphicsSystem::Get()->GetDevice();
 
 	//create a shape
-	//mMesh = MeshBuilder::CreatePyramidPC(2.0f);
-	//mMesh = MeshBuilder::CreateCubePC(2.0f);
-	//mMesh = MeshBuilder::CreateRectPC(2.0f, 0.5f, 1.0f);
-	//mMesh = MeshBuilder::CreateVerticalPlanePC(10, 10, 1.0f);
-	//mMesh = MeshBuilder::CreateHorizontalPlanePC(10, 10, 1.0f);
-	//mMesh = MeshBuilder::CreateCylinderPC(100, 4);
-	//mMesh = MeshBuilder::CreateSpherePC(100, 100, 1);
-
-	/*mMesh.vertices.push_back({ { -1.0f, -1.0f, 0.0f }, { 0.0f, 1.0f } });
-	mMesh.vertices.push_back({ { -1.0f,  1.0f, 0.0f }, { 0.0f, 0.0f } });
-	mMesh.vertices.push_back({ {  1.0f,  1.0f, 0.0f }, { 1.0f, 0.0f } });
-	mMesh.vertices.push_back({ {  1.0f, -1.0f, 0.0f }, { 1.0f, 1.0f } });
-
-	mMesh.indices = {
-		0, 1, 2,
-		0, 2, 3
-	};*/
+	
 	//mMesh = MeshBuilder::CreateHorizontalPlanePX(10, 10 ,10);
 	mMesh = MeshBuilder::CreateSkyBoxPX(1000.0f);
 
