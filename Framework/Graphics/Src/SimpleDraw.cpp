@@ -37,10 +37,11 @@ namespace
 		uint32_t mFaceVerticesCount = 0;
 		uint32_t mMaxVertexCount = 0;
 	};
+
 	void SimpleDrawImpl::Initialize(uint32_t maxVertexCount)
 	{
 		std::filesystem::path shaderPath = L"../../Assets/Shaders/DoTransform.fx";
-		mVertexShader.Initialize<VertexPX>(shaderPath);
+		mVertexShader.Initialize<VertexPC>(shaderPath);
 		mPixelShader.Initialize(shaderPath);
 		mConstantBuffer.Initialize(sizeof(TMath::Matrix4));
 		mMeshBuffer.Initialize(nullptr, sizeof(VertexPC), maxVertexCount);
@@ -51,6 +52,7 @@ namespace
 		mFaceVerticesCount = 0;
 		mMaxVertexCount = maxVertexCount;
 	}
+
 	void SimpleDrawImpl::Terminate()
 	{
 		mMeshBuffer.Terminate();
@@ -58,6 +60,7 @@ namespace
 		mPixelShader.Terminate();
 		mVertexShader.Terminate();
 	}
+
 	void SimpleDrawImpl::AddLine(const Vector3& v0, const Vector3& v1, const Color& color)
 	{
 		if (mLineVerticesCount + 2 < mMaxVertexCount)
@@ -67,6 +70,7 @@ namespace
 		}
 	
 	}
+
 	void SimpleDrawImpl::AddFace(const Vector3& v0, const Vector3& v1, const Vector3& v2, const Color& color)
 	{
 		if (mLineVerticesCount + 2 < mMaxVertexCount)
@@ -76,6 +80,7 @@ namespace
 			mLineVertices[mLineVerticesCount++] = VertexPC{ v2, color };
 		}
 	}
+
 	void SimpleDrawImpl::Render(const Camera& camera)
 	{
 		const Matrix4 matView = camera.GetViewMatrix();
@@ -101,7 +106,6 @@ namespace
 	}
 	std::unique_ptr<SimpleDrawImpl> sInstance;
 }
-
 
 void SimpleDraw::StaticInitialize(uint32_t maxVertexCount)
 {
@@ -144,6 +148,44 @@ void SimpleDraw::AddAABB(float minX, float minY, float minZ, float maxX, float m
 	const Vector3 blb = {minX,minY,maxZ};
 
 	//front 
+	AddLine(trf, brf, color);
+	AddLine(brf, blf, color);
+	AddLine(blf, tlf, color);
+	AddLine(tlf, trf, color);
+
+	//back
+	AddLine(trb, brb, color);
+	AddLine(brb, blb, color);
+	AddLine(blb, tlb, color);
+	AddLine(tlb, trb, color);
+
+	//top
+	AddLine(trb, trf, color);
+	AddLine(tlb, tlf, color);
+
+	//bottom
+	AddLine(brb, brf, color);
+	AddLine(blb, blf, color);
+}
+
+void SimpleDraw::AddFilledAABB(const Vector3& min, const Vector3& max, const Color& color)
+{
+	AddFilledAABB(min.x, min.y, min.z, max.x, max.y, max.z, color);
+}
+
+void SimpleDraw::AddFilledAABB(float minX, float minY, float minZ, float maxX, float maxY, float maxZ, const Color& color)
+{
+	const Vector3 trf = { maxX, maxY, minZ };
+	const Vector3 brf = { maxX, minY, minZ };
+	const Vector3 blf = { minX, minY, minZ };
+	const Vector3 tlf = { minX, maxY, minZ };
+
+	const Vector3 trb = { maxX,maxY,maxZ };
+	const Vector3 brb = { maxX,minY, maxZ };
+	const Vector3 tlb = { minX,maxY,maxZ };
+	const Vector3 blb = { minX,minY,maxZ };
+
+	//front 
 	AddFace(trf, brf, blf, color);
 	AddFace(trf, blf, tlf, color);
 
@@ -166,18 +208,6 @@ void SimpleDraw::AddAABB(float minX, float minY, float minZ, float maxX, float m
 	//left
 	AddFace(tlb, blf, blb, color);
 	AddFace(tlb, tlf, blf, color);
-
-
-}
-
-void SimpleDraw::AddFilledAABB(const Vector3& min, const Vector3& max, const Color& color)
-{
-	
-}
-
-void SimpleDraw::AddFilledAABB(float minX, float minY, float minZ, float maxX, float maxY, float maxZ, const Color& color)
-{
-
 }
 
 void SimpleDraw::AddSphere(uint32_t slices, uint32_t rings, float radius, const Color& color)

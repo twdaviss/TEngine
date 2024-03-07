@@ -8,7 +8,6 @@ using namespace TEngine::Graphics;
 using namespace TEngine::Input;
 using namespace TEngine::Graphics::SimpleDraw;
 
-
 void App::ChangeState(const std::string& stateName)
 {
 	auto iter = mAppStates.find(stateName);

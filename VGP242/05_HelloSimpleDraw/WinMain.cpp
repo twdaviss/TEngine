@@ -11,7 +11,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE, LPSTR, int)
 	myApp.AddState<GameState>("GameState");
 
 	AppConfig config;
-	config.appName = L"Hello Shape";
+	config.appName = L"Hello Simple Draw";
 	myApp.Run(config);
 
 	myApp.Quit();

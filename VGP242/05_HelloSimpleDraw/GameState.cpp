@@ -53,6 +53,7 @@ void GameState::Update(float deltaTime)
 
 void GameState::Render()
 {
-	SimpleDraw::AddLine({ 0.0f,0.0f,0.0f }, { 2.0f,1.0f,0.0f }, Colors::Green);
+	SimpleDraw::AddTransform(Matrix4::Identity);
+	SimpleDraw::AddGroundPlane(20, Colors::White);
 	SimpleDraw::Render(mCamera);
 }
