@@ -17,7 +17,7 @@ void GameState::Initialize()
 	mMesh = MeshBuilder::CreateSkyBoxPX(1000.0f);
 
 	std::filesystem::path shaderFilePath = L"../../Assets/Shaders/DoTexturing.fx";
-	mConstantBuffer.Initialize(sizeof(TMath::Matrix4));
+	mConstantBuffer.Initialize(sizeof(Math::Matrix4));
 	mMeshBuffer.Initialize(mMesh);
 	mVertexShader.Initialize<VertexPX>(shaderFilePath);
 	mPixelShader.Initialize(shaderFilePath);
@@ -80,11 +80,11 @@ void GameState::Render()
 	mTexture.BindPS(0);
 	mSampler.BindPS(0);
 
-	TMath::Matrix4 matWorld = TMath::Matrix4::Identity;
-	TMath::Matrix4 matView = mCamera.GetViewMatrix();
-	TMath::Matrix4 matProj = mCamera.GetProjectionMatrix();
-	TMath::Matrix4 matFinal = matWorld * matView * matProj;
-	TMath::Matrix4 wvp = Transpose(matFinal);
+	Math::Matrix4 matWorld = Math::Matrix4::Identity;
+	Math::Matrix4 matView = mCamera.GetViewMatrix();
+	Math::Matrix4 matProj = mCamera.GetProjectionMatrix();
+	Math::Matrix4 matFinal = matWorld * matView * matProj;
+	Math::Matrix4 wvp = Transpose(matFinal);
 
 	mConstantBuffer.Update(&wvp);
 	mConstantBuffer.BindVS(0);

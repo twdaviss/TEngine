@@ -11,29 +11,29 @@ void Camera::SetMode(ProjectionMode mode)
 	mProjectionMode = mode;
 }
 
-void Camera::SetPosition(const TMath::Vector3& position)
+void Camera::SetPosition(const Math::Vector3& position)
 {
 	mPosition = position;
 }
 
-void Camera::SetDirection(const TMath::Vector3& direction)
+void Camera::SetDirection(const Math::Vector3& direction)
 {
 	// Prevent setting direction straight up or down
-	auto dir = TMath::Normalize(direction);
-	if (TMath::Abs(TMath::Dot(dir, TMath::Vector3::YAxis)) < 0.995f)
+	auto dir = Math::Normalize(direction);
+	if (Math::Abs(Math::Dot(dir, Math::Vector3::YAxis)) < 0.995f)
 		mDirection = dir;
 }
 
-void Camera::SetLookAt(const TMath::Vector3& target)
+void Camera::SetLookAt(const Math::Vector3& target)
 {
 	SetDirection(target - mPosition);
 }
 
 void Camera::SetFov(float fov)
 {
-	constexpr float kMinFov = 10.0f * TMath::Constants::DegToRad;
-	constexpr float kMaxFov = 170.0f * TMath::Constants::DegToRad;
-	mFov = TMath::Clamp(fov, kMinFov, kMaxFov);
+	constexpr float kMinFov = 10.0f * Math::Constants::DegToRad;
+	constexpr float kMaxFov = 170.0f * Math::Constants::DegToRad;
+	mFov = Math::Clamp(fov, kMinFov, kMaxFov);
 }
 
 void Camera::SetAspectRatio(float ratio)
@@ -64,54 +64,54 @@ void Camera::Walk(float distance)
 
 void Camera::Strafe(float distance)
 {
-	const TMath::Vector3 right = TMath::Normalize(Cross(TMath::Vector3::YAxis, mDirection));
+	const Math::Vector3 right = Math::Normalize(Cross(Math::Vector3::YAxis, mDirection));
 	mPosition += right * distance;
 }
 
 void Camera::Rise(float distance)
 {
-	mPosition += TMath::Vector3::YAxis * distance;
+	mPosition += Math::Vector3::YAxis * distance;
 }
 
 void Camera::Yaw(float radian)
 {
-	TMath::Matrix4 matRotate = TMath::Matrix4::RotationY(radian);
-	mDirection = TMath::TransformNormal(mDirection, matRotate);
+	Math::Matrix4 matRotate = Math::Matrix4::RotationY(radian);
+	mDirection = Math::TransformNormal(mDirection, matRotate);
 }
 
 void Camera::Pitch(float radian)
 {
-	const TMath::Vector3 right = TMath::Normalize(Cross(TMath::Vector3::YAxis, mDirection));
-	const TMath::Matrix4 matRot = TMath::Matrix4::RotationAxis(right, radian);
-	const TMath::Vector3 newLook = TMath::TransformNormal(mDirection, matRot);
+	const Math::Vector3 right = Math::Normalize(Cross(Math::Vector3::YAxis, mDirection));
+	const Math::Matrix4 matRot = Math::Matrix4::RotationAxis(right, radian);
+	const Math::Vector3 newLook = Math::TransformNormal(mDirection, matRot);
 	SetDirection(newLook);
 }
 
 void Camera::Zoom(float amount)
 {
-	constexpr float minZoom = 170.0f * TMath::Constants::DegToRad;
-	constexpr float maxZoom = 10.0f * TMath::Constants::DegToRad;
-	mFov = TMath::Clamp(mFov - amount, maxZoom, minZoom);
+	constexpr float minZoom = 170.0f * Math::Constants::DegToRad;
+	constexpr float maxZoom = 10.0f * Math::Constants::DegToRad;
+	mFov = Math::Clamp(mFov - amount, maxZoom, minZoom);
 }
 
-const TMath::Vector3& Camera::GetPosition() const
+const Math::Vector3& Camera::GetPosition() const
 {
 	return mPosition;
 }
 
-const TMath::Vector3& Camera::GetDirection() const
+const Math::Vector3& Camera::GetDirection() const
 {
 	return mDirection;
 }
 
-TMath::Matrix4 Camera::GetViewMatrix() const
+Math::Matrix4 Camera::GetViewMatrix() const
 {
-	const TMath::Vector3 l = mDirection;
-	const TMath::Vector3 r = TMath::Normalize(TMath::Cross(TMath::Vector3::YAxis, l));
-	const TMath::Vector3 u = TMath::Normalize(TMath::Cross(l, r));
-	const float x = -TMath::Dot(r, mPosition);
-	const float y = -TMath::Dot(u, mPosition);
-	const float z = -TMath::Dot(l, mPosition);
+	const Math::Vector3 l = mDirection;
+	const Math::Vector3 r = Math::Normalize(Math::Cross(Math::Vector3::YAxis, l));
+	const Math::Vector3 u = Math::Normalize(Math::Cross(l, r));
+	const float x = -Math::Dot(r, mPosition);
+	const float y = -Math::Dot(u, mPosition);
+	const float z = -Math::Dot(l, mPosition);
 
 	return
 	{
@@ -122,12 +122,12 @@ TMath::Matrix4 Camera::GetViewMatrix() const
 	};
 }
 
-TMath::Matrix4 Camera::GetProjectionMatrix() const
+Math::Matrix4 Camera::GetProjectionMatrix() const
 {
 	return (mProjectionMode == ProjectionMode::Perspective) ? GetPerspectiveMatrix() : GetOrthographicMatrix();
 }
 
-TMath::Matrix4 Camera::GetPerspectiveMatrix() const
+Math::Matrix4 Camera::GetPerspectiveMatrix() const
 {
 	const float a = (mAspectRatio == 0.0f) ? GraphicsSystem::Get()->GetBackBufferAspectRatio() : mAspectRatio;
 	const float h = 1.0f / tan(mFov * 0.5f);
@@ -144,7 +144,7 @@ TMath::Matrix4 Camera::GetPerspectiveMatrix() const
 	};
 }
 
-TMath::Matrix4 Camera::GetOrthographicMatrix() const
+Math::Matrix4 Camera::GetOrthographicMatrix() const
 {
 	const float w = (mWidth == 0.0f) ? GraphicsSystem::Get()->GetBackBufferWidth() : mWidth;
 	const float h = (mHeight == 0.0f) ? GraphicsSystem::Get()->GetBackBufferHeight() : mHeight;

@@ -4,6 +4,12 @@ using namespace TEngine;
 using namespace TEngine::Graphics;
 using namespace TEngine::Input;
 
+const char* shapeType[] =
+{
+	"Sphere",
+	"AABB",
+	"Circle"
+};
 void GameState::Initialize()
 {
 	mCamera.SetPosition({ 0.0f,1.0f,-3.0f });
@@ -56,8 +62,11 @@ void GameState::Render()
 	
 }
 bool buttonOn = false;
+bool checkOn = true;
+int currentValue = 1;
 void GameState::DebugUI()
 {
+	DebugUI::SetTheme(DebugUI::Theme::Dark);
 	ImGui::Begin("DebugUI", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
 	ImGui::LabelText("Title", "Hello World");
 	if (ImGui::Button("Button"))
@@ -68,11 +77,37 @@ void GameState::DebugUI()
 	{
 		ImGui::LabelText("ButtonOn", "ItWasPressed");
 	}
-	ImGui::DragFloat("SphereAlpha", &mSphereAlpha, 0.01f, 0.0f, 1.0f);
+	if (ImGui::CollapsingHeader("Info", ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		ImGui::DragFloat("SphereAlpha", &mSphereAlpha, 0.01f, 0.0f, 1.0f);
+		ImGui::DragFloat3("TransformPos", &mPosition.x, 0.01f, -2.0f, 2.0f);
+	}
+	if (ImGui::Combo("ShapeType", &currentValue, shapeType, 3))
+	{
+		//do stuff
+	}
+	if (ImGui::Checkbox("CheckBox", &checkOn))
+	{
+		//do stuff
+
+	}
 	ImGui::End();
 
-	SimpleDraw::AddTransform(Matrix4::Identity);
-	SimpleDraw::AddGroundPlane(20, Colors::White);
-	SimpleDraw::AddSphere(60, 60, 1.0f, { 1.0f, 1.0f, 0.0f, mSphereAlpha });
+	switch (currentValue)
+	{
+	case 0: SimpleDraw::AddSphere(60, 60, 1.0f, { 1.0f, 1.0f, 0.0f, mSphereAlpha }); break;
+	case 1: SimpleDraw::AddAABB(-Math::Vector3::One, Math::Vector3::One, {1.0f, 1.0f, 0.0f, mSphereAlpha}); break;
+	case 2: SimpleDraw::AddGroundCircle(60, 1.0f, { 1.0f, 1.0f, 0.0f, mSphereAlpha }); break;
+	default:
+		break;
+	}
+
+	if (checkOn)
+	{
+		SimpleDraw::AddTransform(Matrix4::Translation(mPosition));
+		SimpleDraw::AddGroundPlane(20, Colors::White);
+	}
+	
+	//SimpleDraw::AddSphere(60, 60, 1.0f, { 1.0f, 1.0f, 0.0f, mSphereAlpha });
 	SimpleDraw::Render(mCamera);
 }

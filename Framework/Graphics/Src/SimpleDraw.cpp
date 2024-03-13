@@ -12,7 +12,7 @@
 
 using namespace TEngine;
 using namespace TEngine::Graphics;
-using namespace TEngine::TMath::Constants;
+using namespace TEngine::Math::Constants;
 
 namespace
 {
@@ -46,7 +46,7 @@ namespace
 		std::filesystem::path shaderPath = L"../../Assets/Shaders/DoTransform.fx";
 		mVertexShader.Initialize<VertexPC>(shaderPath);
 		mPixelShader.Initialize(shaderPath);
-		mConstantBuffer.Initialize(sizeof(TMath::Matrix4));
+		mConstantBuffer.Initialize(sizeof(Math::Matrix4));
 		mMeshBuffer.Initialize(nullptr, sizeof(VertexPC), maxVertexCount);
 		mBlendState.Initialize(BlendState::Mode::AlphaBlend);
 

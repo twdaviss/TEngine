@@ -5,7 +5,7 @@
 
 namespace TEngine {
 
-using Color = TEngine::TMath::Vector4;
+using Color = TEngine::Math::Vector4;
 
 namespace Colors {
 

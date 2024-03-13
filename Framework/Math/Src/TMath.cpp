@@ -1,7 +1,7 @@
 #include "Precompiled.h"
 #include "TMath.h"
 
-using namespace TEngine::TMath;
+using namespace TEngine::Math;
 
 const Vector2 Vector2::Zero(0.0f);
 const Vector2 Vector2::One(1.0f, 1.0f);

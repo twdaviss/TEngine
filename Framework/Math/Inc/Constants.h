@@ -1,6 +1,6 @@
 #pragma once
 
-namespace TEngine::TMath::Constants
+namespace TEngine::Math::Constants
 {
     constexpr const float Pi = 3.1415926535f;
     constexpr const float HalfPi = Pi * 0.5f;

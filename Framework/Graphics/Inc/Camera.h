@@ -15,9 +15,9 @@ namespace TEngine::Graphics
 
 		void SetMode(ProjectionMode mode);
 
-		void SetPosition(const TMath::Vector3& position);
-		void SetDirection(const TMath::Vector3& direction);
-		void SetLookAt(const TMath::Vector3& target);
+		void SetPosition(const Math::Vector3& position);
+		void SetDirection(const Math::Vector3& direction);
+		void SetLookAt(const Math::Vector3& target);
 
 		// Perspective params
 		void SetFov(float fov);
@@ -41,23 +41,23 @@ namespace TEngine::Graphics
 		// 1 degree of freedom for field of view
 		void Zoom(float amount);
 
-		const TMath::Vector3& GetPosition() const;
-		const TMath::Vector3& GetDirection() const;
+		const Math::Vector3& GetPosition() const;
+		const Math::Vector3& GetDirection() const;
 
-		TMath::Matrix4 GetViewMatrix() const;
-		TMath::Matrix4 GetProjectionMatrix() const;
+		Math::Matrix4 GetViewMatrix() const;
+		Math::Matrix4 GetProjectionMatrix() const;
 
-		TMath::Matrix4 GetPerspectiveMatrix() const;
-		TMath::Matrix4 GetOrthographicMatrix() const;
+		Math::Matrix4 GetPerspectiveMatrix() const;
+		Math::Matrix4 GetOrthographicMatrix() const;
 
 	private:
 		ProjectionMode mProjectionMode = ProjectionMode::Perspective;
 
-		TMath::Vector3 mPosition = TMath::Vector3::Zero;
-		TMath::Vector3 mDirection = TMath::Vector3::ZAxis;
+		Math::Vector3 mPosition = Math::Vector3::Zero;
+		Math::Vector3 mDirection = Math::Vector3::ZAxis;
 
 		// 0 aspect ratio = use back buffer dimension
-		float mFov = 60.0f * TMath::Constants::DegToRad;
+		float mFov = 60.0f * Math::Constants::DegToRad;
 		float mAspectRatio = 0.0f;
 
 		// 0 width or height = use back buffer dimension

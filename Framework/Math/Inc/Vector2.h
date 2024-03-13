@@ -1,6 +1,6 @@
 #pragma once
 
-namespace TEngine::TMath
+namespace TEngine::Math
 {
 	struct Vector2
 	{

@@ -14,7 +14,7 @@ protected:
 	virtual void CreateShape() {};
 	struct Vertex
 	{
-		TEngine::TMath::Vector3 position;
+		TEngine::Math::Vector3 position;
 		TEngine::Color color;
 	};
 

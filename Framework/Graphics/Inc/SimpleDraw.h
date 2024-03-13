@@ -2,7 +2,7 @@
 
 #include "Colors.h"
 
-using namespace TEngine::TMath;
+using namespace TEngine::Math;
 
 namespace TEngine::Graphics
 {

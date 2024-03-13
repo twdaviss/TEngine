@@ -20,21 +20,21 @@ namespace TEngine::Graphics
 	struct VertexP
 	{
 		VERTEX_FORMAT(VE_Position);
-		TMath::Vector3 position;
+		Math::Vector3 position;
 	};
 
 	struct VertexPC
 	{
 		VERTEX_FORMAT(VE_Position | VE_Color);
-		TMath::Vector3 position;
+		Math::Vector3 position;
 		Color color;
 	};
 
 	struct VertexPX
 	{
 		VERTEX_FORMAT(VE_Position | VE_TexCoord);
-		TMath::Vector3 position;
-		TMath::Vector2 uvCoord;
+		Math::Vector3 position;
+		Math::Vector2 uvCoord;
 	};
 
 	struct Vertex
@@ -42,10 +42,10 @@ namespace TEngine::Graphics
 		VERTEX_FORMAT(VE_Position | VE_Normal | VE_Tangent | VE_TexCoord | VE_BlendIndex | VE_BlendWeight);
 		static constexpr int MaxBoneWeights = 4;
 
-		TMath::Vector3 position;
-		TMath::Vector3 normal;
-		TMath::Vector3 tangent;
-		TMath::Vector2 uvCoord;
+		Math::Vector3 position;
+		Math::Vector3 normal;
+		Math::Vector3 tangent;
+		Math::Vector2 uvCoord;
 		int boneIndices[MaxBoneWeights] = {};
 		float boneWeights[MaxBoneWeights] = {};
 	};

@@ -1,6 +1,6 @@
 #pragma once
 
-namespace TEngine::TMath
+namespace TEngine::Math
 {
 	struct Matrix4
 	{
@@ -98,7 +98,7 @@ namespace TEngine::TMath
 			);
 		}
 
-		static Matrix4 MatrixRotationQuaternion(const TMath::Quaternion& q)
+		static Matrix4 MatrixRotationQuaternion(const Math::Quaternion& q)
 		{
 			return Matrix4
 			(

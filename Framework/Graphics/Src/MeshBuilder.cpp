@@ -233,7 +233,7 @@ MeshPC MeshBuilder::CreateCylinderPC(uint32_t slices, uint32_t rings)
 		for (uint32_t s = 0; s <= slices; ++s)
 		{
 			float slicePos = static_cast<float>(s);
-			float rotation = (slicePos / static_cast<float>(slices)) * TMath::Constants::TwoPi;
+			float rotation = (slicePos / static_cast<float>(slices)) * Math::Constants::TwoPi;
 
 			mesh.vertices.push_back({ {
 				cos(rotation),
@@ -275,8 +275,8 @@ MeshPC MeshBuilder::CreateSpherePC(uint32_t slices, uint32_t rings, float radius
 
 	MeshPC mesh;
 
-	const float vertRotation = (TMath::Constants::Pi / static_cast<float>(rings));
-	const float horzRotation = (TMath::Constants::TwoPi / static_cast<float>(slices));
+	const float vertRotation = (Math::Constants::Pi / static_cast<float>(rings));
+	const float horzRotation = (Math::Constants::TwoPi / static_cast<float>(slices));
 
 	for(uint32_t r = 0; r <= rings; ++r)
 	{
@@ -308,8 +308,8 @@ MeshPX MeshBuilder::CreateSpherePX(uint32_t slices, uint32_t rings, float radius
 
 	MeshPX mesh;
 
-	const float vertRotation = (TMath::Constants::Pi / static_cast<float>(rings));
-	const float horzRotation = (TMath::Constants::TwoPi / static_cast<float>(slices));
+	const float vertRotation = (Math::Constants::Pi / static_cast<float>(rings));
+	const float horzRotation = (Math::Constants::TwoPi / static_cast<float>(slices));
 	const float uInc = 1.0f / static_cast<float>(slices);
 	const float vInc = 1.0f / static_cast<float>(rings);
 
@@ -345,8 +345,8 @@ MeshPX MeshBuilder::CreateSkySpherePX(uint32_t slices, uint32_t rings, float rad
 
 	MeshPX mesh;
 
-	const float vertRotation = (TMath::Constants::Pi / static_cast<float>(rings));
-	const float horzRotation = (TMath::Constants::TwoPi / static_cast<float>(slices));
+	const float vertRotation = (Math::Constants::Pi / static_cast<float>(rings));
+	const float horzRotation = (Math::Constants::TwoPi / static_cast<float>(slices));
 	const float uInc = 1.0f / static_cast<float>(slices);
 	const float vInc = 1.0f / static_cast<float>(rings);
 

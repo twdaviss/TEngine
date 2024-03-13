@@ -9,7 +9,7 @@
 #include "Quaternion.h"
 #include "Matrix4.h"
 
-namespace TEngine::TMath
+namespace TEngine::Math
 {
 	template<class T>
 	constexpr T Min(T a, T b)
