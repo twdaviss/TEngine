@@ -6,6 +6,7 @@
 #include "Camera.h"
 #include "Colors.h"
 #include "ConstantBuffer.h"
+#include "DebugUI.h"
 #include "MeshBuffer.h"
 #include "MeshBuilder.h"
 #include "MeshTypes.h"

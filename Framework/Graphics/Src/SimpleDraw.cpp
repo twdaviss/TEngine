@@ -8,6 +8,8 @@
 #include "VertexShader.h"
 #include "VertexTypes.h"
 
+#include "BlendState.h"
+
 using namespace TEngine;
 using namespace TEngine::Graphics;
 using namespace TEngine::TMath::Constants;
@@ -30,6 +32,7 @@ namespace
 		PixelShader mPixelShader;
 		ConstantBuffer mConstantBuffer;
 		MeshBuffer mMeshBuffer;
+		BlendState mBlendState;
 
 		std::unique_ptr<VertexPC[]> mLineVertices;
 		std::unique_ptr<VertexPC[]> mFaceVertices;
@@ -45,6 +48,7 @@ namespace
 		mPixelShader.Initialize(shaderPath);
 		mConstantBuffer.Initialize(sizeof(TMath::Matrix4));
 		mMeshBuffer.Initialize(nullptr, sizeof(VertexPC), maxVertexCount);
+		mBlendState.Initialize(BlendState::Mode::AlphaBlend);
 
 		mLineVertices = std::make_unique<VertexPC[]>(maxVertexCount);
 		mFaceVertices = std::make_unique<VertexPC[]>(maxVertexCount);
@@ -55,6 +59,7 @@ namespace
 
 	void SimpleDrawImpl::Terminate()
 	{
+		mBlendState.Terminate();
 		mMeshBuffer.Terminate();
 		mConstantBuffer.Terminate();
 		mPixelShader.Terminate();
@@ -93,6 +98,8 @@ namespace
 		mVertexShader.Bind();
 		mPixelShader.Bind();
 
+		mBlendState.Set();
+
 		mMeshBuffer.Update(mFaceVertices.get(), mFaceVerticesCount);
 		mMeshBuffer.SetTopology(MeshBuffer::Topology::Triangles);
 		mMeshBuffer.Render();
@@ -100,6 +107,8 @@ namespace
 		mMeshBuffer.Update(mLineVertices.get(), mLineVerticesCount);
 		mMeshBuffer.SetTopology(MeshBuffer::Topology::Lines);
 		mMeshBuffer.Render();
+
+		BlendState::ClearState();
 
 		mLineVerticesCount = 0;
 		mFaceVerticesCount = 0;
@@ -244,9 +253,9 @@ void SimpleDraw::AddSphere(uint32_t slices, uint32_t rings, float radius, const 
 			AddLine(v0, v1, color);
 
 			v1 = {
-				radius * sin(rot1) * sin(phi1),
+				radius * sin(rot0) * sin(phi1),
 				radius * cos(phi1),
-				radius * cos(rot1) * sin(phi1),
+				radius * cos(rot0) * sin(phi1),
 			};
 			AddLine(v0, v1, color);
 		}

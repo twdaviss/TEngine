@@ -53,8 +53,26 @@ void GameState::Update(float deltaTime)
 
 void GameState::Render()
 {
+	
+}
+bool buttonOn = false;
+void GameState::DebugUI()
+{
+	ImGui::Begin("DebugUI", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
+	ImGui::LabelText("Title", "Hello World");
+	if (ImGui::Button("Button"))
+	{
+		buttonOn = !buttonOn;
+	}
+	if (buttonOn)
+	{
+		ImGui::LabelText("ButtonOn", "ItWasPressed");
+	}
+	ImGui::DragFloat("SphereAlpha", &mSphereAlpha, 0.01f, 0.0f, 1.0f);
+	ImGui::End();
+
 	SimpleDraw::AddTransform(Matrix4::Identity);
 	SimpleDraw::AddGroundPlane(20, Colors::White);
-	SimpleDraw::AddSphere(60, 60, 1.0f, { 1.0f, 1.0f, 0.0f, 0.7f });
+	SimpleDraw::AddSphere(60, 60, 1.0f, { 1.0f, 1.0f, 0.0f, mSphereAlpha });
 	SimpleDraw::Render(mCamera);
 }
