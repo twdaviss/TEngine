@@ -39,27 +39,27 @@ MeshPC MeshBuilder::CreatePyramidPC(float size)
 
 MeshPC MeshBuilder::CreateCubePC(float size)
 {
-	MeshPC mesh;
-
-	const float hs = size * 0.5f;
-
 	srand(time(nullptr));
 	int index = rand() % 100;
+
+	MeshPC meshPC;
+
+	const float hs = size * 0.5f;
 	
 	//front
-	mesh.vertices.push_back({ {-hs, -hs, -hs }, GetNextColor(index) });
-	mesh.vertices.push_back({ {-hs,  hs, -hs }, GetNextColor(index) });
-	mesh.vertices.push_back({ { hs,  hs, -hs }, GetNextColor(index) });
-	mesh.vertices.push_back({ { hs, -hs, -hs }, GetNextColor(index) });
+	meshPC.vertices.push_back({ {-hs, -hs, -hs }, GetNextColor(index) });
+	meshPC.vertices.push_back({ {-hs,  hs, -hs }, GetNextColor(index) });
+	meshPC.vertices.push_back({ { hs,  hs, -hs }, GetNextColor(index) });
+	meshPC.vertices.push_back({ { hs, -hs, -hs }, GetNextColor(index) });
 	//back
-	mesh.vertices.push_back({ {-hs, -hs,  hs }, GetNextColor(index) });
-	mesh.vertices.push_back({ {-hs,  hs,  hs }, GetNextColor(index) });
-	mesh.vertices.push_back({ { hs,  hs,  hs }, GetNextColor(index) });
-	mesh.vertices.push_back({ { hs, -hs,  hs }, GetNextColor(index) });
+	meshPC.vertices.push_back({ {-hs, -hs,  hs }, GetNextColor(index) });
+	meshPC.vertices.push_back({ {-hs,  hs,  hs }, GetNextColor(index) });
+	meshPC.vertices.push_back({ { hs,  hs,  hs }, GetNextColor(index) });
+	meshPC.vertices.push_back({ { hs, -hs,  hs }, GetNextColor(index) });
 
-	CreateCubeIndices(mesh.indices);
+	CreateCubeIndices(meshPC.indices);
 
-	return mesh;
+	return meshPC;
 }
 
 MeshPC MeshBuilder::CreateRectPC(float width, float height, float depth)
@@ -67,25 +67,25 @@ MeshPC MeshBuilder::CreateRectPC(float width, float height, float depth)
 	srand(time(nullptr));
 	int index = rand() % 100;
 
-	MeshPC mesh;
+	MeshPC meshPC;
 	const float hw = width * 0.5f;
 	const float hh = height * 0.5f;
 	const float hd = depth * 0.5f;
 
 	//front 
-	mesh.vertices.push_back({ {-hw, -hh, -hd}, GetNextColor(index) });
-	mesh.vertices.push_back({ {-hw,  hh, -hd}, GetNextColor(index) });
-	mesh.vertices.push_back({ { hw,  hh, -hd}, GetNextColor(index) });
-	mesh.vertices.push_back({ { hw, -hh, -hd}, GetNextColor(index) });
+	meshPC.vertices.push_back({ {-hw, -hh, -hd}, GetNextColor(index) });
+	meshPC.vertices.push_back({ {-hw,  hh, -hd}, GetNextColor(index) });
+	meshPC.vertices.push_back({ { hw,  hh, -hd}, GetNextColor(index) });
+	meshPC.vertices.push_back({ { hw, -hh, -hd}, GetNextColor(index) });
+		
+	meshPC.vertices.push_back({ {-hw, -hh,  hd}, GetNextColor(index) });
+	meshPC.vertices.push_back({ {-hw,  hh,  hd}, GetNextColor(index) });
+	meshPC.vertices.push_back({ { hw,  hh,  hd}, GetNextColor(index) });
+	meshPC.vertices.push_back({ { hw, -hh,  hd}, GetNextColor(index) });
 
-	mesh.vertices.push_back({ {-hw, -hh,  hd}, GetNextColor(index) });
-	mesh.vertices.push_back({ {-hw,  hh,  hd}, GetNextColor(index) });
-	mesh.vertices.push_back({ { hw,  hh,  hd}, GetNextColor(index) });
-	mesh.vertices.push_back({ { hw, -hh,  hd}, GetNextColor(index) });
+	CreateCubeIndices(meshPC.indices);
 
-	CreateCubeIndices(mesh.indices);
-
-	return mesh;
+	return meshPC;
 }
 
 MeshPC MeshBuilder::CreateVerticalPlanePC(uint32_t numRows, uint32_t numCols, float spacing)

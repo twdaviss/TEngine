@@ -93,6 +93,12 @@ void GameState::DebugUI()
 	}
 	ImGui::End();
 
+	if (checkOn)
+	{
+		SimpleDraw::AddTransform(Matrix4::Translation(mPosition));
+		SimpleDraw::AddGroundPlane(20, Colors::White);
+	}
+
 	switch (currentValue)
 	{
 	case 0: SimpleDraw::AddSphere(60, 60, 1.0f, { 1.0f, 1.0f, 0.0f, mSphereAlpha }); break;
@@ -102,11 +108,7 @@ void GameState::DebugUI()
 		break;
 	}
 
-	if (checkOn)
-	{
-		SimpleDraw::AddTransform(Matrix4::Translation(mPosition));
-		SimpleDraw::AddGroundPlane(20, Colors::White);
-	}
+	
 	
 	//SimpleDraw::AddSphere(60, 60, 1.0f, { 1.0f, 1.0f, 0.0f, mSphereAlpha });
 	SimpleDraw::Render(mCamera);
