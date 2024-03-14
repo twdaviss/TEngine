@@ -2,6 +2,15 @@
 
 #include <TEngine/Inc/TEngine.h>
 
+enum class Shape
+{
+	Transform, 
+	Sphere, 
+	Aabb, 
+	Aabbfilled,
+	Lines
+};
+
 class GameState : public TEngine::AppState
 {
 public:
@@ -12,4 +21,5 @@ public:
 
 protected:
 	TEngine::Graphics::Camera mCamera;
+	Shape currentShape;
 };

@@ -78,11 +78,11 @@ namespace
 
 	void SimpleDrawImpl::AddFace(const Vector3& v0, const Vector3& v1, const Vector3& v2, const Color& color)
 	{
-		if (mLineVerticesCount + 2 < mMaxVertexCount)
+		if (mFaceVerticesCount + 3 <= mMaxVertexCount)
 		{
-			mLineVertices[mLineVerticesCount++] = VertexPC{ v0, color };
-			mLineVertices[mLineVerticesCount++] = VertexPC{ v1, color };
-			mLineVertices[mLineVerticesCount++] = VertexPC{ v2, color };
+			mFaceVertices[mFaceVerticesCount++] = VertexPC{ v0, color };
+			mFaceVertices[mFaceVerticesCount++] = VertexPC{ v1, color };
+			mFaceVertices[mFaceVerticesCount++] = VertexPC{ v2, color };
 		}
 	}
 
@@ -136,7 +136,6 @@ void SimpleDraw::AddLine(const Vector3& v0, const Vector3& v1, const Color& colo
 void SimpleDraw::AddFace(const Vector3& v0, const Vector3& v1, const Vector3& v2, const Color& color)
 {
 	sInstance->AddFace(v0, v1, v2, color);
-
 }
 
 void SimpleDraw::AddAABB(const Vector3& min, const Vector3& max, const Color& color)
@@ -148,13 +147,13 @@ void SimpleDraw::AddAABB(float minX, float minY, float minZ, float maxX, float m
 {									 
 	const Vector3 trf = {maxX, maxY, minZ};
 	const Vector3 brf = {maxX, minY, minZ};
-	const Vector3 blf = {minX, minY, minZ};
 	const Vector3 tlf = {minX, maxY, minZ};
+	const Vector3 blf = {minX, minY, minZ};
 
-	const Vector3 trb = {maxX,maxY,maxZ};
-	const Vector3 brb = {maxX,minY, maxZ};
-	const Vector3 tlb = {minX,maxY,maxZ};
-	const Vector3 blb = {minX,minY,maxZ};
+	const Vector3 trb = {maxX, maxY, maxZ};
+	const Vector3 brb = {maxX, minY, maxZ};
+	const Vector3 tlb = {minX, maxY, maxZ};
+	const Vector3 blb = {minX, minY, maxZ};
 
 	//front 
 	AddLine(trf, brf, color);
@@ -186,13 +185,13 @@ void SimpleDraw::AddFilledAABB(float minX, float minY, float minZ, float maxX, f
 {
 	const Vector3 trf = { maxX, maxY, minZ };
 	const Vector3 brf = { maxX, minY, minZ };
-	const Vector3 blf = { minX, minY, minZ };
 	const Vector3 tlf = { minX, maxY, minZ };
+	const Vector3 blf = { minX, minY, minZ };
 
-	const Vector3 trb = { maxX,maxY,maxZ };
-	const Vector3 brb = { maxX,minY, maxZ };
-	const Vector3 tlb = { minX,maxY,maxZ };
-	const Vector3 blb = { minX,minY,maxZ };
+	const Vector3 trb = { maxX, maxY, maxZ };
+	const Vector3 brb = { maxX, minY, maxZ };
+	const Vector3 tlb = { minX, maxY, maxZ };
+	const Vector3 blb = { minX, minY, maxZ };
 
 	//front 
 	AddFace(trf, brf, blf, color);

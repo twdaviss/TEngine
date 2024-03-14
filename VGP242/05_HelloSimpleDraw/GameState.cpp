@@ -6,8 +6,8 @@ using namespace TEngine::Input;
 
 void GameState::Initialize()
 {
-	mCamera.SetPosition({ 0.0f,1.0f,-3.0f });
 	mCamera.SetLookAt({ 0.0f,0.0f,0.0f });
+	mCamera.SetPosition({ 0.0f,1.0f,-3.0f });
 }
 
 void GameState::Terminate()
@@ -49,12 +49,56 @@ void GameState::Update(float deltaTime)
 		mCamera.Yaw(input->GetMouseMoveX() * turnSpeed * deltaTime);
 		mCamera.Pitch(input->GetMouseMoveY() * turnSpeed * deltaTime);
 	}
+	if (input->IsKeyDown(KeyCode::ONE)) 
+	{
+		currentShape = Shape::Transform;
+	}
+	if (input->IsKeyDown(KeyCode::TWO))
+	{
+		currentShape = Shape::Sphere;
+	}
+	if (input->IsKeyDown(KeyCode::THREE))
+	{
+		currentShape = Shape::Aabb;
+	}
+	if (input->IsKeyDown(KeyCode::FOUR))
+	{
+		currentShape = Shape::Aabbfilled;
+	}
+	if (input->IsKeyDown(KeyCode::FIVE))
+	{
+		currentShape = Shape::Lines;
+	}
 }
 
 void GameState::Render()
 {
-	SimpleDraw::AddTransform(Matrix4::Identity);
+	/*SimpleDraw::AddTransform(Matrix4::Identity);
 	SimpleDraw::AddGroundPlane(20, Colors::White);
-	SimpleDraw::AddSphere(60, 60, 1.0f, { 1.0f, 1.0f, 0.0f, 0.7f });
+	SimpleDraw::AddSphere(60, 60, 1.0f, { 1.0f, 1.0f, 0.0f, 0.7f });*/
+
+	switch (currentShape) 
+	{
+	case Shape::Transform:
+		SimpleDraw::AddTransform(Matrix4::Identity);
+		break;
+	case Shape::Sphere:
+		SimpleDraw::AddSphere(60, 60, 1.0f, { 1.0f, 1.0f, 0.0f, 0.7f });
+		break;
+	case Shape::Aabb:
+		SimpleDraw::AddAABB({ 10,10,10 }, { 100,100,100 }, Colors::Red);
+		break;
+	case Shape::Aabbfilled:
+		SimpleDraw::AddFilledAABB(10,10,10,100,100,100, Colors::Red);
+		break;
+	case Shape::Lines:
+		SimpleDraw::AddLine({ 0,0,0},{0,2.5,0},Colors::Red);
+		SimpleDraw::AddLine({ 2.5,0,0 }, { 2.5,2.5,0 }, Colors::Red);
+		SimpleDraw::AddLine({ 0,1.25,0 }, { 2.5,1.25,0 }, Colors::Red);
+
+		SimpleDraw::AddLine({ 5,0,0 }, { 5,2.5,0 }, Colors::Red);
+
+		break;
+	}
 	SimpleDraw::Render(mCamera);
 }
