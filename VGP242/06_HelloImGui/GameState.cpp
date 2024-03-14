@@ -61,32 +61,30 @@ void GameState::Render()
 {
 	
 }
-bool buttonOn = false;
-bool checkOn = true;
+Color shapeColor = Colors::White;
+bool checkOn = false;
 int currentValue = 1;
 void GameState::DebugUI()
 {
 	DebugUI::SetTheme(DebugUI::Theme::Dark);
 	ImGui::Begin("DebugUI", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
-	ImGui::LabelText("Title", "Hello World");
-	if (ImGui::Button("Button"))
+	ImGui::LabelText("","Draw Simple Shapes");
+	
+	if (ImGui::CollapsingHeader("Shape Specifications", ImGuiTreeNodeFlags_DefaultOpen))
 	{
-		buttonOn = !buttonOn;
-	}
-	if (buttonOn)
-	{
-		ImGui::LabelText("ButtonOn", "ItWasPressed");
-	}
-	if (ImGui::CollapsingHeader("Info", ImGuiTreeNodeFlags_DefaultOpen))
-	{
-		ImGui::DragFloat("SphereAlpha", &mSphereAlpha, 0.01f, 0.0f, 1.0f);
-		ImGui::DragFloat3("TransformPos", &mPosition.x, 0.01f, -2.0f, 2.0f);
+		ImGui::DragFloat("SphereAlpha", &mObjectAlpha, 0.01f, 0.0f, 1.0f);
+		shapeColor.a = mObjectAlpha;
+
+		ImGui::DragFloat3("TransformPos", &mTransformPosition.x, 0.01f, -2.0f, 2.0f);
+
+		ImGui::ColorEdit4("Object Color", &shapeColor.r);
+		mObjectAlpha = shapeColor.a;
 	}
 	if (ImGui::Combo("ShapeType", &currentValue, shapeType, 3))
 	{
 		//do stuff
 	}
-	if (ImGui::Checkbox("CheckBox", &checkOn))
+	if (ImGui::Checkbox("Enable Debug", &checkOn))
 	{
 		//do stuff
 
@@ -95,15 +93,16 @@ void GameState::DebugUI()
 
 	if (checkOn)
 	{
-		SimpleDraw::AddTransform(Matrix4::Translation(mPosition));
+		SimpleDraw::AddTransform(Matrix4::Identity);
+		SimpleDraw::AddTransform(Matrix4::Translation(mTransformPosition));
 		SimpleDraw::AddGroundPlane(20, Colors::White);
 	}
 
 	switch (currentValue)
 	{
-	case 0: SimpleDraw::AddSphere(60, 60, 1.0f, { 1.0f, 1.0f, 0.0f, mSphereAlpha }); break;
-	case 1: SimpleDraw::AddAABB(-Math::Vector3::One, Math::Vector3::One, {1.0f, 1.0f, 0.0f, mSphereAlpha}); break;
-	case 2: SimpleDraw::AddGroundCircle(60, 1.0f, { 1.0f, 1.0f, 0.0f, mSphereAlpha }); break;
+	case 0: SimpleDraw::AddSphere(60, 60, 1.0f, shapeColor); break;
+	case 1: SimpleDraw::AddAABB(-Math::Vector3::One, Math::Vector3::One, shapeColor); break;
+	case 2: SimpleDraw::AddGroundCircle(60, 1.0f, shapeColor); break;
 	default:
 		break;
 	}

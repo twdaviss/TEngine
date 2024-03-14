@@ -13,6 +13,6 @@ public:
 
 protected:
 	TEngine::Graphics::Camera mCamera;
-	float mSphereAlpha = 1.0f;
-	Math::Vector3 mPosition = Math::Vector3::Zero;
+	float mObjectAlpha = 1.0f;
+	Math::Vector3 mTransformPosition = Math::Vector3::Zero;
 };
