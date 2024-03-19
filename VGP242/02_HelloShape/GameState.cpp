@@ -4,7 +4,7 @@ using namespace TEngine;
 using namespace TEngine::Graphics;
 using namespace TEngine::Input;
 
-void GameState::Initialize()
+void SolarSystem::Initialize()
 {
 	//create a shape
 	CreateShape();
@@ -101,7 +101,7 @@ void GameState::Initialize()
 
 }
 
-void GameState::Terminate()
+void SolarSystem::Terminate()
 {
 	mVertices.clear();
 	SafeRelease(mPixelShader);
@@ -110,12 +110,12 @@ void GameState::Terminate()
 	SafeRelease(mVertexBuffer);
 }
 
-void GameState::Update(float deltaTime)
+void SolarSystem::Update(float deltaTime)
 {
 
 }
 
-void GameState::Render()
+void SolarSystem::Render()
 {
 	auto context = GraphicsSystem::Get()->GetContext();
 	//bind

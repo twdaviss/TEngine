@@ -11,7 +11,7 @@ enum class Shape
 	Lines
 };
 
-class GameState : public TEngine::AppState
+class SolarSystem : public TEngine::AppState
 {
 public:
 	void Initialize() override;

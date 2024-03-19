@@ -4,17 +4,17 @@ using namespace TEngine;
 using namespace TEngine::Graphics;
 using namespace TEngine::Input;
 
-void GameState::Initialize()
+void SolarSystem::Initialize()
 {
 	mCamera.SetLookAt({ 0.0f,0.0f,0.0f });
 	mCamera.SetPosition({ 0.0f,1.0f,-3.0f });
 }
 
-void GameState::Terminate()
+void SolarSystem::Terminate()
 {
 }
 
-void GameState::Update(float deltaTime)
+void SolarSystem::Update(float deltaTime)
 {
 	auto input = Input::InputSystem::Get();
 	const float moveSpeed = input->IsKeyDown(KeyCode::LSHIFT) ? 10.0f : 1.0f;
@@ -71,7 +71,7 @@ void GameState::Update(float deltaTime)
 	}
 }
 
-void GameState::Render()
+void SolarSystem::Render()
 {
 	/*SimpleDraw::AddTransform(Matrix4::Identity);
 	SimpleDraw::AddGroundPlane(20, Colors::White);

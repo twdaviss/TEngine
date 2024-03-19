@@ -29,7 +29,7 @@ private:
 	float mLifeTime = 0.0f;
 };
 
-class GameState : public AppState
+class SolarSystem : public AppState
 {
 public:
 	void Initialize()
@@ -59,7 +59,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE, LPSTR, int)
 {
 	App& myApp = TEngine::MainApp();
 	myApp.AddState<MainState>("Main State");
-	myApp.AddState<GameState>("Game State");
+	myApp.AddState<SolarSystem>("Game State");
 
 
 	AppConfig config;

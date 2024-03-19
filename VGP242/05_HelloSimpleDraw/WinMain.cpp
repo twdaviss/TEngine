@@ -8,7 +8,7 @@ using namespace TEngine::Graphics;
 int WINAPI WinMain(HINSTANCE instance, HINSTANCE, LPSTR, int)
 {
 	App& myApp = TEngine::MainApp();
-	myApp.AddState<GameState>("GameState");
+	myApp.AddState<SolarSystem>("GameState");
 
 	AppConfig config;
 	config.appName = L"Hello Simple Draw";
