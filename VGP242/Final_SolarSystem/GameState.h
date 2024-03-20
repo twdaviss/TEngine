@@ -10,6 +10,7 @@ public:
 	void Terminate();
 	void Update(float deltaTime);
 	void Render();
+	int GetOrbitDist() { return orbitDist; }
 	Matrix4 worldMatrix = Matrix4::Identity;
 	TEngine::Graphics::MeshPX mMesh;
 	TEngine::Graphics::MeshBuffer mMeshBuffer;
@@ -56,6 +57,6 @@ protected:
 	Planet saturn;
 	Planet uranus;
 	Planet neptune;
-
+	Planet pluto;
 };
 
