@@ -3,6 +3,7 @@
 #include "Common.h"
 
 #include "GraphicsSystem.h"
+#include "BlendState.h"
 #include "Camera.h"
 #include "Colors.h"
 #include "ConstantBuffer.h"
@@ -11,6 +12,7 @@
 #include "MeshBuilder.h"
 #include "MeshTypes.h"
 #include "PixelShader.h"
+#include "RenderTarget.h"
 #include "Sampler.h"
 #include "SimpleDraw.h"
 #include "Texture.h"

@@ -32,7 +32,7 @@ namespace TEngine::Graphics
 		void Terminate();
 		void SetTopology(Topology topology);
 		void Update(const void* vertices, uint32_t vertexCount);
-		void Render();
+		void Render() const;
 
 	private:
 		void CreateVertexBuffer(const void* vertices, uint32_t vertexSize, uint32_t vertexCount);

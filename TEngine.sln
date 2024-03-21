@@ -61,6 +61,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "06_HelloImGui", "VGP242\06_
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Final_SolarSystem", "VGP242\Final_SolarSystem\Final_SolarSystem.vcxproj", "{C8EBC13F-732D-49B1-AF3A-88D5A4F0B809}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "07_HelloRenderTarget", "VGP242\07_HelloRenderTarget\07_HelloRenderTarget.vcxproj", "{8F0B1D9E-108F-4419-8E77-6D73737DF4A4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -181,6 +183,14 @@ Global
 		{C8EBC13F-732D-49B1-AF3A-88D5A4F0B809}.Release|x64.Build.0 = Release|x64
 		{C8EBC13F-732D-49B1-AF3A-88D5A4F0B809}.Release|x86.ActiveCfg = Release|Win32
 		{C8EBC13F-732D-49B1-AF3A-88D5A4F0B809}.Release|x86.Build.0 = Release|Win32
+		{8F0B1D9E-108F-4419-8E77-6D73737DF4A4}.Debug|x64.ActiveCfg = Debug|x64
+		{8F0B1D9E-108F-4419-8E77-6D73737DF4A4}.Debug|x64.Build.0 = Debug|x64
+		{8F0B1D9E-108F-4419-8E77-6D73737DF4A4}.Debug|x86.ActiveCfg = Debug|Win32
+		{8F0B1D9E-108F-4419-8E77-6D73737DF4A4}.Debug|x86.Build.0 = Debug|Win32
+		{8F0B1D9E-108F-4419-8E77-6D73737DF4A4}.Release|x64.ActiveCfg = Release|x64
+		{8F0B1D9E-108F-4419-8E77-6D73737DF4A4}.Release|x64.Build.0 = Release|x64
+		{8F0B1D9E-108F-4419-8E77-6D73737DF4A4}.Release|x86.ActiveCfg = Release|Win32
+		{8F0B1D9E-108F-4419-8E77-6D73737DF4A4}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -202,6 +212,7 @@ Global
 		{52D656A2-A2F4-4C54-A3C7-653427BED1E8} = {8B8D3985-83A1-4CC3-BCF6-0B45CE8F8FA6}
 		{C6C2A385-5518-46CB-893E-BDE5EB40B900} = {F2F10162-26CE-4F43-84CF-DD81C2348AEC}
 		{C8EBC13F-732D-49B1-AF3A-88D5A4F0B809} = {F2F10162-26CE-4F43-84CF-DD81C2348AEC}
+		{8F0B1D9E-108F-4419-8E77-6D73737DF4A4} = {F2F10162-26CE-4F43-84CF-DD81C2348AEC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E4FB7743-29E0-4790-9AF3-4645E035E654}

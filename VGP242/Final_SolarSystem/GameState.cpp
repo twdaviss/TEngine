@@ -5,7 +5,7 @@ using namespace TEngine::Input;
 
 void SolarSystem::Initialize()
 {
-	mCamera.SetPosition({ 0.0f,50.0f,-15.0f });
+	mCamera.SetPosition({ 0.0f,100.0f,-15.0f });
 	mCamera.SetLookAt({ 0.0f,0.0f,0.0f });
 
 	auto device = GraphicsSystem::Get()->GetDevice();
@@ -95,6 +95,8 @@ Color ringColor = Colors::White;
 Color gridColor = Colors::White;
 bool ringsOn = false;
 bool gridOn = false;
+bool pause = true;
+
 
 float orbitSpeedMod = 1.0f;
 float rotationSpeedMod = 1.0f;
@@ -124,6 +126,11 @@ void SolarSystem::DebugUI()
 		//do stuff
 
 	}
+	if (ImGui::Checkbox("Pause", &pause))
+	{
+		//do stuff
+
+	}
 	ImGui::End();
 
 	if (gridOn)
@@ -149,13 +156,13 @@ void SolarSystem::DebugUI()
 
 void SolarSystem::InitializePlanets()
 {
-	sun.Initialize("sun", 4, 0, 0, 0, "../../Assets/Images/planets/sun.jpg");
-	mercury.Initialize("mercury",2,15,0.0017, 2,"../../Assets/Images/planets/mercury.jpg");
-	venus.Initialize("venus", 3, 30, 0.0004, 1.15f, "../../Assets/Images/planets/venus.jpg");
-	earth.Initialize("earth", 3, 40, 0.1, 1, "../../Assets/Images/planets/earth/earth.jpg");
-	mars.Initialize("mars", 2, 60, 0.1, 0.82, "../../Assets/Images/planets/mars.jpg");
-	jupiter.Initialize("jupiter", 8, 150, 0.24f, 0.44, "../../Assets/Images/planets/jupiter.jpg");
-	saturn.Initialize("saturn", 7, 280, 0.23f, 0.33, "../../Assets/Images/planets/saturn.jpg");
+	sun.Initialize("sun", 20, 0, 0, 0, "../../Assets/Images/planets/sun.jpg");
+	mercury.Initialize("mercury",2,35,0.0017, 2,"../../Assets/Images/planets/mercury.jpg");
+	venus.Initialize("venus", 3, 50, 0.0004, 1.15f, "../../Assets/Images/planets/venus.jpg");
+	earth.Initialize("earth", 3, 60, 0.1, 1, "../../Assets/Images/planets/earth/earth.jpg");
+	mars.Initialize("mars", 2, 70, 0.1, 0.82, "../../Assets/Images/planets/mars.jpg");
+	jupiter.Initialize("jupiter", 8, 160, 0.24f, 0.44, "../../Assets/Images/planets/jupiter.jpg");
+	saturn.Initialize("saturn", 7, 290, 0.23f, 0.33, "../../Assets/Images/planets/saturn.jpg");
 	uranus.Initialize("uranus", 4, 500, 0.14, 0.23, "../../Assets/Images/planets/uranus.jpg");
 	neptune.Initialize("neptune", 4, 600, 0.15, 0.18, "../../Assets/Images/planets/neptune.jpg");
 	pluto.Initialize("pluto", 1, 800, 0.15, 0.12, "../../Assets/Images/planets/pluto.jpg");
@@ -285,6 +292,7 @@ void Planet::Terminate()
 
 void Planet::Update(float deltaTime)
 {
+	if (pause) { return; }
 	currentRotation += rotationSpeed * rotationSpeedMod * deltaTime;
 	currentOrbit += orbitSpeed * orbitSpeedMod * deltaTime;
 
