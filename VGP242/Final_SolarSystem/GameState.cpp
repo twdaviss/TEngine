@@ -12,7 +12,7 @@ void SolarSystem::Initialize()
 
 	//create a shape
 	InitializePlanets();
-	mMesh = MeshBuilder::CreateSkySpherePX(1000,1000,1000);
+	mMesh = MeshBuilder::CreateSkySpherePX(1000,1000,5000);
 
 	std::filesystem::path shaderFilePath = L"../../Assets/Shaders/DoTexturing.fx";
 	mConstantBuffer.Initialize(sizeof(Math::Matrix4));
@@ -91,51 +91,65 @@ void SolarSystem::Render()
 
 	RenderPlanets();
 }
-Color shapeColor = Colors::White;
-bool checkOn = false;
+Color ringColor = Colors::White;
+Color gridColor = Colors::White;
+bool ringsOn = false;
+bool gridOn = false;
+
 float orbitSpeedMod = 1.0f;
+float rotationSpeedMod = 1.0f;
+
 void SolarSystem::DebugUI()
 {
+	gridColor.a = 0.5f;
 	DebugUI::SetTheme(DebugUI::Theme::Dark);
 	ImGui::Begin("DebugUI", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
 	ImGui::LabelText("","Solar System");
 	
 	if (ImGui::CollapsingHeader("Settings", ImGuiTreeNodeFlags_DefaultOpen))
 	{
-		ImGui::ColorEdit4("Object Color", &shapeColor.r);
+		ImGui::ColorEdit4("Ring Color", &ringColor.r);
+		ImGui::ColorEdit4("Grid Color", &gridColor.r);
 		ImGui::DragFloat("Orbit Speed", &orbitSpeedMod,0.05f, 0.0f, 10.0f);
+		ImGui::DragFloat("Rotation Speed", &rotationSpeedMod, 0.05f, 0.0f, 10.0f);
 	}
 	
-	if (ImGui::Checkbox("Enable Debug", &checkOn))
+	if (ImGui::Checkbox("Enable Rings", &ringsOn))
 	{
 		//do stuff
 		
 	}
+	if (ImGui::Checkbox("Enable Grid", &gridOn))
+	{
+		//do stuff
+
+	}
 	ImGui::End();
 
-	if (checkOn)
+	if (gridOn)
 	{
 		SimpleDraw::AddTransform(Matrix4::Identity);
-		//SimpleDraw::AddGroundPlane(300, shapeColor);
-		SimpleDraw::AddGroundCircle(60, mercury.GetOrbitDist(), Colors::Orange);
-		SimpleDraw::AddGroundCircle(60, venus.GetOrbitDist(), Colors::Orange);
-		SimpleDraw::AddGroundCircle(60, earth.GetOrbitDist(), Colors::Orange);
-		SimpleDraw::AddGroundCircle(60, mars.GetOrbitDist(), Colors::Orange);
-		SimpleDraw::AddGroundCircle(60, jupiter.GetOrbitDist(), Colors::Orange);
-		SimpleDraw::AddGroundCircle(60, saturn.GetOrbitDist(), Colors::Orange);
-		SimpleDraw::AddGroundCircle(60, uranus.GetOrbitDist(), Colors::Orange);
-		SimpleDraw::AddGroundCircle(60, neptune.GetOrbitDist(), Colors::Orange);
-		SimpleDraw::AddGroundCircle(60, pluto.GetOrbitDist(), Colors::Orange);
+		SimpleDraw::AddGroundPlane(1600, gridColor);
+		
 	}
-	
-	//SimpleDraw::AddSphere(60, 60, 1.0f, { 1.0f, 1.0f, 0.0f, mSphereAlpha });
+	if (ringsOn)
+	{
+		SimpleDraw::AddGroundCircle(60, mercury.GetOrbitDist(), ringColor);
+		SimpleDraw::AddGroundCircle(60, venus.GetOrbitDist(), ringColor);
+		SimpleDraw::AddGroundCircle(60, earth.GetOrbitDist(), ringColor);
+		SimpleDraw::AddGroundCircle(60, mars.GetOrbitDist(), ringColor);
+		SimpleDraw::AddGroundCircle(60, jupiter.GetOrbitDist(), ringColor);
+		SimpleDraw::AddGroundCircle(60, saturn.GetOrbitDist(), ringColor);
+		SimpleDraw::AddGroundCircle(60, uranus.GetOrbitDist(), ringColor);
+		SimpleDraw::AddGroundCircle(60, neptune.GetOrbitDist(), ringColor);
+		SimpleDraw::AddGroundCircle(60, pluto.GetOrbitDist(), ringColor);
+	}
 	SimpleDraw::Render(mCamera);
-
 }
 
 void SolarSystem::InitializePlanets()
 {
-	sun.Initialize("sun", 6, 0, 0, 0, "../../Assets/Images/planets/sun.jpg");
+	sun.Initialize("sun", 4, 0, 0, 0, "../../Assets/Images/planets/sun.jpg");
 	mercury.Initialize("mercury",2,15,0.0017, 2,"../../Assets/Images/planets/mercury.jpg");
 	venus.Initialize("venus", 3, 30, 0.0004, 1.15f, "../../Assets/Images/planets/venus.jpg");
 	earth.Initialize("earth", 3, 40, 0.1, 1, "../../Assets/Images/planets/earth/earth.jpg");
@@ -145,10 +159,12 @@ void SolarSystem::InitializePlanets()
 	uranus.Initialize("uranus", 4, 500, 0.14, 0.23, "../../Assets/Images/planets/uranus.jpg");
 	neptune.Initialize("neptune", 4, 600, 0.15, 0.18, "../../Assets/Images/planets/neptune.jpg");
 	pluto.Initialize("pluto", 1, 800, 0.15, 0.12, "../../Assets/Images/planets/pluto.jpg");
+	moon.Initialize("moon", 1, 6, 0.004, 2, "../../Assets/Images/planets/moon.jpg");
 }
 
 void SolarSystem::TerminatePlanets()
 {
+	moon.Terminate();
 	pluto.Terminate();
 	neptune.Terminate();
 	uranus.Terminate();
@@ -159,7 +175,6 @@ void SolarSystem::TerminatePlanets()
 	venus.Terminate();
 	mercury.Terminate();
 	sun.Terminate();
-
 }
 
 void SolarSystem::UpdatePlanets(float deltaTime)
@@ -174,6 +189,9 @@ void SolarSystem::UpdatePlanets(float deltaTime)
 	uranus.Update(deltaTime);
 	neptune.Update(deltaTime);
 	pluto.Update(deltaTime);
+	moon.UpdateOrbitMatrix(earth.worldMatrix);
+	moon.Update(deltaTime);
+
 }
 
 void SolarSystem::RenderPlanets()
@@ -231,6 +249,11 @@ void SolarSystem::RenderPlanets()
 	mConstantBuffer.Update(&wvp);
 	pluto.Render();
 
+	//moon;
+	wvp = Transpose(moon.worldMatrix * matView * matProj);
+	mConstantBuffer.Update(&wvp);
+	moon.Render();
+
 	mConstantBuffer.BindVS(0);
 }
 
@@ -262,12 +285,12 @@ void Planet::Terminate()
 
 void Planet::Update(float deltaTime)
 {
-	Matrix4 transform;
-	//worldMatrix = Matrix4::RotationY(rotationSpeed) * worldMatrix;
+	currentRotation += rotationSpeed * rotationSpeedMod * deltaTime;
+	currentOrbit += orbitSpeed * orbitSpeedMod * deltaTime;
 
-	transform = Matrix4::Translation(orbitDist, 0, 0) * Matrix4::RotationY(orbitSpeed / 3.65 * orbitSpeedMod * deltaTime) * Matrix4::Translation(-orbitDist, 0, 0);
-	//worldMatrix = Matrix4::Translation(-orbitDist, 0, 0) * Matrix4::RotationX(orbitSpeed/100 * deltaTime) * Matrix4::Translation(orbitDist, 0, 0) * worldMatrix;
-	worldMatrix = transform * worldMatrix;
-	/*worldMatrix = worldMatrix * Matrix4::RotationX(orbitSpeed * deltaTime);
-	worldMatrix = worldMatrix * Matrix4::Translation(orbitDist, 0, 0);*/
+	worldMatrix = Matrix4::RotationY(currentRotation) * Matrix4::Translation(orbitDist, 0, 0) * Matrix4::RotationY(currentOrbit);
+	if (name == "moon")
+	{
+		worldMatrix = worldMatrix * orbitMatrix;
+	}
 }

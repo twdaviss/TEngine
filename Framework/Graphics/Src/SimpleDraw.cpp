@@ -266,7 +266,7 @@ void SimpleDraw::AddGroundPlane(float size, const Color& color)
 {
 	const float hs = size * 0.5f;
 	const uint32_t iSize = static_cast<uint32_t>(size);
-	for (uint32_t i = 0; i <= iSize; ++i)
+	for (uint32_t i = 0; i <= iSize; i += 5)
 	{
 		AddLine({ i - hs, 0.0f, -hs }, { i - hs, 0.0f, hs }, color);
 		AddLine({ -hs, 0.0f, i -hs }, { hs, 0.0f, i - hs }, color);

@@ -11,7 +11,13 @@ public:
 	void Update(float deltaTime);
 	void Render();
 	int GetOrbitDist() { return orbitDist; }
+	int GetRadius() { return radius; }
+	int GetOrbitSpeed() { return orbitSpeed; }
+	void UpdateOrbitMatrix(Matrix4 _orbitMatrix) { orbitMatrix = _orbitMatrix; }
+
 	Matrix4 worldMatrix = Matrix4::Identity;
+	Matrix4 orbitMatrix = Matrix4::Identity;
+
 	TEngine::Graphics::MeshPX mMesh;
 	TEngine::Graphics::MeshBuffer mMeshBuffer;
 	TEngine::Graphics::Texture mTexture;
@@ -20,6 +26,10 @@ protected:
 	int orbitDist;
 	float orbitSpeed;
 	float rotationSpeed;
+
+	float currentRotation;
+	float currentOrbit;
+
 	std::string texturePath;
 	std::string name;
 };
@@ -58,5 +68,6 @@ protected:
 	Planet uranus;
 	Planet neptune;
 	Planet pluto;
+	Planet moon;
 };
 
