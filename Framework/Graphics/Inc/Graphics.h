@@ -8,6 +8,8 @@
 #include "Colors.h"
 #include "ConstantBuffer.h"
 #include "DebugUI.h"
+#include "LightTypes.h"
+#include "Material.h"
 #include "MeshBuffer.h"
 #include "MeshBuilder.h"
 #include "MeshTypes.h"

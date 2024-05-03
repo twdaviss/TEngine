@@ -79,7 +79,7 @@ void TextureManager::BindVS(TextureId id, uint32_t slot) const
 	}
 }
 
-void TEngine::Graphics::TextureManager::BindPS(TextureId id, uint32_t slot) const
+void TextureManager::BindPS(TextureId id, uint32_t slot) const
 {
 	if (id == 0)
 	{

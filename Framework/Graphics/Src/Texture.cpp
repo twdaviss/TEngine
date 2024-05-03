@@ -31,7 +31,6 @@ void Texture::Initialize(const std::filesystem::path& fileName)
 	auto context = GraphicsSystem::Get()->GetContext();
 	HRESULT hr = DirectX::CreateWICTextureFromFile(device, context, fileName.c_str(), nullptr, &mShaderResourceView);
 	ASSERT(SUCCEEDED(hr), "Texture: failed to create texture %ls", fileName.c_str());
-
 }
 
 void Texture::Initialize(uint32_t width, uint32_t height, Format format)

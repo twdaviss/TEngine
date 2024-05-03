@@ -12,7 +12,7 @@ public:
 	void DebugUI() override;
 
 protected:
-	void RenderObject(const TEngine::Graphics::MeshBuffer& meshBuffer);
+	TEngine::Graphics::DirectionalLight mDirectionalLight;
 
 	TEngine::Graphics::Camera mCamera;
 	TEngine::Graphics::Mesh mMesh;
