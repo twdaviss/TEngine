@@ -21,6 +21,7 @@ void GameState::Initialize()
 	mRenderObject.diffuseMapId = tm->LoadTexture("planets/earth/earth.jpg");
 	mRenderObject.normalMapId = tm->LoadTexture("planets/earth/earth_normal.jpg");
 	mRenderObject.specMapId = tm->LoadTexture("planets/earth/earth_spec.jpg");
+	mRenderObject.bumpMapId = tm->LoadTexture("planets/earth/earth_bump.jpg");
 
 	std::filesystem::path shaderFilePath = L"../../Assets/Shaders/Standard.fx";
 	mStandardEffect.Initialize(shaderFilePath);

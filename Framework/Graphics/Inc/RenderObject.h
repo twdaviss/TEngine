@@ -19,5 +19,6 @@ namespace TEngine::Graphics
 		TextureId diffuseMapId;
 		TextureId normalMapId;
 		TextureId specMapId;
+		TextureId bumpMapId;
 	};
 }
