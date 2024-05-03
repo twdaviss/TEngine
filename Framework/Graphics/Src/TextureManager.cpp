@@ -51,7 +51,7 @@ TextureId TextureManager::LoadTexture(const std::filesystem::path& fileName, boo
 		texturePtr = std::make_unique<Texture>();
 		texturePtr->Initialize((useRootDir) ? mRootDirectory / fileName : fileName);
 	}
-	return TextureId();
+	return textureId;
 }
 
 const Texture* TextureManager::GetTexture(TextureId id) const

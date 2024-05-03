@@ -61,34 +61,6 @@ void GameState::Update(float deltaTime)
 		mCamera.Yaw(input->GetMouseMoveX() * turnSpeed * deltaTime);
 		mCamera.Pitch(input->GetMouseMoveY() * turnSpeed * deltaTime);
 	}
-	if (input->IsKeyDown(KeyCode::ONE))
-	{
-		MainApp().ChangeState("RectangleState");
-	}
-	if (input->IsKeyDown(KeyCode::TWO))
-	{
-		MainApp().ChangeState("CubeState");
-	}
-	if (input->IsKeyDown(KeyCode::THREE))
-	{
-		MainApp().ChangeState("CylinderState");
-	}
-	if (input->IsKeyDown(KeyCode::FOUR))
-	{
-		MainApp().ChangeState("SphereState");
-	}
-	if (input->IsKeyDown(KeyCode::FIVE))
-	{
-		MainApp().ChangeState("HorizontalPlaneState");
-	}
-	if (input->IsKeyDown(KeyCode::SIX))
-	{
-		MainApp().ChangeState("SkyBoxState");
-	}
-	if (input->IsKeyDown(KeyCode::SEVEN))
-	{
-		MainApp().ChangeState("SkySphereState");
-	}
 }
 
 void GameState::Render()
