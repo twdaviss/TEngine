@@ -46,5 +46,5 @@ void ConstantBuffer::BindVS(uint32_t slot) const
 void ConstantBuffer::BindPS(uint32_t slot) const
 {
 	auto context = GraphicsSystem::Get()->GetContext();
-	context->VSSetConstantBuffers(slot, 1, &mConstantBuffer);
+	context->PSSetConstantBuffers(slot, 1, &mConstantBuffer);
 }

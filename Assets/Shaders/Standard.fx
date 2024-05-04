@@ -31,7 +31,7 @@ cbuffer MaterialBuffer : register(b3)
     float4 materialDiffuse;
     float4 materialSpecular;
     float4 materialEmissive;
-    float3 materialPower;
+    float materialPower;
 }
 
 Texture2D diffuseMap : register(t0);
@@ -70,7 +70,7 @@ VS_OUTPUT VS(VS_INPUT input)
         localPosition += (input.normal * bumpValue * bumpWeight);
     }
     
-    float3 worldPosition = mul(float4(localPosition, 1.0f), world);
+    float3 worldPosition = mul(float4(localPosition, 1.0f), world).xyz;
     output.position = mul(float4(localPosition, 1.0f), wvp);
     output.worldNormal = mul(input.normal, (float3x3) world);
     output.worldTangent = mul(input.tangent, (float3x3) world);
@@ -114,7 +114,7 @@ float4 PS(VS_OUTPUT input) : SV_Target
         float4 diffuseMapColor = (useDiffuseMap) ? diffuseMap.Sample(textureSampler, input.texCoord) : 1.0f;
         float4 specMapColor = (useSpecMap) ? specMap.Sample(textureSampler, input.texCoord).r : 1.0f;
         
-        finalColor = (ambient + diffuse + emissive) * diffuseMapColor + (specular + specMapColor);
+        finalColor = (ambient + diffuse + emissive) * diffuseMapColor + (specular * specMapColor);
     }
     else
     {

@@ -7,6 +7,7 @@
 
 namespace TEngine::Graphics
 {
+	struct Model;
 	struct RenderObject
 	{
 		void Terminate();
@@ -21,4 +22,17 @@ namespace TEngine::Graphics
 		TextureId specMapId;
 		TextureId bumpMapId;
 	};
+
+	using RenderGroup = std::vector<RenderObject>;
+	[[nodiscard]] RenderGroup CreateRenderGroup(const Model& model);
+	void CleanupRenderGroup(RenderGroup& renderGroup);
+
+	template<class Effect>
+	void DrawRenderGroup(Effect& effect, const RenderGroup& renderGroup)
+	{
+		for (const RenderObject& renderObject : renderGroup)
+		{
+			effect.Render(renderObject);
+		}
+	}
 }
