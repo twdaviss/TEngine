@@ -70,7 +70,7 @@ VS_OUTPUT VS(VS_INPUT input)
         localPosition += (input.normal * bumpValue * bumpWeight);
     }
     
-    float3 worldPosition = mul(float4(localPosition, 1.0f), world);
+    float3 worldPosition = mul(float4(localPosition, 1.0f), world).xyz;
     output.position = mul(float4(localPosition, 1.0f), wvp);
     output.worldNormal = mul(input.normal, (float3x3) world);
     output.worldTangent = mul(input.tangent, (float3x3) world);
@@ -116,18 +116,18 @@ float4 PS(VS_OUTPUT input) : SV_Target
         float sIntensity = smoothstep(stepThresholdMin, stepThresholdMax, s);
         float4 specular = sIntensity * lightSpecular * materialSpecular;
         
-        float edgeThickness = 0.85f;
+        float edgeThickness = bumpWeight;
         float edgeThreshold = 0.01f;
         float edgeStep = 0.01f;
         float e = 1.0f - saturate(dot(view, n));
-        float eIntensity = e; /** pow(d, edgeThreshold);*/
+        float eIntensity = e; /** pow(d, edgeThreshold)*/;
         eIntensity = smoothstep(edgeThickness - edgeStep, edgeThickness + edgeStep, eIntensity);
-        float4 emissive = materialEmissive * eIntensity;
+        float4 emissive = eIntensity * materialEmissive;
         
         float4 diffuseMapColor = (useDiffuseMap) ? diffuseMap.Sample(textureSampler, input.texCoord) : 1.0f;
         float4 specMapColor = (useSpecMap) ? specMap.Sample(textureSampler, input.texCoord).r : 1.0f;
         
-        finalColor = (ambient + diffuse + emissive) * diffuseMapColor + (specular + specMapColor);
+        finalColor = (ambient + diffuse + emissive) * diffuseMapColor + (specular * specMapColor);
     }
     else
     {
