@@ -16,6 +16,8 @@ void GameState::Initialize()
 
 	Model model;
 	ModelIO::LoadModel("../../Assets/Models/Ninja/Ch24_nonPBR.model", model);
+	ModelIO::LoadMaterial("../../Assets/Models/Ninja/Ch24_nonPBR.model", model);
+
 	mCharacter = CreateRenderGroup(model);
 
 	std::filesystem::path shaderFilePath = L"../../Assets/Shaders/Standard.fx";

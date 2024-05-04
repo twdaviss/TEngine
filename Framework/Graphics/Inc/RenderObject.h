@@ -27,6 +27,8 @@ namespace TEngine::Graphics
 	[[nodiscard]] RenderGroup CreateRenderGroup(const Model& model);
 	void CleanupRenderGroup(RenderGroup& renderGroup);
 
+	void SetRenderGroupPosition(RenderGroup& renderGroup, const Math::Vector3& pos);
+
 	template<class Effect>
 	void DrawRenderGroup(Effect& effect, const RenderGroup& renderGroup)
 	{
