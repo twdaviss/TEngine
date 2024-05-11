@@ -17,6 +17,8 @@ protected:
 	TEngine::Graphics::Camera mCamera;
 
 	TEngine::Graphics::RenderGroup mCharacter;
+	TEngine::Graphics::RenderGroup mCharacter2;
+
 	TEngine::Graphics::StandardEffect mStandardEffect;
 };
 

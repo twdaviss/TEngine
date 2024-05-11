@@ -14,11 +14,19 @@ void GameState::Initialize()
 	mDirectionalLight.diffuse = { 0.8f, 0.8f, 0.8f, 1.0f };
 	mDirectionalLight.specular = { 1.0f, 1.0f, 1.0f, 1.0f };
 
-	Model model;
-	ModelIO::LoadModel("../../Assets/Models/Ninja/Ch24_nonPBR.model", model);
-	ModelIO::LoadMaterial("../../Assets/Models/Ninja/Ch24_nonPBR.model", model);
+	Model ninjaModel;
+	Model vampireModel;
+	ModelIO::LoadModel("../../Assets/Models/Ninja/Ch24_nonPBR.fbx", ninjaModel);
+	ModelIO::LoadMaterial("../../Assets/Models/Ninja/Ch24_nonPBR.fbx", ninjaModel);
 
-	mCharacter = CreateRenderGroup(model);
+	ModelIO::LoadModel("../../Assets/Models/Vampire/vampire.fbx", vampireModel);
+	ModelIO::LoadMaterial("../../Assets/Models/Vampire/vampire.fbx", vampireModel);
+
+	mCharacter = CreateRenderGroup(ninjaModel);
+	mCharacter2 = CreateRenderGroup(vampireModel);
+
+	SetRenderGroupPosition(mCharacter, { -1,0,0 });
+	SetRenderGroupPosition(mCharacter2, { 1,0,0 });
 
 	std::filesystem::path shaderFilePath = L"../../Assets/Shaders/Standard.fx";
 	mStandardEffect.Initialize(shaderFilePath);
@@ -30,6 +38,7 @@ void GameState::Terminate()
 {
 	mStandardEffect.Terminate();
 	CleanupRenderGroup(mCharacter);
+	CleanupRenderGroup(mCharacter2);
 }
 
 void GameState::Update(float deltaTime)
@@ -76,6 +85,7 @@ void GameState::Render()
 
 	mStandardEffect.Begin();
 		DrawRenderGroup(mStandardEffect, mCharacter);
+		DrawRenderGroup(mStandardEffect, mCharacter2);
 	mStandardEffect.End();
 }
 
