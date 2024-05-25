@@ -7,6 +7,12 @@
 using namespace TEngine;
 using namespace TEngine::Graphics;
 
+void Texture::UnBindPS(uint32_t slot)
+{
+	static ID3D11ShaderResourceView* dummy = nullptr;
+	GraphicsSystem::Get()->GetContext()->PSSetShaderResources(slot, 1, &dummy);
+}
+
 Texture::~Texture()
 {
 	ASSERT(mShaderResourceView == nullptr, "Texture: must call terminate");

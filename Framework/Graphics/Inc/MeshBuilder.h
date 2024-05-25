@@ -87,6 +87,7 @@ namespace TEngine::Graphics
 		//horizontal plane
 		static MeshPC CreateHorizontalPlanePC(uint32_t numRows, uint32_t numCols, float spacing);
 		static MeshPX CreateHorizontalPlanePX(uint32_t numRows, uint32_t numCols, float spacing);
+		static Mesh   CreateHorizontalPlane(uint32_t numRows, uint32_t numCols, float spacing);
 
 		//cylinder
 		static MeshPC CreateCylinderPC(uint32_t slices, uint32_t rings);
@@ -94,12 +95,13 @@ namespace TEngine::Graphics
 		//sphere
 		static MeshPC CreateSpherePC(uint32_t slices, uint32_t rings, float radius);
 		static MeshPX CreateSpherePX(uint32_t slices, uint32_t rings, float radius);
-		static Mesh CreateSphere(uint32_t slices, uint32_t rings, float radius);
+		static Mesh   CreateSphere(uint32_t slices, uint32_t rings, float radius);
 
 		//sky boxes
 		static MeshPX CreateSkySpherePX(uint32_t slices, uint32_t rings, float radius);
 		static MeshPX CreateSkyBoxPX(float size);
 
-
+		//screen stuff
+		static MeshPX CreateScreenQuad();
 	};
 }
