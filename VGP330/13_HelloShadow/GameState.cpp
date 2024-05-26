@@ -15,28 +15,30 @@ void GameState::Initialize()
 	mDirectionalLight.specular = { 1.0f, 1.0f, 1.0f, 1.0f };
 
 	Model ninjaModel;
-	Model vampireModel;
+	//Model vampireModel;
 	ModelIO::LoadModel("../../Assets/Models/Ninja/Ch24_nonPBR.fbx", ninjaModel);
 	ModelIO::LoadMaterial("../../Assets/Models/Ninja/Ch24_nonPBR.fbx", ninjaModel);
 
-	ModelIO::LoadModel("../../Assets/Models/Vampire/vampire.fbx", vampireModel);
-	ModelIO::LoadMaterial("../../Assets/Models/Vampire/vampire.fbx", vampireModel);
+	/*ModelIO::LoadModel("../../Assets/Models/Vampire/vampire.fbx", vampireModel);
+	ModelIO::LoadMaterial("../../Assets/Models/Vampire/vampire.fbx", vampireModel);*/
 
 	mCharacter = CreateRenderGroup(ninjaModel);
-	mCharacter2 = CreateRenderGroup(vampireModel);
+	//mCharacter2 = CreateRenderGroup(vampireModel);
 
 	Mesh groundMesh = MeshBuilder::CreateHorizontalPlane(20, 20, 1.0f);
 	mGround.meshBuffer.Initialize(groundMesh);
 	mGround.diffuseMapId = TextureManager::Get()->LoadTexture("misc/concrete.jpg");
 
 
-	SetRenderGroupPosition(mCharacter, { -1,0,0 });
-	SetRenderGroupPosition(mCharacter2, { 1,0,0 });
+	//SetRenderGroupPosition(mCharacter, { -1,0,0 });
+	//SetRenderGroupPosition(mCharacter2, { 1,0,0 });
 
 	std::filesystem::path shaderFilePath = L"../../Assets/Shaders/Standard.fx";
 	mStandardEffect.Initialize(shaderFilePath);
 	mStandardEffect.SetCamera(mCamera);
 	mStandardEffect.SetDirectionalLight(mDirectionalLight);
+	mStandardEffect.SetLightCamera(mShadowEffect.GetLightCamera());
+	mStandardEffect.SetShadowMap(mShadowEffect.GetDepthMap());
 
 	mShadowEffect.Initialize();
 	mShadowEffect.SetDirectionalLight(mDirectionalLight);
@@ -47,7 +49,7 @@ void GameState::Terminate()
 	mShadowEffect.Terminate();
 	mGround.Terminate();
 	CleanupRenderGroup(mCharacter);
-	CleanupRenderGroup(mCharacter2);
+	//CleanupRenderGroup(mCharacter2);
 }
 
 void GameState::Update(float deltaTime)
@@ -92,14 +94,16 @@ void GameState::Render()
 	/*SimpleDraw::AddGroundPlane(10.0f, Colors::White);
 	SimpleDraw::Render(mCamera);*/
 
+	//mShadowEffect.SetFocus(mCamera.GetPosition());
+
 	mShadowEffect.Begin();
 		DrawRenderGroup(mShadowEffect, mCharacter);
-		DrawRenderGroup(mShadowEffect, mCharacter2);
+		//DrawRenderGroup(mShadowEffect, mCharacter2);
 	mShadowEffect.End();
 
 	mStandardEffect.Begin();
 		DrawRenderGroup(mStandardEffect, mCharacter);
-		DrawRenderGroup(mStandardEffect, mCharacter2);
+		//DrawRenderGroup(mStandardEffect, mCharacter2);
 		mStandardEffect.Render(mGround);
 	mStandardEffect.End();
 }

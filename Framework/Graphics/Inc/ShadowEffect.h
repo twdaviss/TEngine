@@ -25,7 +25,7 @@ namespace TEngine::Graphics
 		void DebugUI();
 
 		void SetDirectionalLight(const DirectionalLight& directionalLight);
-		void SetFocus(const Math::Vector3 focusPosition);
+		void SetFocus(const Math::Vector3& focusPosition);
 		void SetSize(float size);
 		const Camera& GetLightCamera() const;
 		const Texture& GetDepthMap() const;

@@ -81,7 +81,7 @@ void ShadowEffect::SetDirectionalLight(const DirectionalLight& directionalLight)
 	mDirectionalLight = &directionalLight;
 }
 
-void ShadowEffect::SetFocus(const Math::Vector3 focusPosition)
+void ShadowEffect::SetFocus(const Math::Vector3& focusPosition)
 {
 	mFocusPosition = focusPosition;
 }
@@ -106,6 +106,6 @@ void TEngine::Graphics::ShadowEffect::UpdateLightCamera()
 	ASSERT(mDirectionalLight != nullptr, "ShadowEffect: no light set!");
 	const Math::Vector3& direction = mDirectionalLight->direction;
 	mLightCamera.SetDirection(direction);
-	mLightCamera.SetPosition(mFocusPosition - (direction * 1000.0f));
+	mLightCamera.SetPosition(mFocusPosition - (direction * 500.0f));
 	mLightCamera.SetSize(mSize, mSize);
 }

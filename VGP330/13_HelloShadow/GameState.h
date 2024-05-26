@@ -21,7 +21,7 @@ protected:
 	
 	//Objects
 	TEngine::Graphics::RenderGroup mCharacter;
-	TEngine::Graphics::RenderGroup mCharacter2;
+	//TEngine::Graphics::RenderGroup mCharacter2;
 	TEngine::Graphics::RenderObject mGround;
 };
 
