@@ -35,6 +35,7 @@ namespace TEngine::Graphics
 
 		void DebugUI();
 
+		void SetMode(Mode mode);
 		void SetTexture(const Texture* texture, uint32_t slot = 0);
 
 	private:
@@ -61,5 +62,6 @@ namespace TEngine::Graphics
 		float mAberrationValue = 0.005f;
 		float mWaveLength = 0.05f;
 		float mNumWaves = 20.0f;
+		float mUVOffsetX = 0.0f;
 	};
 }

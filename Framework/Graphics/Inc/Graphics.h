@@ -8,6 +8,7 @@
 #include "Colors.h"
 #include "ConstantBuffer.h"
 #include "DebugUI.h"
+#include "GaussianBlurEffect.h"
 #include "LightTypes.h"
 #include "Material.h"
 #include "MeshBuffer.h"

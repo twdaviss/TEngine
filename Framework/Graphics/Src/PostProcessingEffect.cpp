@@ -73,7 +73,11 @@ void PostProcessingEffect::Begin()
 		data.params1 = mBlurStrength / screenHeight;
 	}
 	break;
-	case Mode::Combine2: break;
+	case Mode::Combine2:
+	{
+		data.params0 = mUVOffsetX;
+	}
+	break;
 	case Mode::ChromaticAberration:
 	{
 		data.params0 = mAberrationValue;
@@ -121,7 +125,13 @@ void PostProcessingEffect::DebugUI()
 	ImGui::DragFloat("AberrationValue", &mAberrationValue, 0.001f, 0.0f, 1.0f);
 	ImGui::DragFloat("WaveLength", &mWaveLength, 0.001f, 0.0f, 1.0f);
 	ImGui::DragFloat("NumWaves", &mNumWaves, 1.0f, 1.0f, 50.0f);
+	ImGui::DragFloat("UVOffsetX", &mUVOffsetX, 0.001f);
 
+}
+
+void PostProcessingEffect::SetMode(Mode mode)
+{
+	mMode = mode;
 }
 
 void PostProcessingEffect::SetTexture(const Texture* texture, uint32_t slot)
