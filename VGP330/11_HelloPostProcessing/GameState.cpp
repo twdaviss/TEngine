@@ -43,12 +43,15 @@ void GameState::Initialize()
 	shaderFilePath = L"../../Assets/Shaders/PostProcessing.fx";
 	mPostProcessingEffect.Initialize(shaderFilePath);
 	mPostProcessingEffect.SetTexture(&mRenderTarget);
+	mPostProcessingEffect.SetTexture(&mCombineTexture, 1);
 
 	GraphicsSystem* gs = GraphicsSystem::Get();
 	const uint32_t screenWidth = gs->GetBackBufferWidth();
 	const uint32_t screenHeight = gs->GetBackBufferHeight();
 
 	mRenderTarget.Initialize(screenWidth, screenHeight, RenderTarget::Format::RGBA_U8);
+
+	mCombineTexture.Initialize("../../Assets/Images/water/water_spec.jpg");
 }
 
 void GameState::Terminate()

@@ -25,6 +25,8 @@ protected:
 	TEngine::Graphics::RenderObject mGround;
 	TEngine::Graphics::RenderObject mScreenQuad;
 
+	TEngine::Graphics::Texture mCombineTexture;
+
 	//Render Targets
 	TEngine::Graphics::RenderTarget mRenderTarget;
 };
