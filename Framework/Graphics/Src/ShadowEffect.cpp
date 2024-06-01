@@ -54,7 +54,7 @@ void ShadowEffect::Render(const RenderObject& renderObject)
 	const Math::Matrix4 matProj = mLightCamera.GetProjectionMatrix();
 
 	TransformData data;
-	data.wvp = (matWorld * matView * matProj);
+	data.wvp = Transpose(matWorld * matView * matProj);
 	mTransformBuffer.Update(data);
 
 	renderObject.meshBuffer.Render();

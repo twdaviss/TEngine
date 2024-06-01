@@ -50,7 +50,7 @@ namespace TEngine::Graphics
 			int useBumpMap = 1;
 			int useShadowMap = 1;
 			float bumpWeight = 1.0f;
-			float depthBias = 0.0f;
+			float depthBias = 0.00001f;
 		};
 
 		using TransformBuffer = TypedConstantBuffer<TransformData>;

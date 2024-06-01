@@ -47,6 +47,7 @@ void GameState::Initialize()
 void GameState::Terminate()
 {
 	mShadowEffect.Terminate();
+	mStandardEffect.Terminate();
 	mGround.Terminate();
 	CleanupRenderGroup(mCharacter);
 	//CleanupRenderGroup(mCharacter2);
@@ -94,7 +95,7 @@ void GameState::Render()
 	/*SimpleDraw::AddGroundPlane(10.0f, Colors::White);
 	SimpleDraw::Render(mCamera);*/
 
-	//mShadowEffect.SetFocus(mCamera.GetPosition());
+	mShadowEffect.SetFocus(mCamera.GetPosition());
 
 	mShadowEffect.Begin();
 		DrawRenderGroup(mShadowEffect, mCharacter);

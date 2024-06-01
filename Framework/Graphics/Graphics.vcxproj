@@ -160,6 +160,8 @@
     <ClInclude Include="Inc\ShadowEffect.h" />
     <ClInclude Include="Inc\SimpleDraw.h" />
     <ClInclude Include="Inc\StandardEffect.h" />
+    <ClInclude Include="inc\Terrain.h" />
+    <ClInclude Include="inc\TerrainEffect.h" />
     <ClInclude Include="Inc\Texture.h" />
     <ClInclude Include="Inc\TextureManager.h" />
     <ClInclude Include="Inc\Transform.h" />
@@ -188,6 +190,8 @@
     <ClCompile Include="Src\ShadowEffect.cpp" />
     <ClCompile Include="Src\SimpleDraw.cpp" />
     <ClCompile Include="Src\StandardEffect.cpp" />
+    <ClCompile Include="src\Terrain.cpp" />
+    <ClCompile Include="src\TerrainEffect.cpp" />
     <ClCompile Include="Src\Texture.cpp" />
     <ClCompile Include="Src\TextureManager.cpp" />
     <ClCompile Include="Src\VertexShader.cpp" />
