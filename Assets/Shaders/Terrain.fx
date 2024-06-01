@@ -145,7 +145,7 @@ float4 PS(VS_OUTPUT input) : SV_Target
             float savedDepth = savedColor.r;
             if(savedDepth > actualDepth + depthBias)
             {
-                finalColor = (ambient + materialEmissive) * diffuseMapColor;
+                finalColor = (ambient + materialEmissive) * colorToUse;
             }
         }
     }

@@ -29,9 +29,6 @@ void GameState::Initialize()
 	mGround.meshBuffer.Initialize(groundMesh);
 	//mGround.diffuseMapId = TextureManager::Get()->LoadTexture("misc/concrete.jpg");
 
-	SetRenderGroupPosition(mCharacter, { -1,0,0 });
-	SetRenderGroupPosition(mCharacter2, { 1,0,0 });
-
 	mTerrain.Initialize("../../Assets/Images/terrain/heightmap_512x512.raw", 20.0f);
 	const Mesh& m = mTerrain.GetMesh();
 	mGround.meshBuffer.Initialize(
@@ -42,8 +39,8 @@ void GameState::Initialize()
 		static_cast<uint32_t>(m.indices.size())
 	);
 	mGround.meshBuffer.Update(m.vertices.data(), m.vertices.size());
-	mGround.diffuseMapId = TextureManager::Get()->LoadTexture("terrain/dirt_seamless.jpg");
-	mGround.bumpMapId = TextureManager::Get()->LoadTexture("terrain/grass_2048.jpg");
+	mGround.diffuseMapId = TextureManager::Get()->LoadTexture("terrain/grass_2048.jpg");
+	mGround.bumpMapId = TextureManager::Get()->LoadTexture("terrain/dirt_seamless.jpg");
 
 	std::filesystem::path shaderFilePath = L"../../Assets/Shaders/Standard.fx";
 	mStandardEffect.Initialize(shaderFilePath);
@@ -60,6 +57,8 @@ void GameState::Initialize()
 
 	mShadowEffect.Initialize();
 	mShadowEffect.SetDirectionalLight(mDirectionalLight);
+
+	
 }
 
 void GameState::Terminate()
@@ -114,8 +113,11 @@ void GameState::Update(float deltaTime)
 		float height = mTerrain.GetHeight(pos);
 		pos.y = height + 3.0f;
 		mCamera.SetPosition(pos);
-		/*SetRenderGroupPosition(mCharacter, {-1,pos.y,0 });
-		SetRenderGroupPosition(mCharacter2, { 1,pos.y,0 });*/
+		
+		height = mTerrain.GetHeight({ 10.0, 0.0f, 10.0f });
+		SetRenderGroupPosition(mCharacter, { 10,height,10 });
+		height = mTerrain.GetHeight({ 15.0f, 0.0f, 20.0f });
+		SetRenderGroupPosition(mCharacter2, { 15.0f,height,20.0f });
 	}
 }
 
@@ -129,6 +131,7 @@ void GameState::Render()
 	mShadowEffect.Begin();
 		DrawRenderGroup(mShadowEffect, mCharacter);
 		DrawRenderGroup(mShadowEffect, mCharacter2);
+		mShadowEffect.Render(mGround);
 	mShadowEffect.End();
 
 	mTerrainEffect.Begin();
