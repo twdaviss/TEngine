@@ -150,6 +150,7 @@
     <ClInclude Include="Inc\MeshBuffer.h" />
     <ClInclude Include="Inc\MeshBuilder.h" />
     <ClInclude Include="Inc\MeshTypes.h" />
+    <ClInclude Include="Inc\MirrorEffect.h" />
     <ClInclude Include="Inc\Model.h" />
     <ClInclude Include="Inc\ModelIO.h" />
     <ClInclude Include="Inc\PixelShader.h" />
@@ -178,6 +179,7 @@
     <ClCompile Include="Src\GraphicsSystem.cpp" />
     <ClCompile Include="Src\MeshBuffer.cpp" />
     <ClCompile Include="Src\MeshBuilder.cpp" />
+    <ClCompile Include="Src\MirrorEffect.cpp" />
     <ClCompile Include="Src\ModelIO.cpp" />
     <ClCompile Include="Src\PixelShader.cpp" />
     <ClCompile Include="Src\PostProcessingEffect.cpp" />

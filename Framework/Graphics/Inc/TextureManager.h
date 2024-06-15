@@ -24,6 +24,8 @@ namespace TEngine::Graphics
 		void SetRootDirectory(const std::filesystem::path& root);
 
 		TextureId LoadTexture(const std::filesystem::path& filename, bool useRootDir = true);
+		TextureId LoadTexture(const Texture& texture);
+
 		const Texture* GetTexture(TextureId id) const;
 
 		void BindVS(TextureId id, uint32_t slot) const;

@@ -56,6 +56,7 @@ void GameState::Initialize()
 
 void GameState::Terminate()
 {
+	mCombineTexture.Terminate();
 	mRenderTarget.Terminate();
 	mPostProcessingEffect.Terminate();
 	mStandardEffect.Terminate();

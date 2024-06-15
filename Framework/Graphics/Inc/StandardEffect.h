@@ -23,6 +23,7 @@ namespace TEngine::Graphics
 		void End();
 
 		void Render(const RenderObject& renderObject);
+		void Render(const RenderObject& renderObject, const Texture& texture);
 
 		void SetCamera(const Camera& camera);
 		void SetLightCamera(const Camera& camera);

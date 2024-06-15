@@ -54,6 +54,11 @@ TextureId TextureManager::LoadTexture(const std::filesystem::path& fileName, boo
 	return textureId;
 }
 
+TextureId TEngine::Graphics::TextureManager::LoadTexture(const Texture& texture)
+{
+	return TextureId();
+}
+
 const Texture* TextureManager::GetTexture(TextureId id) const
 {
 	auto iter = mInventory.find(id);

@@ -14,6 +14,7 @@
 #include "MeshBuffer.h"
 #include "MeshBuilder.h"
 #include "MeshTypes.h"
+#include "MirrorEffect.h"
 #include "Model.h"
 #include "ModelIO.h"
 #include "PixelShader.h"
