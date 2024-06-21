@@ -105,9 +105,6 @@
     <ClInclude Include="inc\TerrainEffect.h">
       <Filter>Inc</Filter>
     </ClInclude>
-    <ClInclude Include="Inc\MirrorEffect.h">
-      <Filter>Inc</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Precompiled.cpp">
@@ -177,9 +174,6 @@
       <Filter>Src</Filter>
     </ClCompile>
     <ClCompile Include="src\TerrainEffect.cpp">
-      <Filter>Src</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\MirrorEffect.cpp">
       <Filter>Src</Filter>
     </ClCompile>
   </ItemGroup>

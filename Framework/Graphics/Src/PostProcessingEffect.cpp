@@ -109,6 +109,13 @@ void PostProcessingEffect::Render(const RenderObject& renderObject)
 	renderObject.meshBuffer.Render();
 }
 
+void PostProcessingEffect::Render(const RenderObject& renderObject, const Texture& texture)
+{
+	texture.BindPS(0);
+	renderObject.meshBuffer.Render();
+}
+
+
 void PostProcessingEffect::DebugUI()
 {
 	if (ImGui::CollapsingHeader("PostProcessingEffect", ImGuiTreeNodeFlags_DefaultOpen))

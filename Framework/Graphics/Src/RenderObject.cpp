@@ -54,3 +54,11 @@ void TEngine::Graphics::SetRenderGroupPosition(RenderGroup& renderGroup, const M
 		renderObject.transform.position = pos;
 	}
 }
+
+void TEngine::Graphics::SetRenderGroupRotation(RenderGroup& renderGroup, const Math::Quaternion& rot)
+{
+	for (RenderObject& renderObject : renderGroup)
+	{
+		renderObject.transform.rotation = rot;
+	}
+}

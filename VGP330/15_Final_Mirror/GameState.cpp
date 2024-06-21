@@ -25,7 +25,7 @@ void GameState::Initialize()
 	mCharacter = CreateRenderGroup(ninjaModel);
 	mCharacter2 = CreateRenderGroup(vampireModel);
 
-	Mesh groundMesh = MeshBuilder::CreateHorizontalPlane(20, 20, 1.0f);
+	Mesh groundMesh = MeshBuilder::CreateHorizontalPlane(5, 5, 1.0f);
 	mGround.meshBuffer.Initialize(groundMesh);
 	//mGround.diffuseMapId = TextureManager::Get()->LoadTexture("misc/concrete.jpg");
 
@@ -42,9 +42,9 @@ void GameState::Initialize()
 	mGround.diffuseMapId = TextureManager::Get()->LoadTexture("terrain/grass_2048.jpg");
 	mGround.bumpMapId = TextureManager::Get()->LoadTexture("terrain/dirt_seamless.jpg");
 
-	MeshPX mirrorMesh = MeshBuilder::CreateVerticalPlanePX(10, 10, 0.5f);
+	Mesh mirrorMesh = MeshBuilder::CreateVerticalPlane(5, 5, 1.0f);
 	mMirror.meshBuffer.Initialize(mirrorMesh);
-	mMirror.diffuseMapId = TextureManager::Get()->LoadTexture("misc/concrete.jpg");
+	mMirror.diffuseMapId = TextureManager::Get()->LoadTexture("misc/basketball.jpg");
 
 	std::filesystem::path shaderFilePath = L"../../Assets/Shaders/Standard.fx";
 	mStandardEffect.Initialize(shaderFilePath);
@@ -52,6 +52,14 @@ void GameState::Initialize()
 	mStandardEffect.SetDirectionalLight(mDirectionalLight);
 	mStandardEffect.SetLightCamera(mShadowEffect.GetLightCamera());
 	mStandardEffect.SetShadowMap(mShadowEffect.GetDepthMap());
+
+	MeshPX screenQuad = MeshBuilder::CreateScreenQuad();
+	mScreenQuad.meshBuffer.Initialize(screenQuad);
+
+	shaderFilePath = L"../../Assets/Shaders/PostProcessing.fx";
+	mPostProcessingEffect.Initialize(shaderFilePath);
+	mPostProcessingEffect.SetTexture(&mMirrorRenderTarget);
+	mPostProcessingEffect.SetTexture(&mCombineTexture, 1);
 
 	mTerrainEffect.Initialize();
 	mTerrainEffect.SetCamera(mCamera);
@@ -62,14 +70,21 @@ void GameState::Initialize()
 	mShadowEffect.Initialize();
 	mShadowEffect.SetDirectionalLight(mDirectionalLight);
 
-	mMirrorEffect.Initialize();
+	constexpr uint32_t size = 4096;
+	mMirrorRenderTarget.Initialize(size, size, Texture::Format::RGBA_U32);
+
+	mCombineTexture.Initialize("../../Assets/Images/water/water_spec.jpg");
+
 }
 
 void GameState::Terminate()
 {
-	mMirrorEffect.Terminate();
+	mCombineTexture.Terminate();
+	mMirrorRenderTarget.Terminate();
 	mShadowEffect.Terminate();
 	mTerrainEffect.Terminate();
+	mScreenQuad.Terminate();
+	mPostProcessingEffect.Terminate();
 	mStandardEffect.Terminate();
 	mMirror.Terminate();
 	mGround.Terminate();
@@ -117,19 +132,32 @@ void GameState::Update(float deltaTime)
 	{
 		Vector3 pos = mCamera.GetPosition();
 		float height = mTerrain.GetHeight(pos);
-		pos.y = height + 1.0f;
+		pos.y = height + 1.5f;
 		mCamera.SetPosition(pos);
 		
 		height = mTerrain.GetHeight({ 10.0, 0.0f, 10.0f });
-		SetRenderGroupPosition(mCharacter, { 10,height,10 });
+		//SetRenderGroupPosition(mCharacter, { 10,height,10 });
 		height = mTerrain.GetHeight({ 15.0f, 0.0f, 20.0f });
 		SetRenderGroupPosition(mCharacter2, { 15.0f,height,20.0f });
 
 		mMirror.transform.position = Vector3(10, height+2, 15);
 	}
 	Vector3 distanceFromCamera = mCamera.GetPosition() - mMirror.transform.position;
-	mMirrorCamera.SetPosition(mMirror.transform.position - distanceFromCamera);
-	mMirrorCamera.SetLookAt(mMirror.transform.position);
+	Vector3 cameraPosition = (mMirror.transform.position - distanceFromCamera);
+	cameraPosition.y = mCamera.GetPosition().y;
+	mMirrorCamera.SetPosition(cameraPosition);
+	mMirrorCamera.SetLookAt(mCamera.GetPosition());
+
+	//SetRenderGroupPosition(mCharacter, { mCamera.GetPosition()});
+
+	Vector3 charPosition = mCamera.GetPosition();
+	charPosition.y -= 1.5f;
+
+	SetRenderGroupPosition(mCharacter, charPosition);
+	Vector3 a = Math::Cross(mCamera.GetDirection(), Vector3::ZAxis);
+	Quaternion q = Quaternion(a.x,a.y,a.z, 1);
+	SetRenderGroupRotation(mCharacter, q * -2);
+
 }
 
 void GameState::Render()
@@ -149,24 +177,35 @@ void GameState::Render()
 		mTerrainEffect.Render(mGround);
 	mTerrainEffect.End();
 
-	mStandardEffect.SetCamera(mMirrorCamera);
-
-	mMirrorEffect.Begin();
-		
-	mMirrorEffect.End();
-
 	mStandardEffect.Begin();
+		//DrawRenderGroup(mStandardEffect, mCharacter);
+		DrawRenderGroup(mStandardEffect, mCharacter2);
+		//mStandardEffect.Render(mMirror/*, mMirrorEffect.GetMirrorImage()*/);
+	mStandardEffect.End();
+
+	mStandardEffect.SetCamera(mMirrorCamera);
+	mTerrainEffect.SetCamera(mMirrorCamera);
+
+	//mPostProcessingEffect.Begin();
+
+	mMirrorRenderTarget.BeginRender();
 		DrawRenderGroup(mStandardEffect, mCharacter);
 		DrawRenderGroup(mStandardEffect, mCharacter2);
-	mStandardEffect.End();
+		mTerrainEffect.Begin();
+		mTerrainEffect.Render(mGround);
+		mTerrainEffect.End();
+	mMirrorRenderTarget.EndRender();
+	//mPostProcessingEffect.End();
 
 	mStandardEffect.SetCamera(mCamera);
+	mTerrainEffect.SetCamera(mCamera);
+
+	Texture& mirrorTexture = mMirrorRenderTarget;
 
 	mStandardEffect.Begin();
-		DrawRenderGroup(mStandardEffect, mCharacter);
-		DrawRenderGroup(mStandardEffect, mCharacter2);
-		//mStandardEffect.Render(mMirror, mMirrorEffect.GetMirrorImage());
+		mStandardEffect.Render(mMirror, mirrorTexture);
 	mStandardEffect.End();
+
 }
 
 void GameState::DebugUI()
@@ -194,9 +233,23 @@ void GameState::DebugUI()
 				mGround.meshBuffer.Update(m.vertices.data(), m.vertices.size());
 			}
 		}
+
+		if (ImGui::CollapsingHeader("MirrorEffect", ImGuiTreeNodeFlags_DefaultOpen))
+		{
+			ImGui::Text("MirrorEffect");
+			ImGui::Image(
+				mMirrorRenderTarget.GetRawData(),
+				{ 144,144 },
+				{ 0,0 },
+				{ 1,1 },
+				{ 1,1,1,1 },
+				{ 1,1,1,1 });
+			//ImGui::DragFloat("Size##Mirror", &mSize, 1.0f, 1.0f, 1000.0f);
+		}
+
 		mStandardEffect.DebugUI();
 		mTerrainEffect.DebugUI();
 		mShadowEffect.DebugUI();
-		mMirrorEffect.DebugUI();
+		mPostProcessingEffect.DebugUI();
 	ImGui::End();
 }

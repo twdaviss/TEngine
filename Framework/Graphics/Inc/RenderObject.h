@@ -29,6 +29,9 @@ namespace TEngine::Graphics
 
 	void SetRenderGroupPosition(RenderGroup& renderGroup, const Math::Vector3& pos);
 
+	void SetRenderGroupRotation(RenderGroup& renderGroup, const Math::Quaternion& rot);
+
+
 	template<class Effect>
 	void DrawRenderGroup(Effect& effect, const RenderGroup& renderGroup)
 	{

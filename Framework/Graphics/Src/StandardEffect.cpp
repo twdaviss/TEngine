@@ -16,6 +16,8 @@ void StandardEffect::Initialize(const std::filesystem::path& filePath)
 	mVertexShader.Initialize<Vertex>(filePath);
 	mPixelShader.Initialize(filePath);
 	mSampler.Initialize(Sampler::Filter::Linear, Sampler::AddressMode::Wrap);
+
+	constexpr uint32_t mirrorMapResolution = 4096;
 }
 
 void StandardEffect::Terminate()
@@ -139,12 +141,10 @@ void StandardEffect::Render(const RenderObject& renderObject, const Texture& tex
 	mMaterialBuffer.Update(renderObject.material);
 
 	TextureManager* tm = TextureManager::Get();
+	texture.BindPS(0);
 	tm->BindPS(renderObject.normalMapId, 1);
 	tm->BindPS(renderObject.specMapId, 2);
 	tm->BindVS(renderObject.bumpMapId, 3);
-
-	texture.BindPS(0);
-
 
 	renderObject.meshBuffer.Render();
 }
@@ -168,6 +168,7 @@ void TEngine::Graphics::StandardEffect::SetShadowMap(const Texture& shadowMap)
 {
 	mShadowMap = &shadowMap;
 }
+
 
 void StandardEffect::DebugUI()
 {

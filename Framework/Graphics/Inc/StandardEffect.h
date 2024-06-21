@@ -4,6 +4,7 @@
 #include "LightTypes.h"
 #include "Material.h"
 #include "PixelShader.h"
+#include "RenderTarget.h"
 #include "Sampler.h"
 #include "VertexShader.h"
 

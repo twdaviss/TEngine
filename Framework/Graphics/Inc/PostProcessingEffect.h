@@ -32,6 +32,7 @@ namespace TEngine::Graphics
 		void End();
 
 		void Render(const RenderObject& renderObject);
+		void Render(const RenderObject& renderObject, const Texture& texture);
 
 		void DebugUI();
 

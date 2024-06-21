@@ -18,9 +18,9 @@ protected:
 
 	//Effects
 	TEngine::Graphics::StandardEffect mStandardEffect;
+	TEngine::Graphics::PostProcessingEffect mPostProcessingEffect;
 	TEngine::Graphics::ShadowEffect mShadowEffect;
 	TEngine::Graphics::TerrainEffect mTerrainEffect;
-	TEngine::Graphics::MirrorEffect mMirrorEffect;
 
 	//Objects
 	TEngine::Graphics::Terrain mTerrain;
@@ -28,6 +28,11 @@ protected:
 	TEngine::Graphics::RenderGroup mCharacter2;
 	TEngine::Graphics::RenderObject mGround;
 	TEngine::Graphics::RenderObject mMirror;
+	TEngine::Graphics::RenderObject mScreenQuad;
+
+	TEngine::Graphics::RenderTarget mMirrorRenderTarget;
+
+	TEngine::Graphics::Texture mCombineTexture;
 
 	bool mOnTerrain = true;
 };
