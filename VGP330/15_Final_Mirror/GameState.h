@@ -31,6 +31,7 @@ protected:
 	TEngine::Graphics::RenderObject mScreenQuad;
 
 	TEngine::Graphics::RenderTarget mMirrorRenderTarget;
+	TEngine::Graphics::RenderTarget mPostProcessRenderTarget;
 
 	TEngine::Graphics::Texture mCombineTexture;
 

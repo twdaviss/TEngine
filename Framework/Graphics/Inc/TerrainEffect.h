@@ -44,7 +44,7 @@ namespace TEngine::Graphics
 		{
 			int useNormalMap = 0;
 			int useSpecMap = 0;
-			int useShadowMap = 0;
+			int useShadowMap = 1;
 			int useBlend = 0;
 			float depthBias = 0.00001f;
 			float blendHeight = 0.0f;

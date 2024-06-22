@@ -9,7 +9,7 @@ void GameState::Initialize()
 	mCamera.SetPosition({ 10.0f,1.0f,5.0f });
 	mCamera.SetLookAt({ 10.0f,1.0f,15.0f });
 
-	mDirectionalLight.direction = Math::Normalize({ 1.0f, -1.0f, 1.0f });
+	mDirectionalLight.direction = Math::Normalize({ 1.0f, -1.0f, -1.0f });
 	mDirectionalLight.ambient = { 0.5f, 0.5f, 0.5f, 1.0f };
 	mDirectionalLight.diffuse = { 0.8f, 0.8f, 0.8f, 1.0f };
 	mDirectionalLight.specular = { 1.0f, 1.0f, 1.0f, 1.0f };
@@ -27,9 +27,8 @@ void GameState::Initialize()
 
 	Mesh groundMesh = MeshBuilder::CreateHorizontalPlane(5, 5, 1.0f);
 	mGround.meshBuffer.Initialize(groundMesh);
-	//mGround.diffuseMapId = TextureManager::Get()->LoadTexture("misc/concrete.jpg");
 
-	mTerrain.Initialize("../../Assets/Images/terrain/heightmap_512x512.raw", 20.0f);
+	mTerrain.Initialize("../../Assets/Images/terrain/heightmap_512x512.raw", 35.0f);
 	const Mesh& m = mTerrain.GetMesh();
 	mGround.meshBuffer.Initialize(
 		nullptr,
@@ -45,6 +44,7 @@ void GameState::Initialize()
 	Mesh mirrorMesh = MeshBuilder::CreateVerticalPlane(5, 5, 1.0f);
 	mMirror.meshBuffer.Initialize(mirrorMesh);
 	mMirror.diffuseMapId = TextureManager::Get()->LoadTexture("misc/basketball.jpg");
+	mMirror.specMapId = TextureManager::Get()->LoadTexture("terrain/blank_spec.jpg");
 
 	std::filesystem::path shaderFilePath = L"../../Assets/Shaders/Standard.fx";
 	mStandardEffect.Initialize(shaderFilePath);
@@ -58,7 +58,7 @@ void GameState::Initialize()
 
 	shaderFilePath = L"../../Assets/Shaders/PostProcessing.fx";
 	mPostProcessingEffect.Initialize(shaderFilePath);
-	mPostProcessingEffect.SetTexture(&mMirrorRenderTarget);
+	mPostProcessingEffect.SetTexture(&mPostProcessRenderTarget);
 	mPostProcessingEffect.SetTexture(&mCombineTexture, 1);
 
 	mTerrainEffect.Initialize();
@@ -70,17 +70,23 @@ void GameState::Initialize()
 	mShadowEffect.Initialize();
 	mShadowEffect.SetDirectionalLight(mDirectionalLight);
 
+	GraphicsSystem* gs = GraphicsSystem::Get();
+	const uint32_t screenWidth = gs->GetBackBufferWidth();
+	const uint32_t screenHeight = gs->GetBackBufferHeight();
+
+	mPostProcessRenderTarget.Initialize(screenWidth, screenHeight, RenderTarget::Format::RGBA_U8);
+
 	constexpr uint32_t size = 4096;
 	mMirrorRenderTarget.Initialize(size, size, Texture::Format::RGBA_U32);
 
 	mCombineTexture.Initialize("../../Assets/Images/water/water_spec.jpg");
-
 }
 
 void GameState::Terminate()
 {
 	mCombineTexture.Terminate();
 	mMirrorRenderTarget.Terminate();
+	mPostProcessRenderTarget.Terminate();
 	mShadowEffect.Terminate();
 	mTerrainEffect.Terminate();
 	mScreenQuad.Terminate();
@@ -136,75 +142,72 @@ void GameState::Update(float deltaTime)
 		mCamera.SetPosition(pos);
 		
 		height = mTerrain.GetHeight({ 10.0, 0.0f, 10.0f });
-		//SetRenderGroupPosition(mCharacter, { 10,height,10 });
 		height = mTerrain.GetHeight({ 15.0f, 0.0f, 20.0f });
 		SetRenderGroupPosition(mCharacter2, { 15.0f,height,20.0f });
 
 		mMirror.transform.position = Vector3(10, height+2, 15);
 	}
+	//Setting mirror camera position and direction
 	Vector3 distanceFromCamera = mCamera.GetPosition() - mMirror.transform.position;
 	Vector3 cameraPosition = (mMirror.transform.position - distanceFromCamera);
 	cameraPosition.y = mCamera.GetPosition().y;
 	mMirrorCamera.SetPosition(cameraPosition);
 	mMirrorCamera.SetLookAt(mCamera.GetPosition());
+	
+	//Rotating character model to face other direction + rotating to face mirror direction
+	Vector3 a = Math::Cross(mCamera.GetDirection(), Vector3::ZAxis);
+	Quaternion q = Quaternion(a.x,-a.y,a.z, 1);
+	q = Quaternion(0, 1, 0, 0) * q;
+	SetRenderGroupRotation(mCharacter, Math::Normalize(q));
 
-	//SetRenderGroupPosition(mCharacter, { mCamera.GetPosition()});
-
+	//Setting character model to camera position
 	Vector3 charPosition = mCamera.GetPosition();
 	charPosition.y -= 1.5f;
-
 	SetRenderGroupPosition(mCharacter, charPosition);
-	Vector3 a = Math::Cross(mCamera.GetDirection(), Vector3::ZAxis);
-	Quaternion q = Quaternion(a.x,a.y,a.z, 1);
-	SetRenderGroupRotation(mCharacter, q * -2);
-
 }
 
 void GameState::Render()
 {
-	/*SimpleDraw::AddGroundPlane(10.0f, Colors::White);
-	SimpleDraw::Render(mCamera);*/
-
 	mShadowEffect.SetFocus(mCamera.GetPosition());
-
-	mShadowEffect.Begin();
-		DrawRenderGroup(mShadowEffect, mCharacter);
-		DrawRenderGroup(mShadowEffect, mCharacter2);
-		mShadowEffect.Render(mGround);
-	mShadowEffect.End();
-
-	mTerrainEffect.Begin();
-		mTerrainEffect.Render(mGround);
-	mTerrainEffect.End();
-
-	mStandardEffect.Begin();
-		//DrawRenderGroup(mStandardEffect, mCharacter);
-		DrawRenderGroup(mStandardEffect, mCharacter2);
-		//mStandardEffect.Render(mMirror/*, mMirrorEffect.GetMirrorImage()*/);
-	mStandardEffect.End();
 
 	mStandardEffect.SetCamera(mMirrorCamera);
 	mTerrainEffect.SetCamera(mMirrorCamera);
 
-	//mPostProcessingEffect.Begin();
+	mPostProcessRenderTarget.BeginRender();
+		mShadowEffect.Begin();
+			DrawRenderGroup(mShadowEffect, mCharacter);
+			DrawRenderGroup(mShadowEffect, mCharacter2);
+			mShadowEffect.Render(mGround);
+		mShadowEffect.End();
 
-	mMirrorRenderTarget.BeginRender();
-		DrawRenderGroup(mStandardEffect, mCharacter);
-		DrawRenderGroup(mStandardEffect, mCharacter2);
 		mTerrainEffect.Begin();
-		mTerrainEffect.Render(mGround);
+			mTerrainEffect.Render(mGround);
 		mTerrainEffect.End();
+
+		mStandardEffect.Begin();
+			DrawRenderGroup(mStandardEffect, mCharacter);
+			DrawRenderGroup(mStandardEffect, mCharacter2);
+		mStandardEffect.End();
+	mPostProcessRenderTarget.EndRender();
+	
+	mMirrorRenderTarget.BeginRender();
+		mPostProcessingEffect.Begin();
+			mPostProcessingEffect.Render(mScreenQuad);
+		mPostProcessingEffect.End();
 	mMirrorRenderTarget.EndRender();
-	//mPostProcessingEffect.End();
+
+	Texture& mirrorTexture = mMirrorRenderTarget;
 
 	mStandardEffect.SetCamera(mCamera);
 	mTerrainEffect.SetCamera(mCamera);
 
-	Texture& mirrorTexture = mMirrorRenderTarget;
-
 	mStandardEffect.Begin();
 		mStandardEffect.Render(mMirror, mirrorTexture);
+		DrawRenderGroup(mStandardEffect, mCharacter2);
 	mStandardEffect.End();
+	mTerrainEffect.Begin();
+		mTerrainEffect.Render(mGround);
+	mTerrainEffect.End();
 
 }
 
@@ -244,7 +247,6 @@ void GameState::DebugUI()
 				{ 1,1 },
 				{ 1,1,1,1 },
 				{ 1,1,1,1 });
-			//ImGui::DragFloat("Size##Mirror", &mSize, 1.0f, 1.0f, 1000.0f);
 		}
 
 		mStandardEffect.DebugUI();

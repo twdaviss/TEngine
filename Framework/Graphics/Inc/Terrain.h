@@ -17,6 +17,6 @@ namespace TEngine::Graphics
 		Mesh mMesh;
 		uint32_t mRows = 0;
 		uint32_t mColumns = 0;
-		float mHeightScale = 1.0f;
+		float mHeightScale = 35.0f;
 	};
 }

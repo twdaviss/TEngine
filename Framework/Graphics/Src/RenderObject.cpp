@@ -62,3 +62,11 @@ void TEngine::Graphics::SetRenderGroupRotation(RenderGroup& renderGroup, const M
 		renderObject.transform.rotation = rot;
 	}
 }
+
+void TEngine::Graphics::SetRenderGroupScale(RenderGroup& renderGroup, const Math::Vector3 v)
+{
+	for (RenderObject& renderObject : renderGroup)
+	{
+		renderObject.transform.scale = v;
+	}
+}

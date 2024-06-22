@@ -145,6 +145,7 @@ void GameState::DebugUI()
 		{ 1,1,1,1 },
 		{ 1,1,1,1 }
 	);
+
 	mStandardEffect.DebugUI();
 	mPostProcessingEffect.DebugUI();
 	ImGui::End();

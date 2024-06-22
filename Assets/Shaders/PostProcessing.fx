@@ -106,5 +106,17 @@ float4 PS(VS_OUTPUT input) : SV_Target
         texCoord.y += sin(waveValue) * params1;
         finalColor = textureMap0.Sample(textureSampler, texCoord);
     }
+     //mirrorsmudge
+    else if (mode == 8)
+    {
+        float2 texCoord = input.texCoord;
+        texCoord.x *= params0;
+        texCoord.y *= params1;
+        
+        float4 color0 = textureMap0.Sample(textureSampler, input.texCoord);
+        float4 color1 = textureMap1.Sample(textureSampler, float2(input.texCoord.x + params0, input.texCoord.y + params1));
+        finalColor = (color0 + color1) * 0.5f;
+        finalColor = textureMap0.Sample(textureSampler, texCoord);
+    }
     return finalColor;
 }

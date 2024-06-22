@@ -31,6 +31,7 @@ namespace TEngine::Graphics
 
 	void SetRenderGroupRotation(RenderGroup& renderGroup, const Math::Quaternion& rot);
 
+	void SetRenderGroupScale(RenderGroup& renderGroup, const Math::Vector3 v);
 
 	template<class Effect>
 	void DrawRenderGroup(Effect& effect, const RenderGroup& renderGroup)

@@ -22,7 +22,8 @@ namespace TEngine::Graphics
 			Blur,
 			Combine2,
 			ChromaticAberration,
-			Wave
+			Wave,
+			MirrorSmudge
 		};
 
 		void Initialize(const std::filesystem::path& filePath);
@@ -56,8 +57,8 @@ namespace TEngine::Graphics
 		PixelShader mPixelShader;
 		std::array<const Texture*, 4> mTextures;
 
-		Mode mMode = Mode::None;
-		float mMirrorX = 1.0f;
+		Mode mMode = Mode::Mirror;
+		float mMirrorX = -1.0f;
 		float mMirrorY = 1.0f;
 		float mBlurStrength = 5.0f;
 		float mAberrationValue = 0.005f;

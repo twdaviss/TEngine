@@ -143,4 +143,10 @@ namespace TEngine::Math
 			0.0f, 0.0f, 0.0f, 1.0f
 		};
 	}
+
+	inline Quaternion Normalize(const Quaternion& q)
+	{
+		float magA = sqrt(q.x * q.x + q.y * q.y + q.z * q.z + q.w * q.w);
+		return q / magA;
+	}
 }

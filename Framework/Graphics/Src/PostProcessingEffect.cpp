@@ -18,7 +18,8 @@ namespace
 		"Blur",
 		"Combine2",
 		"ChromaticAberration",
-		"Wave"
+		"Wave",
+		"MirrorSmudge"
 	};
 }
 
@@ -89,6 +90,11 @@ void PostProcessingEffect::Begin()
 		data.params1 = mWaveLength;
 	}
 	break;
+	case Mode::MirrorSmudge:
+	{
+		data.params0 = mMirrorX;
+		data.params1 = mMirrorY;
+	}
 	default:
 		break;
 	}
