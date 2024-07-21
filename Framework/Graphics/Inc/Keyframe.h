@@ -7,7 +7,9 @@ namespace TEngine::Graphics
 	enum class EaseType
 	{
 		Linear,
-
+		EaseInQuad,
+		EaseOutQuad,
+		EaseInOutQuad
 	};
 	template<class T>
 	struct Keyframe
