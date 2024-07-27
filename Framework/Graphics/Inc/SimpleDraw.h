@@ -23,6 +23,7 @@ namespace TEngine::Graphics
 		void AddFilledAABB(float minX, float minY, float minZ, float maxX, float maxY, float maxZ, const Color& color);
 
 		void AddSphere(uint32_t slices, uint32_t rings, float radius, const Color& color);
+		void AddSphere(uint32_t slices, uint32_t rings, float radius, const Math::Vector3& offset, const Color& color);
 
 		void AddGroundPlane(float size, const Color& color);
 		void AddGroundCircle(uint32_t slices, float radius, const Color& color);

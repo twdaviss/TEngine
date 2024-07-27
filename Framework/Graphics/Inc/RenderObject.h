@@ -2,6 +2,7 @@
 
 #include "Material.h"
 #include "MeshBuffer.h"
+#include "ModelManager.h"
 #include "TextureManager.h"
 #include "Transform.h"
 
@@ -24,7 +25,9 @@ namespace TEngine::Graphics
 	};
 
 	using RenderGroup = std::vector<RenderObject>;
+	[[nodiscard]] RenderGroup CreateRenderGroup(ModelId modelId);
 	[[nodiscard]] RenderGroup CreateRenderGroup(const Model& model);
+
 	void CleanupRenderGroup(RenderGroup& renderGroup);
 
 	void SetRenderGroupPosition(RenderGroup& renderGroup, const Math::Vector3& pos);

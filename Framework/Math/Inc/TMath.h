@@ -149,4 +149,24 @@ namespace TEngine::Math
 		float magA = sqrt(q.x * q.x + q.y * q.y + q.z * q.z + q.w * q.w);
 		return q / magA;
 	}
+
+	inline Vector3 GetRight(const Matrix4& m)
+	{
+		return { m._11, m._12, m._13 };
+	}
+
+	inline Vector3 GetUp(const Matrix4& m)
+	{
+		return { m._21, m._22, m._23 };
+	}
+
+	inline Vector3 Getlook(const Matrix4& m)
+	{
+		return { m._31, m._32, m._33 };
+	}
+
+	inline Vector3 GetTranslation(const Matrix4& m)
+	{
+		return { m._41, m._42, m._43 };
+	}
 }
