@@ -6,7 +6,7 @@ using namespace TEngine::Input;
 
 void GameState::Initialize()
 {
-	mCamera.SetPosition({ 0.0f,1.0f,-3.0f });
+	mCamera.SetPosition({ 0.0f,5.0f,-10.0f });
 	mCamera.SetLookAt({ 0.0f,0.0f,0.0f });
 
 	mDirectionalLight.direction = Math::Normalize({ 1.0f, -1.0f, 1.0f });
@@ -19,7 +19,7 @@ void GameState::Initialize()
 	mStandardEffect.SetCamera(mCamera);
 	mStandardEffect.SetDirectionalLight(mDirectionalLight);
 
-	Mesh ball = MeshBuilder::CreateSphere(60, 60, 1.0f);
+	Mesh ball = MeshBuilder::CreateSphere(60, 60, 0.5f);
 	mBall.meshBuffer.Initialize(ball);
 	mBall.diffuseMapId = TextureManager::Get()->LoadTexture("misc/basketball.jpg");
 
