@@ -30,15 +30,55 @@ void GameState::Initialize()
 	mAnimationTime = 0.0f;
 
 	mAnimation = AnimationBuilder()
-		.AddPositionKey({ 0.0f, 0.0f, 0.0f }, 0.0f, EaseType::EaseInOutQuad)
-		.AddPositionKey({ 0.0f, 5.0, 0.0f }, 1.0f, EaseType::EaseInOutQuad)
-		.AddPositionKey({ 0.0f, 0.0f, 0.0f }, 2.0f, EaseType::EaseInOutQuad)
+		//bounce 1
+		.AddPositionKey({ 0.0f, 0.0f, 0.0f }, 0.0f)
+		.AddPositionKey({ 1.25f, 2.5, 0.0f }, 0.5f)
+		.AddPositionKey({ 2.5f, 5.0, 0.0f },  1.0f)
+		.AddPositionKey({ 3.75f, 2.5, 0.0f }, 1.5f)
+		.AddPositionKey({ 5.0f, 0.0f, 0.0f }, 2.0f)
+
 		.AddScaleKey({ 1.0f, 1.0f, 1.0f }, 0.0f)
-		.AddScaleKey({ 0.9f, 2.0f, 0.9f }, 0.25f)
+		.AddScaleKey({ 0.9f, 1.8f, 0.9f }, 0.25f)
 		.AddScaleKey({ 1.0f, 1.0f, 1.0f }, 1.0f)
 		.AddScaleKey({ 1.0f, 1.0f, 1.0f }, 1.6f)
-		.AddScaleKey({ 1.3f, 0.5f, 1.3f }, 1.85f)
+		.AddScaleKey({ 1.3f, 0.5f, 1.3f }, 1.9f)
 		.AddScaleKey({ 1.0f, 1.0f, 1.0f }, 2.0f)
+
+		//bounce 2
+		.AddPositionKey({ 3.75f, 2.5f, 0.0f }, 2.5f)
+		.AddPositionKey({ 2.5f, 5.0f, 0.0f },  3.0f)
+		.AddPositionKey({ 1.25f, 2.5f, 0.0f }, 3.5f)
+		.AddPositionKey({ 0.0f, 0.0f, 0.0f },  4.0f)
+
+		.AddScaleKey({ 0.9f, 1.8f, 0.9f }, 2.25f)
+		.AddScaleKey({ 1.0f, 1.0f, 1.0f }, 3.0f)
+		.AddScaleKey({ 1.0f, 1.0f, 1.0f }, 3.6f)
+		.AddScaleKey({ 1.3f, 0.5f, 1.3f }, 3.9f)
+		.AddScaleKey({ 1.0f, 1.0f, 1.0f }, 4.0f)
+
+		//bounce 3
+		.AddPositionKey({ -1.25f, 2.5, 0.0f }, 4.5f)
+		.AddPositionKey({ -2.5f, 5.0, 0.0f },  5.0f)
+		.AddPositionKey({ -3.75f, 2.5, 0.0f }, 5.5f)
+		.AddPositionKey({ -5.0f, 0.0f, 0.0f }, 6.0f)
+
+		.AddScaleKey({ 0.9f, 1.8f, 0.9f }, 4.25f)
+		.AddScaleKey({ 1.0f, 1.0f, 1.0f }, 5.0f)
+		.AddScaleKey({ 1.0f, 1.0f, 1.0f }, 5.6f)
+		.AddScaleKey({ 1.3f, 0.5f, 1.3f }, 5.9f)
+		.AddScaleKey({ 1.0f, 1.0f, 1.0f }, 6.0f)
+
+		//bounce 4
+		.AddPositionKey({ -3.75f, 2.5f, 0.0f }, 6.5f)
+		.AddPositionKey({ -2.5f, 5.0f, 0.0f },  7.0f)
+		.AddPositionKey({ -1.25f, 2.5f, 0.0f }, 7.5f)
+		.AddPositionKey({ 0.0f, 0.0f, 0.0f },   8.0f)
+
+		.AddScaleKey({ 0.9f, 1.8f, 0.9f }, 6.25f)
+		.AddScaleKey({ 1.0f, 1.0f, 1.0f }, 7.0f)
+		.AddScaleKey({ 1.0f, 1.0f, 1.0f }, 7.6f)
+		.AddScaleKey({ 1.3f, 0.5f, 1.3f }, 7.9f)
+		.AddScaleKey({ 1.0f, 1.0f, 1.0f }, 8.0f)
 		.Build();
 }
 
