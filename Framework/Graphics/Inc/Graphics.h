@@ -4,6 +4,7 @@
 
 #include "Animation.h"
 #include "AnimationBuilder.h"
+#include "AnimationClip.h"
 #include "AnimationUtil.h"
 #include "GraphicsSystem.h"
 #include "BlendState.h"

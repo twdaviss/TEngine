@@ -16,7 +16,9 @@ protected:
 	TEngine::Graphics::Camera mCamera;
 
 	TEngine::Graphics::ModelId mModelId;
+	TEngine::Graphics::ModelId mModelId2;
 	TEngine::Graphics::RenderGroup mCharacter;
+	TEngine::Graphics::RenderGroup mCharacter2;
 	TEngine::Graphics::StandardEffect mStandardEffect;
 
 	bool mDrawSkeleton = false;

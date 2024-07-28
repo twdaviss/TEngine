@@ -14,10 +14,14 @@ void GameState::Initialize()
 	mDirectionalLight.diffuse = { 0.8f, 0.8f, 0.8f, 1.0f };
 	mDirectionalLight.specular = { 1.0f, 1.0f, 1.0f, 1.0f };
 
-	mModelId = ModelManager::Get()->LoadModelId("../../Assets/Models/Ninja/Ch24_nonPBR.model");
-	mCharacter = CreateRenderGroup(mModelId);
+	mModelId = ModelManager::Get()->LoadModelId("../../Assets/Models/Dying/Dying.Model");
+	mModelId2 = ModelManager::Get()->LoadModelId("../../Assets/Models/Dancing/Dancing.Model");
 
-	SetRenderGroupPosition(mCharacter, { 0,0,0 });
+	mCharacter = CreateRenderGroup(mModelId);
+	mCharacter2 = CreateRenderGroup(mModelId2);
+
+	SetRenderGroupPosition(mCharacter, { -1,0,0 });
+	SetRenderGroupPosition(mCharacter2, { 1,0,0 });
 
 	std::filesystem::path shaderFilePath = L"../../Assets/Shaders/Standard.fx";
 	mStandardEffect.Initialize(shaderFilePath);
@@ -29,6 +33,7 @@ void GameState::Terminate()
 {
 	mStandardEffect.Terminate();
 	CleanupRenderGroup(mCharacter);
+	CleanupRenderGroup(mCharacter2);
 }
 
 void GameState::Update(float deltaTime)
@@ -75,6 +80,9 @@ void GameState::Render()
 		AnimationUtil::BoneTransforms boneTransforms;
 		AnimationUtil::ComputeBoneTransforms(mModelId, boneTransforms);
 		AnimationUtil::DrawSkeleton(mModelId, boneTransforms);
+
+		AnimationUtil::ComputeBoneTransforms(mModelId2, boneTransforms);
+		AnimationUtil::DrawSkeleton(mModelId2, boneTransforms);
 	}
 	SimpleDraw::AddGroundPlane(10.0f, Colors::White);
 	SimpleDraw::Render(mCamera);
@@ -83,6 +91,7 @@ void GameState::Render()
 	{
 		mStandardEffect.Begin();
 			DrawRenderGroup(mStandardEffect, mCharacter);
+			DrawRenderGroup(mStandardEffect, mCharacter2);
 		mStandardEffect.End();
 	}
 }

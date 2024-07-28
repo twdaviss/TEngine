@@ -22,11 +22,14 @@ namespace TEngine::Graphics
 		TextureId normalMapId;
 		TextureId specMapId;
 		TextureId bumpMapId;
+
+		ModelId modelId;
+		const Skeleton* skeleton = nullptr;
 	};
 
 	using RenderGroup = std::vector<RenderObject>;
 	[[nodiscard]] RenderGroup CreateRenderGroup(ModelId modelId);
-	[[nodiscard]] RenderGroup CreateRenderGroup(const Model& model);
+	[[nodiscard]] RenderGroup CreateRenderGroup(const Model& model, ModelId modelId = 0);
 
 	void CleanupRenderGroup(RenderGroup& renderGroup);
 

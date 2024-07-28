@@ -1,1 +1,3 @@
 -scale 0.01 ../../Assets/Models/Ninja/Ch24_nonPBR.fbx ../../Assets/Models/Ninja/Ch24_nonPBR.fbx
+-scale 0.01 ../../Assets/Models/Dying/Dying.fbx ../../Assets/Models/Dying/Dying.fbx
+-scale 0.01 ../../Assets/Models/Dancing/Dancing.fbx ../../Assets/Models/Dancing/Dancing.fbx
