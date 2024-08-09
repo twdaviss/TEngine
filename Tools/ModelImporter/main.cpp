@@ -473,5 +473,15 @@ int main(int argc, char* argv[])
 		printf("Saved Skeleton Failure...\n");
 	}
 
+	printf("Saving Animation...\n");
+	if (ModelIO::SaveAnimation(args.outputFileName, model))
+	{
+		printf("Saved Animation Success...\n");
+	}
+	else
+	{
+		printf("Saved Animation Failure...\n");
+	}
+
 	return 0;
 }

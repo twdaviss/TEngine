@@ -4,6 +4,7 @@
 #include "Model.h"
 #include "Colors.h"
 #include "SimpleDraw.h"
+#include "Animator.h"
 
 using namespace TEngine;
 using namespace TEngine::Graphics;
@@ -12,31 +13,38 @@ namespace
 {
 	using namespace TEngine::Graphics::AnimationUtil;
 
-	void ComputeBoneTransformsRecursive(const Bone* bone, BoneTransforms& boneTransforms)
+	void ComputeBoneTransformsRecursive(const Bone* bone, BoneTransforms& boneTransforms, const Animator* animator)
 	{
 		if (bone != nullptr)
 		{
-			boneTransforms[bone->index] = bone->toParentTransform;
+			if (animator != nullptr)
+			{
+				boneTransforms[bone->index] = animator->GetToParentTransform(bone);
+			}
+			else
+			{
+				boneTransforms[bone->index] = bone->toParentTransform;
+			}
+
 			if (bone->parent != nullptr)
 			{
 				boneTransforms[bone->index] = boneTransforms[bone->index] * boneTransforms[bone->parentIndex];
 			}
-
 			for (const Bone* child : bone->children)
 			{
-				ComputeBoneTransformsRecursive(child, boneTransforms);
+				ComputeBoneTransformsRecursive(child, boneTransforms, animator);
 			}
 		}
 	}
 }
 
-void AnimationUtil::ComputeBoneTransforms(ModelId id, BoneTransforms& boneTransforms)
+void AnimationUtil::ComputeBoneTransforms(ModelId id, BoneTransforms& boneTransforms, const Animator* animator)
 {
 	const Model* model = ModelManager::Get()->GetModel(id);
 	if (model->skeleton != nullptr)
 	{
 		boneTransforms.resize(model->skeleton->bones.size(), Math::Matrix4::Identity);
-		ComputeBoneTransformsRecursive(model->skeleton->root, boneTransforms);
+		ComputeBoneTransformsRecursive(model->skeleton->root, boneTransforms, animator);
 	}
 }
 

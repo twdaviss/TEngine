@@ -9,6 +9,8 @@
 namespace TEngine::Graphics
 {
 	struct Model;
+	class Animator;
+
 	struct RenderObject
 	{
 		void Terminate();
@@ -25,11 +27,12 @@ namespace TEngine::Graphics
 
 		ModelId modelId;
 		const Skeleton* skeleton = nullptr;
+		const Animator* animator = nullptr;
 	};
 
 	using RenderGroup = std::vector<RenderObject>;
-	[[nodiscard]] RenderGroup CreateRenderGroup(ModelId modelId);
-	[[nodiscard]] RenderGroup CreateRenderGroup(const Model& model, ModelId modelId = 0);
+	[[nodiscard]] RenderGroup CreateRenderGroup(ModelId modelId, const Animator* animator = nullptr);
+	[[nodiscard]] RenderGroup CreateRenderGroup(const Model& model, ModelId modelId = 0, const Animator* animator = nullptr);
 
 	void CleanupRenderGroup(RenderGroup& renderGroup);
 

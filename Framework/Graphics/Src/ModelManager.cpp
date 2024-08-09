@@ -6,7 +6,6 @@
 using namespace TEngine;
 using namespace TEngine::Graphics;
 
-
 namespace
 {
 	std::unique_ptr<ModelManager> sModelManager;
@@ -45,6 +44,7 @@ ModelId ModelManager::LoadModelId(const std::filesystem::path& filePath)
 		ModelIO::LoadModel(filePath, *modelPtr);
 		ModelIO::LoadMaterial(filePath, *modelPtr);
 		ModelIO::LoadSkeleton(filePath, *modelPtr);
+		ModelIO::LoadAnimation(filePath, *modelPtr);
 	}
 	return modelId;
 }
