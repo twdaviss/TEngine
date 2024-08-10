@@ -15,7 +15,8 @@ void Animator::Initialize(ModelId id)
 
 void Animator::PlayAnimation(int clipIndex, bool looping)
 {
-	if (clipIndex >= 0 && clipIndex < GetAnimationCount())
+	int animClipCount = GetAnimationCount();
+	if (clipIndex < animClipCount)
 	{
 		mClipIndex = clipIndex;
 		mIsLooping = looping;

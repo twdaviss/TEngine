@@ -1,3 +1,5 @@
--scale 0.01 ../../Assets/Models/Ninja/Ch24_nonPBR.fbx ../../Assets/Models/Ninja/Ch24_nonPBR.fbx
--scale 0.01 ../../Assets/Models/Dying/Dying.fbx ../../Assets/Models/Dying/Dying.fbx
--scale 0.01 ../../Assets/Models/Dancing/Dancing.fbx ../../Assets/Models/Dancing/Dancing.fbx
+-scale 0.01 ../../Assets/Models/Ninja/Ninja.fbx ../../Assets/Models/Ninja/Ninja.fbx
+-scale 0.01 -animOnly 1 ../../Assets/Models/Ninja/Dying.fbx ../../Assets/Models/Ninja/Animations/Dying.fbx
+-scale 0.01 -animOnly 1 ../../Assets/Models/Ninja/RumbaDancing.fbx ../../Assets/Models/Ninja/Animations/RumbaDancing.fbx
+-scale 0.01 -animOnly 1 ../../Assets/Models/Ninja/BreakDance.fbx ../../Assets/Models/Ninja/Animations/BreakDance.fbx
+-scale 0.01 -animOnly 1 ../../Assets/Models/Ninja/BackFlip.fbx ../../Assets/Models/Ninja/Animations/BackFlip.fbx

@@ -14,6 +14,7 @@ struct Arguments
 	std::filesystem::path inputFileName;
 	std::filesystem::path outputFileName;
 	float scale = 1.0f;
+	bool animOnly = false;
 };
 
 Vector3 ToVector3(const aiVector3D& v)
@@ -78,6 +79,11 @@ std::optional<Arguments> ParseArgs(int argc, char* argv[])
 		if (strcmp(argv[i], "-scale") == 0)
 		{
 			args.scale = atof(argv[i + 1]);
+			++i;
+		}
+		else if (strcmp(argv[i], "-animOnly") == 0)
+		{
+			args.animOnly = atoi(argv[i + 1]) == 1;
 			++i;
 		}
 	}
@@ -259,47 +265,48 @@ int main(int argc, char* argv[])
 
 	Model model;
 	BoneIndexLookup boneIndexLookup;
-	if (scene->HasMeshes())
-	{
-		printf("Build skeleton..\n");
-		model.skeleton = std::make_unique<Skeleton>();
-		BuildSkeleton(*scene->mRootNode, nullptr,*model.skeleton, boneIndexLookup);
-		for (uint32_t meshIndex = 0; meshIndex < scene->mNumMeshes; ++meshIndex)
-		{
-			const aiMesh* assimpMesh = scene->mMeshes[meshIndex];
-			if (assimpMesh->mPrimitiveTypes != aiPrimitiveType::aiPrimitiveType_TRIANGLE)
-			{
-				continue;
-			}
-			if (assimpMesh->HasBones())
-			{
-				for (uint32_t b = 0; b < assimpMesh->mNumBones; ++b)
-				{
-					const auto bone = assimpMesh->mBones[b];
-					SetBoneOffsetTransform(bone, *model.skeleton, boneIndexLookup);
-				}
-			}
-		}
-		for (auto& bone : model.skeleton->bones)
-		{
-			bone->offsetTransform._41 *= args.scale;
-			bone->offsetTransform._42 *= args.scale;
-			bone->offsetTransform._43 *= args.scale;
-			bone->toParentTransform._41 *= args.scale;
-			bone->toParentTransform._42 *= args.scale;
-			bone->toParentTransform._43 *= args.scale;
-		}
+	printf("Building skeleton..\n");
+	model.skeleton = std::make_unique<Skeleton>();
+	BuildSkeleton(*scene->mRootNode, nullptr, *model.skeleton, boneIndexLookup);
 
+	for (uint32_t meshIndex = 0; meshIndex < scene->mNumMeshes; ++meshIndex)
+	{
+		const aiMesh* assimpMesh = scene->mMeshes[meshIndex];
+		if (assimpMesh->mPrimitiveTypes != aiPrimitiveType::aiPrimitiveType_TRIANGLE)
+		{
+			continue;
+		}
+		if (assimpMesh->HasBones())
+		{
+			for (uint32_t b = 0; b < assimpMesh->mNumBones; ++b)
+			{
+				const auto bone = assimpMesh->mBones[b];
+				SetBoneOffsetTransform(bone, *model.skeleton, boneIndexLookup);
+			}
+		}
+	}
+	for (auto& bone : model.skeleton->bones)
+	{
+		bone->offsetTransform._41 *= args.scale;
+		bone->offsetTransform._42 *= args.scale;
+		bone->offsetTransform._43 *= args.scale;
+		bone->toParentTransform._41 *= args.scale;
+		bone->toParentTransform._42 *= args.scale;
+		bone->toParentTransform._43 *= args.scale;
+	}
+
+	if (!args.animOnly && scene->HasMeshes())
+	{
 		printf("Reading mesh data...\n");
 		for (uint32_t meshIndex = 0; meshIndex < scene->mNumMeshes; ++meshIndex)
 		{
 			const aiMesh*
-			assimpMesh = scene->mMeshes[meshIndex];
+				assimpMesh = scene->mMeshes[meshIndex];
 			if (assimpMesh->mPrimitiveTypes != aiPrimitiveType_TRIANGLE)
 			{
 				continue;
 			}
-			
+
 			const uint32_t numVertices = assimpMesh->mNumVertices;
 			const uint32_t numFaces = assimpMesh->mNumFaces;
 			const uint32_t numIndices = assimpMesh->mNumFaces * 3;
@@ -363,7 +370,7 @@ int main(int argc, char* argv[])
 		}
 	}
 
-	if (scene->HasMaterials())
+	if (!args.animOnly && scene->HasMaterials())
 	{
 		printf("Reading Material Data...\n");
 
@@ -443,34 +450,37 @@ int main(int argc, char* argv[])
 		}
 	}
 
-	printf("Saving Model...\n");
-	if (ModelIO::SaveModel(args.outputFileName, model))
+	if (!args.animOnly)
 	{
-		printf("Saved Model Success...\n");
-	}
-	else
-	{
-		printf("Saved Model Failure...\n");
-	}
+		printf("Saving Model...\n");
+		if (ModelIO::SaveModel(args.outputFileName, model))
+		{
+			printf("Saved Model Success...\n");
+		}
+		else
+		{
+			printf("Saved Model Failure...\n");
+		}
 
-	printf("Saving Material...\n");
-	if (ModelIO::SaveMaterial(args.outputFileName, model))
-	{
-		printf("Saved Material Success...\n");
-	}
-	else
-	{
-		printf("Saved Material Failure...\n");
-	}
+		printf("Saving Material...\n");
+		if (ModelIO::SaveMaterial(args.outputFileName, model))
+		{
+			printf("Saved Material Success...\n");
+		}
+		else
+		{
+			printf("Saved Material Failure...\n");
+		}
 
-	printf("Saving Skeleton...\n");
-	if (ModelIO::SaveSkeleton(args.outputFileName, model))
-	{
-		printf("Saved Skeleton Success...\n");
-	}
-	else
-	{
-		printf("Saved Skeleton Failure...\n");
+		printf("Saving Skeleton...\n");
+		if (ModelIO::SaveSkeleton(args.outputFileName, model))
+		{
+			printf("Saved Skeleton Success...\n");
+		}
+		else
+		{
+			printf("Saved Skeleton Failure...\n");
+		}
 	}
 
 	printf("Saving Animation...\n");

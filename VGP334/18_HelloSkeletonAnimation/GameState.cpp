@@ -14,11 +14,15 @@ void GameState::Initialize()
 	mDirectionalLight.diffuse = { 0.8f, 0.8f, 0.8f, 1.0f };
 	mDirectionalLight.specular = { 1.0f, 1.0f, 1.0f, 1.0f };
 
-	mModelId = ModelManager::Get()->LoadModelId("../../Assets/Models/Dying/Dying.Model");
+	mModelId = ModelManager::Get()->LoadModelId("../../Assets/Models/Ninja/Ninja.Model");
 	mCharacter = CreateRenderGroup(mModelId, &mCharacterAnimator);
 	mCharacterAnimator.Initialize(mModelId);
-
 	SetRenderGroupPosition(mCharacter, { 0,0,0 });
+
+	ModelManager::Get()->AddAnimation(mModelId, "../../Assets/Models/Ninja/Animations/Dying.animset");
+	ModelManager::Get()->AddAnimation(mModelId, "../../Assets/Models/Ninja/Animations/RumbaDancing.animset");
+	ModelManager::Get()->AddAnimation(mModelId, "../../Assets/Models/Ninja/Animations/BreakDance.animset");
+	ModelManager::Get()->AddAnimation(mModelId, "../../Assets/Models/Ninja/Animations/BackFlip.animset");
 
 	std::filesystem::path shaderFilePath = L"../../Assets/Shaders/Standard.fx";
 	mStandardEffect.Initialize(shaderFilePath);
