@@ -6,7 +6,7 @@ using namespace TEngine;
 using namespace TEngine::Core;
 using namespace TEngine::Graphics;
 using namespace TEngine::Input;
-using namespace TEngine::Graphics::SimpleDraw;
+using namespace TEngine::Physics;
 
 void App::ChangeState(const std::string& stateName)
 {
@@ -37,6 +37,9 @@ void App::Run(const AppConfig& config)
 	TextureManager::StaticInitialize("../../Assets/Images/");
 	ModelManager::StaticInitialize();
 
+	PhysicsWorld::Settings settings;
+	PhysicsWorld::StaticInitialize(settings);
+
 	ASSERT(mCurrentState != nullptr, "App: need an app state");
 	mCurrentState->Initialize();
 
@@ -59,7 +62,11 @@ void App::Run(const AppConfig& config)
 			mCurrentState->Initialize();
 		}
 		float deltaTime = TimeUtil::GetDeltaTime();
-		mCurrentState->Update(deltaTime);
+		if (deltaTime < 0.5f)
+		{
+			PhysicsWorld::Get()->Update(deltaTime);
+			mCurrentState->Update(deltaTime);
+		}
 		GraphicsSystem* gs = GraphicsSystem::Get();
 		gs->BeginRender();
 			mCurrentState->Render();
@@ -71,6 +78,7 @@ void App::Run(const AppConfig& config)
 
 	mCurrentState->Terminate();
 
+	PhysicsWorld::StaticTerminate();
 	ModelManager::StaticTerminate();
 	TextureManager::StaticTerminate();
 	SimpleDraw::StaticTerminate();
