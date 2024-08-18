@@ -7,6 +7,12 @@
     <Filter Include="Src">
       <UniqueIdentifier>{fc1a6f8e-05ee-4a5b-9eec-dc9f1ab4798a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Inc\Particles">
+      <UniqueIdentifier>{748db31d-a5bd-42ad-874b-1324658768fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Particles">
+      <UniqueIdentifier>{fde0a3a0-b5fe-4cc3-a26d-c7cf9b28c6e7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -33,6 +39,15 @@
     <ClInclude Include="Inc\RigidBody.h">
       <Filter>Inc</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\PhysicsDebugDrawer.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\Particle.h">
+      <Filter>Inc\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\ParticleSystem.h">
+      <Filter>Inc\Particles</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Precompiled.cpp">
@@ -46,6 +61,15 @@
     </ClCompile>
     <ClCompile Include="Src\RigidBody.cpp">
       <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\PhysicsDebugDrawer.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Particle.cpp">
+      <Filter>Src\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\ParticleSystem.cpp">
+      <Filter>Src\Particles</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

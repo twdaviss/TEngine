@@ -19,29 +19,15 @@ void GameState::Initialize()
 	mStandardEffect.SetCamera(mCamera);
 	mStandardEffect.SetDirectionalLight(mDirectionalLight);
 
-	Mesh ball = MeshBuilder::CreateSphere(60, 60, 0.5f);
-	mBall.meshBuffer.Initialize(ball);
-	mBall.diffuseMapId = TextureManager::Get()->LoadTexture("misc/basketball.jpg");
-	mBall.transform.position = { 0.0f, 5.0f, 0.0f };
-
-	mBallShape.InitializeSphere(1.0f);
-	mBallRB.Initialize(mBall.transform, mBallShape, 3.0f);
-
-	Mesh ground = MeshBuilder::CreateHorizontalPlane(10, 10, 1.0f);
-	mGround.meshBuffer.Initialize(ground);
-	mGround.diffuseMapId = TextureManager::Get()->LoadTexture("misc/concrete.jpg");
-	mGroundShape.InitializeHull({ 5.0f,0.5f,5.0f }, { 0.05f, -0.5f,0.0f });
-	mGroundRB.Initialize(mGround.transform, mGroundShape);
+	Mesh mesh = MeshBuilder::CreateSphere(30, 30, 1.0f);
+	mParticleRenderObject.meshBuffer.Initialize(mesh);
+	mParticle.Initialize();
 }
 
 void GameState::Terminate()
 {
-	mGroundRB.Terminate();
-	mGroundShape.Terminate();
-	mGround.Terminate();
-	mBallRB.Terminate();
-	mBallShape.Terminate();
-	mBall.Terminate();
+	mParticle.Terminate();
+	mParticleRenderObject.Terminate();
 	mStandardEffect.Terminate();
 }
 
@@ -83,16 +69,33 @@ void GameState::Update(float deltaTime)
 
 	if (input->IsKeyPressed(KeyCode::SPACE))
 	{
-		mBallRB.SetPosition({ 0.0f, 10.0f, 0.0f });
-		mBallRB.SetVelocity({ 0.0f, 0.0f, 0.0f });
+		Physics::ParticleActivationData data;
+		data.startColor = Colors::Red;
+		data.endColor = Colors::Yellow;
+		data.startScale = {0.5f, 0.5f, 0.5f };
+		data.endScale = { 0.1f, 0.1f, 0.1f };
+		data.lifeTime = 3.0f;
+		data.position = Vector3::Zero;
+		data.velocity = { 2.0f, 4.0f, 0.0f };
+		mParticle.Activate(data);
 	}
+	mParticle.Update(deltaTime);
 }
 
 void GameState::Render()
 {
 	mStandardEffect.Begin();
-		mStandardEffect.Render(mBall);
-		mStandardEffect.Render(mGround);
+	if (mParticle.isActive())
+	{
+		Physics::CurrentParticleInfo info;
+		mParticle.ObtainCurrentInfo(info);
+		mParticleRenderObject.transform = info.transform;
+		mParticleRenderObject.material.ambient = info.color;
+		mParticleRenderObject.material.diffuse = info.color;
+		mParticleRenderObject.material.specular = info.color;
+		mParticleRenderObject.material.emissive = info.color;
+		mStandardEffect.Render(mParticleRenderObject);
+	}
 	mStandardEffect.End();
 }
 
@@ -110,8 +113,5 @@ void GameState::DebugUI()
 			ImGui::ColorEdit4("Specular##Light", &mDirectionalLight.specular.r);
 		}
 		mStandardEffect.DebugUI();
-		Physics::PhysicsWorld::Get()->DebugUI();
 	ImGui::End();
-
-	SimpleDraw::Render(mCamera);
 }

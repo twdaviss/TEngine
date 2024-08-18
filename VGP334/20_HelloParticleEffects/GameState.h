@@ -16,12 +16,7 @@ protected:
 	TEngine::Graphics::Camera mCamera;
 	TEngine::Graphics::StandardEffect mStandardEffect;
 
-	TEngine::Graphics::RenderObject mBall;
-	TEngine::Physics::CollisionShape mBallShape;
-	TEngine::Physics::RigidBody mBallRB;
-
-	TEngine::Graphics::RenderObject mGround;
-	TEngine::Physics::CollisionShape mGroundShape;
-	TEngine::Physics::RigidBody mGroundRB;
+	TEngine::Graphics::RenderObject mParticleRenderObject;
+	TEngine::Physics::Particle mParticle;
 };
 
