@@ -33,7 +33,7 @@ void Particle::Update(float deltaTime)
 	mLifeTime -= deltaTime;
 }
 
-bool Particle::isActive() const
+bool Particle::IsActive() const
 {
 	return mLifeTime > 0.0f;
 }

@@ -19,7 +19,7 @@ void GameState::Initialize()
 	mStandardEffect.SetCamera(mCamera);
 	mStandardEffect.SetDirectionalLight(mDirectionalLight);
 
-	Mesh ball = MeshBuilder::CreateSphere(60, 60, 0.5f);
+	Mesh ball = MeshBuilder::CreateSphere(60, 60, 1.0f);
 	mBall.meshBuffer.Initialize(ball);
 	mBall.diffuseMapId = TextureManager::Get()->LoadTexture("misc/basketball.jpg");
 	mBall.transform.position = { 0.0f, 5.0f, 0.0f };

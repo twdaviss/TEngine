@@ -6,7 +6,7 @@ using namespace TEngine::Input;
 
 void GameState::Initialize()
 {
-	mCamera.SetPosition({ 0.0f,5.0f,-10.0f });
+	mCamera.SetPosition({ 0.0f,4.0f,-10.0f });
 	mCamera.SetLookAt({ 0.0f,0.0f,0.0f });
 
 	mDirectionalLight.direction = Math::Normalize({ 1.0f, -1.0f, 1.0f });
@@ -76,7 +76,7 @@ void GameState::Update(float deltaTime)
 		data.endScale = { 0.1f, 0.1f, 0.1f };
 		data.lifeTime = 3.0f;
 		data.position = Vector3::Zero;
-		data.velocity = { 2.0f, 4.0f, 0.0f };
+		data.velocity = { 2.0f, 10.0f, 0.0f };
 		mParticle.Activate(data);
 	}
 	mParticle.Update(deltaTime);
@@ -84,8 +84,10 @@ void GameState::Update(float deltaTime)
 
 void GameState::Render()
 {
+	SimpleDraw::AddGroundPlane(20.0f, Colors::White);
+	SimpleDraw::Render(mCamera);
 	mStandardEffect.Begin();
-	if (mParticle.isActive())
+	if (mParticle.IsActive())
 	{
 		Physics::CurrentParticleInfo info;
 		mParticle.ObtainCurrentInfo(info);
@@ -113,5 +115,8 @@ void GameState::DebugUI()
 			ImGui::ColorEdit4("Specular##Light", &mDirectionalLight.specular.r);
 		}
 		mStandardEffect.DebugUI();
+		Physics::PhysicsWorld::Get()->DebugUI();
 	ImGui::End();
+
+	SimpleDraw::Render(mCamera);
 }

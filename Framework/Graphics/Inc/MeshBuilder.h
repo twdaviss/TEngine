@@ -104,6 +104,8 @@ namespace TEngine::Graphics
 
 		//screen stuff
 		static MeshPX CreateScreenQuad();
+
+		//sprite squad
 		static Mesh CreateSpriteQuad(float width, float height);
 	};
 }

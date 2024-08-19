@@ -76,15 +76,20 @@ void PhysicsWorld::DebugUI()
 	if (ImGui::CollapsingHeader("Physics", ImGuiTreeNodeFlags_DefaultOpen))
 	{
 		int debugMode = mDebugDrawer.getDebugMode();
+		
 		bool isEnabled = (debugMode & btIDebugDraw::DBG_DrawWireframe) > 0;
 		if (ImGui::Checkbox("DrawWireFrame", &isEnabled))
 		{
 			debugMode = (isEnabled) ? debugMode | btIDebugDraw::DBG_DrawWireframe : debugMode & ~btIDebugDraw::DBG_DrawWireframe;
 		}
+
+		isEnabled = (debugMode & btIDebugDraw::DBG_DrawAabb) > 0;
 		if (ImGui::Checkbox("DrawAABB", &isEnabled))
 		{
 			debugMode = (isEnabled) ? debugMode | btIDebugDraw::DBG_DrawAabb : debugMode & ~btIDebugDraw::DBG_DrawAabb;
 		}
+
+		isEnabled = (debugMode & btIDebugDraw::DBG_DrawContactPoints) > 0;
 		if (ImGui::Checkbox("DrawContactPoints", &isEnabled))
 		{
 			debugMode = (isEnabled) ? debugMode | btIDebugDraw::DBG_DrawContactPoints : debugMode & ~btIDebugDraw::DBG_DrawContactPoints;

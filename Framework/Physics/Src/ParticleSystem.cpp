@@ -66,6 +66,19 @@ void ParticleSystem::Update(float deltaTime)
 
 bool ParticleSystem::IsActive()
 {
+	if (mLifeTime > 0.0f)
+	{
+		return true;
+	}
+
+	for (auto& p : mParticles)
+	{
+		if (p->IsActive())
+		{
+			return true;
+		}
+	}
+
 	return false;
 }
 

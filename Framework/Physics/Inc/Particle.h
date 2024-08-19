@@ -29,7 +29,7 @@ namespace TEngine::Physics
 		void Activate(const ParticleActivationData& data);
 		void Update(float deltaTime);
 
-		bool isActive() const;
+		bool IsActive() const;
 		void ObtainCurrentInfo(CurrentParticleInfo& info) const;
 
 		const Vector3 GetPosition() const;

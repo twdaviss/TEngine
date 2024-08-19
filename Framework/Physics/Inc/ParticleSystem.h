@@ -6,7 +6,7 @@ namespace TEngine::Physics
 {
 	struct ParticleSystemInfo
 	{
-		int maxParticles = 100.0f;
+		int maxParticles = 100;
 		Graphics::TextureId particleTextureId = 0;
 		Math::Vector3 spawnPosition = Math::Vector3::Zero;
 		Math::Vector3 spawnDirection = Math::Vector3::YAxis;
@@ -56,9 +56,12 @@ namespace TEngine::Physics
 				for (const int& index : mParticleIndices)
 				{
 					Particle* particle = mParticles[index].get();
-					particle->ObtainCurrentInfo(info);
-					mParticleObject.transform = info.transform;
-					effect.Render(mParticleObject, info.color);
+					if (particle->IsActive())
+					{
+						particle->ObtainCurrentInfo(info);
+						mParticleObject.transform = info.transform;
+						effect.Render(mParticleObject, info.color);
+					}
 				}
 			}
 		}
