@@ -3,6 +3,7 @@
 using namespace TEngine;
 using namespace TEngine::Graphics;
 using namespace TEngine::Input;
+using namespace TEngine::Physics;
 
 void GameState::Initialize()
 {
@@ -14,21 +15,42 @@ void GameState::Initialize()
 	mDirectionalLight.diffuse = { 0.8f, 0.8f, 0.8f, 1.0f };
 	mDirectionalLight.specular = { 1.0f, 1.0f, 1.0f, 1.0f };
 
-	std::filesystem::path shaderFilePath = L"../../Assets/Shaders/Standard.fx";
-	mStandardEffect.Initialize(shaderFilePath);
-	mStandardEffect.SetCamera(mCamera);
-	mStandardEffect.SetDirectionalLight(mDirectionalLight);
+	mParticleEffect.Initialize();
+	mParticleEffect.SetCamera(mCamera);
 
-	Mesh mesh = MeshBuilder::CreateSphere(30, 30, 1.0f);
-	mParticleRenderObject.meshBuffer.Initialize(mesh);
-	mParticle.Initialize();
+	ParticleSystemInfo info;
+	info.maxParticles = 100;
+	info.particleTextureId = TextureManager::Get()->LoadTexture("Images/pikachu.png");
+	info.spawnPosition = Math::Vector3::Zero;
+	info.spawnDirection = Math::Vector3::YAxis;
+	info.spawnDelay = 0.0f;
+	info.spawnLifeTime = 999999999999999.0f;
+	info.minParticlesPerEmit = 2;
+	info.maxParticlesPerEmit = 5;
+	info.minTimeBetweenEmit = 0.25f;
+	info.maxTimeBetweenEmit = 0.5f;
+	info.minSpawnAngle = -30.0f * Math::Constants::Pi/180;
+	info.maxSpawnAngle = 30.0f * Math::Constants::Pi / 180;;
+	info.minSpeed = 2.0f;
+	info.maxSpeed = 5.0f;
+	info.minParticleLifetime = 0.5f;
+	info.maxParticleLifetime = 1.0f;
+	info.minStartColor = Colors::Red;
+	info.maxStartColor = Colors::Yellow;
+	info.minEndColor = Colors::White;
+	info.maxEndColor = Colors::Orange;
+	info.minStartScale = Math::Vector3::One;
+	info.maxStartScale = { 1.5f,1.5f,1.5f };
+	info.minEndScale = { 0.005f,0.005f,0.005f };
+	info.maxEndScale = { 0.1f,0.1f,0.1f };
+	mParticleSystem.Initialize(info);
+	mParticleSystem.SetCamera(mCamera);
 }
 
 void GameState::Terminate()
 {
-	mParticle.Terminate();
-	mParticleRenderObject.Terminate();
-	mStandardEffect.Terminate();
+	mParticleSystem.Terminate();
+	mParticleEffect.Terminate();
 }
 
 void GameState::Update(float deltaTime)
@@ -67,54 +89,24 @@ void GameState::Update(float deltaTime)
 		mCamera.Pitch(input->GetMouseMoveY() * turnSpeed * deltaTime);
 	}
 
-	if (input->IsKeyPressed(KeyCode::SPACE))
-	{
-		Physics::ParticleActivationData data;
-		data.startColor = Colors::Red;
-		data.endColor = Colors::Yellow;
-		data.startScale = {0.5f, 0.5f, 0.5f };
-		data.endScale = { 0.1f, 0.1f, 0.1f };
-		data.lifeTime = 3.0f;
-		data.position = Vector3::Zero;
-		data.velocity = { 2.0f, 10.0f, 0.0f };
-		mParticle.Activate(data);
-	}
-	mParticle.Update(deltaTime);
+	mParticleSystem.Update(deltaTime);
 }
 
 void GameState::Render()
 {
 	SimpleDraw::AddGroundPlane(20.0f, Colors::White);
 	SimpleDraw::Render(mCamera);
-	mStandardEffect.Begin();
-	if (mParticle.IsActive())
-	{
-		Physics::CurrentParticleInfo info;
-		mParticle.ObtainCurrentInfo(info);
-		mParticleRenderObject.transform = info.transform;
-		mParticleRenderObject.material.ambient = info.color;
-		mParticleRenderObject.material.diffuse = info.color;
-		mParticleRenderObject.material.specular = info.color;
-		mParticleRenderObject.material.emissive = info.color;
-		mStandardEffect.Render(mParticleRenderObject);
-	}
-	mStandardEffect.End();
+	
+	mParticleEffect.Begin();
+		mParticleSystem.Render(mParticleEffect);
+	mParticleEffect.End();
 }
 
 void GameState::DebugUI()
 {
 	ImGui::Begin("Debug Controls", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
-		if (ImGui::CollapsingHeader("Light", ImGuiTreeNodeFlags_DefaultOpen))
-		{
-			if (ImGui::DragFloat3("Direction", &mDirectionalLight.direction.x, 0.01f))
-			{
-				mDirectionalLight.direction = Math::Normalize(mDirectionalLight.direction);
-			}
-			ImGui::ColorEdit4("Ambient##Light", &mDirectionalLight.ambient.r);
-			ImGui::ColorEdit4("Diffuse##Light", &mDirectionalLight.diffuse.r);
-			ImGui::ColorEdit4("Specular##Light", &mDirectionalLight.specular.r);
-		}
-		mStandardEffect.DebugUI();
+		mParticleEffect.DebugUI();
+		mParticleSystem.DebugUI();
 		Physics::PhysicsWorld::Get()->DebugUI();
 	ImGui::End();
 

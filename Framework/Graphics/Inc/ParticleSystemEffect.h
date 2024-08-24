@@ -11,7 +11,7 @@
 namespace TEngine::Graphics
 {
 	class Camera;
-	class RenderObject;
+	struct RenderObject;
 
 	class ParticleSystemEffect
 	{

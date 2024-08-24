@@ -40,15 +40,22 @@ PhysicsWorld::~PhysicsWorld()
 void PhysicsWorld::Initialize(const Settings& settings)
 {
 	mSettings = settings;
-	mCollisionConfiguraton = new btDefaultCollisionConfiguration();
-	mDispatcher = new btCollisionDispatcher(mCollisionConfiguraton);
 	mInterface = new btDbvtBroadphase();
 	mSolver = new btSequentialImpulseConstraintSolver();
-	mDynamicWorld = new btDiscreteDynamicsWorld(mDispatcher, mInterface, mSolver, mCollisionConfiguraton);
+#ifdef USE_SOFT_BODY
+	mCollisionConfiguraton = new btSoftBodyRigidBodyCollisionConfiguration();
+	mDispatcher = new btCollisionDispatcher(mCollisionConfiguraton);
+	mDynamicWorld = new btSoftRigidDynamicsWorld(mDispatcher, mInterface, mSolver, mCollisionConfiguraton);
+#else
+	mCollisionConfiguraton = new btDefaultCollisionConfiguration();
+	mDispatcher = new btCollisionDispatcher(mCollisionConfiguraton);
+	mDynamicWorld = new btDiscreteDynamicsWorld(mCollisionConfiguraton);
+#endif
 	mDynamicWorld->setGravity(ConvertTobtVector3(settings.gravity));
-
 	mDynamicWorld->setDebugDrawer(&mDebugDrawer);
 }
+
+
 
 void PhysicsWorld::Terminate()
 {
@@ -105,6 +112,12 @@ void PhysicsWorld::Register(PhysicsObject* physicsObject)
 	if (iter == mPhysicsObjects.end())
 	{
 		mPhysicsObjects.push_back(physicsObject);
+#ifdef USE_SOFT_BODY
+		if (physicsObject->GetSoftBody() != nullptr)
+		{
+			mDynamicWorld->addSoftBody(physicsObject->GetSoftBody());
+		}
+#endif
 		if (physicsObject->GetRigidBody() != nullptr)
 		{
 			mDynamicWorld->addRigidBody(physicsObject->GetRigidBody());
@@ -117,6 +130,12 @@ void PhysicsWorld::Unregister(PhysicsObject* physicsObject)
 	auto iter = std::find(mPhysicsObjects.begin(), mPhysicsObjects.end(), physicsObject);
 	if (iter != mPhysicsObjects.end())
 	{
+#ifdef USE_SOFT_BODY
+		if (physicsObject->GetSoftBody() != nullptr)
+		{
+			mDynamicWorld->removeSoftBody(physicsObject->GetSoftBody());
+		}
+#endif
 		if (physicsObject->GetRigidBody() != nullptr)
 		{
 			mDynamicWorld->removeRigidBody(physicsObject->GetRigidBody());

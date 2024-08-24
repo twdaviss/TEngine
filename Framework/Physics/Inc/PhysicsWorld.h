@@ -42,7 +42,15 @@ namespace TEngine::Physics
 		btBroadphaseInterface* mInterface = nullptr;
 		btCollisionDispatcher* mDispatcher = nullptr;
 		btDefaultCollisionConfiguration* mCollisionConfiguraton = nullptr;
-		btDiscreteDynamicsWorld* mDynamicWorld = nullptr;
 		btSequentialImpulseConstraintSolver* mSolver = nullptr;
+
+		friend class SoftBody;
+#ifdef USE_SOFT_BODY
+		btSoftRigidDynamicsWorld* mDynamicWorld = nullptr;
+		btSoftBodyWorldInfo& GetSoftBodyWorldInfo() { return mDynamicWorld->getWorldInfo(); }
+#else
+		btDiscreteDynamicsWorld* mDynamicWorld = nullptr;
+		btSoftBodyWorldInfo& GetSoftBodyWorldInfo() { return btSoftBodyWorldInfo(); }
+#endif
 	};
 }

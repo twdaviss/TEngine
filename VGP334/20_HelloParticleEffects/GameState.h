@@ -14,9 +14,7 @@ public:
 protected:
 	TEngine::Graphics::DirectionalLight mDirectionalLight;
 	TEngine::Graphics::Camera mCamera;
-	TEngine::Graphics::StandardEffect mStandardEffect;
-
-	TEngine::Graphics::RenderObject mParticleRenderObject;
-	TEngine::Physics::Particle mParticle;
+	TEngine::Graphics::ParticleSystemEffect mParticleEffect;
+	TEngine::Physics::ParticleSystem mParticleSystem;
 };
 
