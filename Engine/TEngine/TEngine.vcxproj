@@ -150,6 +150,9 @@
     <ClCompile Include="Src\TEngine.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Framework\Audio\Audio.vcxproj">
+      <Project>{f27af855-20da-4fb7-8650-6ec0468811b9}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\..\Framework\Core\Core.vcxproj">
       <Project>{59201557-9d7e-434f-bce0-6ba9dd8c50bb}</Project>
     </ProjectReference>

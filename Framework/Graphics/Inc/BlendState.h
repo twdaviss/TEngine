@@ -27,5 +27,6 @@ namespace TEngine::Graphics
 		void Set();
 	private:
 		ID3D11BlendState* mBlendState = nullptr;
+		ID3D11DepthStencilState* mDepthStencilState = nullptr;
 	};
 }

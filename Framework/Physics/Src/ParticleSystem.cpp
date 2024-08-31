@@ -55,12 +55,6 @@ void ParticleSystem::Update(float deltaTime)
 		{
 			p->Update(deltaTime);
 		}
-		std::sort(mParticleIndices.begin(), mParticleIndices.end(), [&](const int& a, const int& b)
-		{
-			float distSqrA = MagnitudeSqr(mParticles[a]->GetPosition() - mCamera->GetPosition());
-			float distSqrB = MagnitudeSqr(mParticles[b]->GetPosition() - mCamera->GetPosition());
-			return distSqrB < distSqrA;
-		});
 	}
 }
 

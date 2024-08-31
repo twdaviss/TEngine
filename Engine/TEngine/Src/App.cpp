@@ -7,6 +7,7 @@ using namespace TEngine::Core;
 using namespace TEngine::Graphics;
 using namespace TEngine::Input;
 using namespace TEngine::Physics;
+using namespace TEngine::Audio;
 
 void App::ChangeState(const std::string& stateName)
 {
@@ -36,6 +37,8 @@ void App::Run(const AppConfig& config)
 	SimpleDraw::StaticInitialize(config.maxVertexCount);
 	TextureManager::StaticInitialize("../../Assets/Images/");
 	ModelManager::StaticInitialize();
+	AudioSystem::StaticInitialize();
+	SoundEffectManager::StaticInitialize("../../Assets/Sounds/");
 
 	PhysicsWorld::Settings settings;
 	PhysicsWorld::StaticInitialize(settings);
@@ -61,6 +64,9 @@ void App::Run(const AppConfig& config)
 			mCurrentState = std::exchange(mNextState, nullptr);
 			mCurrentState->Initialize();
 		}
+
+		AudioSystem::Get()->Update();
+
 		float deltaTime = TimeUtil::GetDeltaTime();
 		if (deltaTime < 0.5f)
 		{
@@ -78,6 +84,8 @@ void App::Run(const AppConfig& config)
 
 	mCurrentState->Terminate();
 
+	SoundEffectManager::StaticTerminate();
+	AudioSystem::StaticTerminate();
 	PhysicsWorld::StaticTerminate();
 	ModelManager::StaticTerminate();
 	TextureManager::StaticTerminate();
