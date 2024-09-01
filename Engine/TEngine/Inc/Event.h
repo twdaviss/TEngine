@@ -1,29 +1,39 @@
 #pragma once
 
-enum EventType
+namespace TEngine
 {
-	None,
-	AnimEvent,
-	SpacePressedEvent,
-};
-class Event
-{
-public:
-	Event() = delete;
+	enum class EventType
+	{
+		None,
+		AnimEvent,
+		SpacePressedEvent,
+	};
+	class Event
+	{
+	public:
+		Event() = delete;
+		Event(EventType et) : mEventType(et) {}
+		virtual ~Event() = default;
 
-};
+		EventType GetType() const { return mEventType; }
+	private:
+		EventType mEventType = EventType::None;
+	};
 
-class AnimEvent : public Event
-{
-public:
-	AnimEvent() : Event(EventType::AnimEvent) {}
-	~AnimEvent() = default;
+	class AnimEvent : public Event
+	{
+	public:
+		AnimEvent() : Event(EventType::AnimEvent) {}
+		~AnimEvent() = default;
 
-	Graphics::ModelId modelId = 0;
-	std::string eventName = "";
-};
+		Graphics::ModelId modelId = 0;
+		std::string eventName = "";
+	};
 
-class SpacePressedEvent : public Event
-{
-	SpacePressedEvent() : Event(EventType::SpacePressedEvent);
-};
+	class SpacePressedEvent : public Event
+	{
+	public:
+		SpacePressedEvent() : Event(EventType::SpacePressedEvent){}
+		~SpacePressedEvent() = default;
+	};
+}

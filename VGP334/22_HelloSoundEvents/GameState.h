@@ -29,8 +29,9 @@ protected:
 	TEngine::ListenerId mSpaceEventId = 0;
 	TEngine::ListenerId mAnimEventId = 0;
 
-
-	TEngine::Audio::SoundId mSoundId = 0;
+	std::vector<TEngine::Audio::SoundId> mEventSoundIds;
+	TEngine::Graphics::Animation mEventAnimation;
+	float mEventAnimationTime = 0.0f;
 
 	int mAnimIndex = -1;
 	bool mDrawSkeleton = false;

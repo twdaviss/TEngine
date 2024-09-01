@@ -7,6 +7,7 @@ namespace
 {
 	std::unique_ptr<EventManager> sEventManager;
 }
+
 void TEngine::EventManager::StaticInitialize()
 {
     ASSERT(sEventManager == nullptr, "EventManager: is already initialized");
@@ -15,12 +16,17 @@ void TEngine::EventManager::StaticInitialize()
 
 void TEngine::EventManager::StaticTerminate()
 {
+    if (sEventManager != nullptr)
+    {
+        sEventManager->Terminate();
+        sEventManager.reset();
+    }
 }
 
 EventManager* TEngine::EventManager::Get()
 {
     ASSERT(sEventManager != nullptr, "EventManager: is not initialized");
-    return nullptr;
+    return sEventManager.get();
 }
 
 void TEngine::EventManager::Broadcast(const Event* event)
@@ -43,30 +49,33 @@ void TEngine::EventManager::Terminate()
 
 }
 
-uint32_t TEngine::EventManager::AddListener(EventType eventType, const EventCallback& cb)
+ListenerId TEngine::EventManager::AddListener(EventType eventType, const EventCallback& cb)
 {
     mEventListeners[eventType][++mListenerId] = cb;
     return mListenerId;
 }
 
-void TEngine::EventManager::RemoveListener(EventType eventType, uint32_t listenerId)
+void TEngine::EventManager::RemoveListener(EventType eventType, ListenerId listenerId)
 {
-    auto listenerIter = mEventListeners.find(eventType);
-    if (listenerIter != mEventListeners.end())
+    auto listenersIter = mEventListeners.find(eventType);
+    if (listenersIter != mEventListeners.end())
     {
-        auto iter = listenerIter->second.find(listenerId);
-        if (iter != listenerIter->second.end())
+        auto iter = listenersIter->second.find(listenerId);
+        if (iter != listenersIter->second.end())
         {
-            listenerIter->second.erase(iter);
+            listenersIter->second.erase(iter);
         }
     }
 }
 
 void TEngine::EventManager::BroadcastPrivate(const Event* event)
 {
-    auto& listeners = mEventListeners[event->GetType()];
-    if (auto& cb : listeners)
+    auto listenersIter = mEventListeners.find(event->GetType());
+    if (listenersIter != mEventListeners.end())
     {
-        cb.second(event);
+        for (auto& cb : listenersIter->second)
+        {
+            cb.second(event);
+        }
     }
 }

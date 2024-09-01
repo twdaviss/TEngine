@@ -22,7 +22,7 @@ namespace TEngine
 		void Terminate();
 
 		ListenerId AddListener(EventType eventType, const EventCallback& cb);
-		void RemoveListener(EventType eventType, uint32_t listenerId);
+		void RemoveListener(EventType eventType, ListenerId listenerId);
 
 	private:
 		void BroadcastPrivate(const Event* event);
