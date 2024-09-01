@@ -6,6 +6,9 @@
 
 #include "AppState.h"
 
+#include "Event.h"
+#include "EventManager.h"
+
 namespace TEngine
 {
 	App& MainApp();

@@ -12,6 +12,12 @@ public:
 	void DebugUI() override;
 
 protected:
+	void OnEvent2();
+	void OnEvent3();
+
+	void OnSpaceEvent(const TEngine::Event* event);
+	void OnAnimEvent(const TEngine::Event* event);
+
 	TEngine::Graphics::DirectionalLight mDirectionalLight;
 	TEngine::Graphics::Camera mCamera;
 
@@ -19,6 +25,10 @@ protected:
 	TEngine::Graphics::RenderGroup mCharacter;
 	TEngine::Graphics::Animator mCharacterAnimator;
 	TEngine::Graphics::StandardEffect mStandardEffect;
+
+	TEngine::ListenerId mSpaceEventId = 0;
+	TEngine::ListenerId mAnimEventId = 0;
+
 
 	TEngine::Audio::SoundId mSoundId = 0;
 
