@@ -184,6 +184,7 @@ void GameState::OnEvent3()
 void GameState::OnSpaceEvent(const TEngine::Event* event)
 {
 	LOG("SPACE EVENT OCCURED");
+	SoundEffectManager::Get()->Stop(mEventSoundIds[2]);
 	SoundEffectManager::Get()->Play(mEventSoundIds[2]);
 }
 
