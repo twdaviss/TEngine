@@ -118,6 +118,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "22_HelloSoundEvents", "VGP3
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DirectXTKAudio_Desktop_2022_Win8", "External\DirectXTK\Audio\DirectXTKAudio_Desktop_2022_Win8.vcxproj", "{4F150A30-CECB-49D1-8283-6A3F57438CF5}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Final_HelloMatrix", "VGP334\Final_HelloMatrix\Final_HelloMatrix.vcxproj", "{CA60AF2A-5C00-4DB2-B0C9-2B3534B8F712}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -414,6 +416,14 @@ Global
 		{4F150A30-CECB-49D1-8283-6A3F57438CF5}.Release|x64.Build.0 = Release|x64
 		{4F150A30-CECB-49D1-8283-6A3F57438CF5}.Release|x86.ActiveCfg = Release|Win32
 		{4F150A30-CECB-49D1-8283-6A3F57438CF5}.Release|x86.Build.0 = Release|Win32
+		{CA60AF2A-5C00-4DB2-B0C9-2B3534B8F712}.Debug|x64.ActiveCfg = Debug|x64
+		{CA60AF2A-5C00-4DB2-B0C9-2B3534B8F712}.Debug|x64.Build.0 = Debug|x64
+		{CA60AF2A-5C00-4DB2-B0C9-2B3534B8F712}.Debug|x86.ActiveCfg = Debug|Win32
+		{CA60AF2A-5C00-4DB2-B0C9-2B3534B8F712}.Debug|x86.Build.0 = Debug|Win32
+		{CA60AF2A-5C00-4DB2-B0C9-2B3534B8F712}.Release|x64.ActiveCfg = Release|x64
+		{CA60AF2A-5C00-4DB2-B0C9-2B3534B8F712}.Release|x64.Build.0 = Release|x64
+		{CA60AF2A-5C00-4DB2-B0C9-2B3534B8F712}.Release|x86.ActiveCfg = Release|Win32
+		{CA60AF2A-5C00-4DB2-B0C9-2B3534B8F712}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -457,6 +467,7 @@ Global
 		{F27AF855-20DA-4FB7-8650-6EC0468811B9} = {565AA442-336C-4CE9-9BFF-95D18EFC77C8}
 		{BB97F422-5555-44FD-90BF-CC87C3799ED4} = {618CA939-EFA5-4679-A1A7-8001794D9915}
 		{4F150A30-CECB-49D1-8283-6A3F57438CF5} = {8B8D3985-83A1-4CC3-BCF6-0B45CE8F8FA6}
+		{CA60AF2A-5C00-4DB2-B0C9-2B3534B8F712} = {618CA939-EFA5-4679-A1A7-8001794D9915}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E4FB7743-29E0-4790-9AF3-4645E035E654}

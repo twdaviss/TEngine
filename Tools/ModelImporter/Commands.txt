@@ -1,4 +1,9 @@
 -scale 0.01 ../../Assets/Models/Ninja/Ninja.fbx ../../Assets/Models/Ninja/Ninja.fbx
+
+-scale 0.01 ../../Assets/Models/Agent/Agent.fbx ../../Assets/Models/Agent/Agent.fbx
+-scale 0.01 ../../Assets/Models/Neo/Neo.fbx ../../Assets/Models/Neo/Neo.fbx
+
+
 -scale 0.01 -animOnly 1 ../../Assets/Models/Ninja/Dying.fbx ../../Assets/Models/Ninja/Animations/Dying.fbx
 -scale 0.01 -animOnly 1 ../../Assets/Models/Ninja/RumbaDancing.fbx ../../Assets/Models/Ninja/Animations/RumbaDancing.fbx
 -scale 0.01 -animOnly 1 ../../Assets/Models/Ninja/BreakDance.fbx ../../Assets/Models/Ninja/Animations/BreakDance.fbx
