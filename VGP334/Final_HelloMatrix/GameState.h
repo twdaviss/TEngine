@@ -59,6 +59,8 @@ protected:
 	int mAnimIndex = -1;
 	bool mDrawSkeleton = false;
 	bool slowMoEnabled = false;
+	bool speedUpEnabled = false;
+
 
 	float timer = 0;
 	bool emitParticles = false;

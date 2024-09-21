@@ -129,6 +129,7 @@ void GameState::Initialize()
 			//SoundEffectManager::Get()->Play(mEventSoundIds[0]);
 			//mAgentAnimator.PlayAnimation(1, true);
 			mAgentAnimator.PlayAnimation(1, true);
+			speedUpEnabled = true;
 		};
 
 	AnimationCallback setCameraNeo = [&]()
@@ -194,6 +195,7 @@ void GameState::Initialize()
 		{
 			//SoundEffectManager::Get()->Play(mEventSoundIds[0]);
 			mAgentAnimator.PlayAnimation(2, true);
+			speedUpEnabled = false;
 		};
 
 	AnimationCallback agentShootBullets = [&]()
@@ -322,6 +324,8 @@ void GameState::Initialize()
 		.AddEventKey(neoKeepShooting, 4.0f)
 		.AddEventKey(neoSurprised, 10.0f)
 		.AddEventKey(stopShootAudio, 10.0f)
+		.AddRotationKey({ Quaternion::CreateFromYawPitchRoll(0, 0, 0) }, 15.0f)
+		.AddRotationKey({ Quaternion::CreateFromYawPitchRoll(0, 0.45, 0) }, 15.00001f)
 		.AddEventKey(neoDodge, 15.0f)
 		.AddRotationKey({ Quaternion::CreateFromYawPitchRoll(0, 0, 0) }, 25.0f)
 		.AddRotationKey({ Quaternion::CreateFromYawPitchRoll(3.14 / 2, 0, 0) }, 25.00001f)
@@ -387,7 +391,6 @@ void GameState::Terminate()
 
 void GameState::Update(float deltaTime)
 {
-	mAgentAnimator.Update(deltaTime);
 	mTrinityAnimator.Update(deltaTime);
 	if (slowMoEnabled) 
 	{
@@ -396,6 +399,15 @@ void GameState::Update(float deltaTime)
 	else 
 	{
 		mNeoAnimator.Update(deltaTime);
+	}
+
+	if (speedUpEnabled)
+	{
+		mAgentAnimator.Update(2 * deltaTime);
+	}
+	else
+	{
+		mAgentAnimator.Update(deltaTime);
 	}
 
 	auto input = Input::InputSystem::Get();
