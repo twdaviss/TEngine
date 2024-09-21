@@ -14,6 +14,8 @@
 
 -scale 0.01 -animOnly 1 ../../Assets/Models/Agent/AgentShootingGun.fbx ../../Assets/Models/Agent/Animations/AgentShootingGun.fbx
 -scale 0.01 -animOnly 1 ../../Assets/Models/Agent/AgentShooting.fbx ../../Assets/Models/Agent/Animations/AgentShooting.fbx
+-scale 0.01 -animOnly 1 ../../Assets/Models/Agent/AgentDying.fbx ../../Assets/Models/Agent/Animations/AgentDying.fbx
+
 
 -scale 0.01 -animOnly 1 ../../Assets/Models/Trinity/TrinityShootingGun.fbx ../../Assets/Models/Trinity/Animations/TrinityShootingGun.fbx
 

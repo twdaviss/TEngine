@@ -27,6 +27,8 @@ void GameState::Initialize()
 	ModelManager::Get()->AddAnimation(mAgentModelId, "../../Assets/Models/Agent/Animations/AgentDodge.animset");
 	ModelManager::Get()->AddAnimation(mAgentModelId, "../../Assets/Models/Agent/Animations/AgentShootingGun.animset");
 	ModelManager::Get()->AddAnimation(mAgentModelId, "../../Assets/Models/Agent/Animations/AgentShooting.animset");
+	ModelManager::Get()->AddAnimation(mAgentModelId, "../../Assets/Models/Agent/Animations/AgentDying.animset");
+
 	mAgent = CreateRenderGroup(mAgentModelId, &mAgentAnimator);
 
 	mNeoModelId = ModelManager::Get()->LoadModelId("../../Assets/Models/Neo/Neo.Model");
@@ -38,7 +40,7 @@ void GameState::Initialize()
 	mNeo = CreateRenderGroup(mNeoModelId, &mNeoAnimator);
 
 	mTrinityModelId = ModelManager::Get()->LoadModelId("../../Assets/Models/Trinity/Trinity.Model");
-	ModelManager::Get()->AddAnimation(mTrinityModelId, "../../Assets/Models/Neo/Animations/NeoShootingGun.animset");
+	ModelManager::Get()->AddAnimation(mTrinityModelId, "../../Assets/Models/Trinity/Animations/TrinityShootingGun.animset");
 	mTrinity = CreateRenderGroup(mTrinityModelId, &mTrinityAnimator);
 
 	mAgentAnimator.Initialize(mAgentModelId);
@@ -152,7 +154,12 @@ void GameState::Initialize()
 	AnimationCallback trinityShoot = [&]()
 		{
 			//SoundEffectManager::Get()->Play(mEventSoundIds[0]);
-			mNeoAnimator.PlayAnimation(1, false);
+			mTrinityAnimator.PlayAnimation(1, false);
+		};
+	AnimationCallback agentDying = [&]()
+		{
+			//SoundEffectManager::Get()->Play(mEventSoundIds[0]);
+			mAgentAnimator.PlayAnimation(4, false);
 		};
 
 	mEventAnimationTime = 0.0f;
@@ -194,10 +201,12 @@ void GameState::Initialize()
 		.AddPositionKey({ 0,1.5,2 }, 25.00001f, EaseType::Linear)//neo lays on ground
 		.AddPositionKey({ 0,1.5,2 }, 27.0f, EaseType::Linear)
 		.AddPositionKey({ -1,1,2 }, 27.00001f, EaseType::Linear)
-		.AddPositionKey({ -1,1,2 }, 29.0f, EaseType::Linear)
-		.AddEventKey(setCameraAgentNew, 29.0f)
-		.AddPositionKey({ 0,1.5,3 }, 29.00001f, EaseType::Linear) //agent shoot
-		.AddPositionKey({ 0,1.5,3 }, 32.00001f, EaseType::Linear)
+		.AddPositionKey({ -1,1,2 }, 28.0f, EaseType::Linear)
+		.AddEventKey(setCameraAgentNew, 28.00001f)
+		.AddPositionKey({ 0,1.5,3 }, 28.00001f, EaseType::Linear) //agent shoot
+		.AddPositionKey({ 0,1.5,3 }, 29.0f, EaseType::Linear)
+		.AddPositionKey({ -1,1,3 }, 29.00001f, EaseType::Linear)
+		.AddPositionKey({ -1,1,3 }, 32.0f, EaseType::Linear)
 
 		.Build();
 	
@@ -225,18 +234,26 @@ void GameState::Initialize()
 		.AddRotationKey(Quaternion::CreateFromYawPitchRoll(1.5 * 3.14, 0, 0), 15.0f)
 		.AddRotationKey(Quaternion::CreateFromYawPitchRoll(3.14, 0, 0), 15.000001)
 		.AddEventKey(agentKeepShooting, 15.000001f)
-		.AddRotationKey(Quaternion::CreateFromYawPitchRoll(3.14, 0, 0), 29)
-		.AddPositionKey({ 0.0f,0.0f,-3.0f }, 29.0f)
-		.AddPositionKey({ 1.0f,0.0f,3.0f }, 29.00001f)
-		.AddRotationKey(Quaternion::CreateFromYawPitchRoll(3.14, 0, 0), 29.00001)
-		.AddEventKey(agentShoot, 29.00001)
+		.AddRotationKey(Quaternion::CreateFromYawPitchRoll(3.14, 0, 0), 28)
+		.AddPositionKey({ 0.0f,0.0f,-3.0f }, 28.0f)
+		.AddPositionKey({ 1.0f,0.0f,3.0f }, 28.00001f)
+		.AddRotationKey(Quaternion::CreateFromYawPitchRoll(3.14, 0, 0), 28.00001)
+		.AddEventKey(agentShoot, 28.00001)
+		.AddRotationKey(Quaternion::CreateFromYawPitchRoll(3.14, 0, 0), 29.0)
+		.AddRotationKey(Quaternion::CreateFromYawPitchRoll(0, 0, 0), 29.00001)
+		.AddEventKey(agentDying, 29)
+		.AddPositionKey({ 1.0f,0.0f,3.0f }, 29.5f)
+		.AddPositionKey({ 1.0f,0.0f,5.0f }, 30.5f)
 		.Build();
 
 	mTrinityAnimation = AnimationBuilder()
+		.AddRotationKey(Quaternion::CreateFromYawPitchRoll(3.14, 0, 0), 0)
 		.AddPositionKey({ 100.0f,100.0f,100.0f }, 0.0f)
-		.AddPositionKey({ 100.0f,100.0f,100.0f }, 30.0f)
-		.AddPositionKey({ 1.0f,0.0f,3.0f }, 30.00001f)
-		.AddEventKey(trinityShoot, 30.00001f)
+		.AddEventKey(trinityShoot, 27.5f)
+		.AddPositionKey({ 100.0f,100.0f,100.0f }, 29.0f)
+		.AddRotationKey(Quaternion::CreateFromYawPitchRoll(3.14, 0, 0), 29)
+		.AddPositionKey({ 1.0f,0.0f,2.0f }, 29.00001f)
+		.AddRotationKey(Quaternion::CreateFromYawPitchRoll(3.14/2, 0, 0), 29.00001)
 		.Build();
 
 
