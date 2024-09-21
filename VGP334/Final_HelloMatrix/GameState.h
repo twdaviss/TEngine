@@ -22,7 +22,7 @@ protected:
 	TEngine::Graphics::Camera mCamera;
 
 	TEngine::Graphics::RenderObject mGround;
-	TEngine::Graphics::RenderObject mSkybox;
+	TEngine::Graphics::RenderObject mSkySphere;
 
 	TEngine::Graphics::ModelId mAgentModelId;
 	TEngine::Graphics::ModelId mNeoModelId;
@@ -37,6 +37,10 @@ protected:
 	TEngine::Graphics::Animator mTrinityAnimator;
 
 	TEngine::Graphics::StandardEffect mStandardEffect;
+
+	TEngine::Graphics::ParticleSystemEffect mParticleEffect;
+	TEngine::Physics::ParticleSystem mParticleSystem;
+	TEngine::Physics::ParticleSystem mParticleSystem2;
 
 	TEngine::ListenerId mSpaceEventId = 0;
 	TEngine::ListenerId mAnimEventId = 0;
@@ -55,5 +59,10 @@ protected:
 	int mAnimIndex = -1;
 	bool mDrawSkeleton = false;
 	bool slowMoEnabled = false;
+
+	float timer = 0;
+	bool emitParticles = false;
+	bool emitParticles2 = false;
+
 };
 

@@ -4,6 +4,7 @@ using namespace TEngine;
 using namespace TEngine::Graphics;
 using namespace TEngine::Input;
 using namespace TEngine::Audio;
+using namespace TEngine::Physics;
 
 void GameState::Initialize()
 {
@@ -19,9 +20,9 @@ void GameState::Initialize()
 	mGround.meshBuffer.Initialize(ground);
 	mGround.diffuseMapId = TextureManager::Get()->LoadTexture("misc/concrete.jpg");
 
-	MeshPX skyBox = MeshBuilder::CreateSkyBoxPX(1000.0f);
-	mSkybox.meshBuffer.Initialize(skyBox);
-	mSkybox.diffuseMapId = TextureManager::Get()->LoadTexture("skybox/skybox_texture.jpg");
+	Mesh skySphere = MeshBuilder::CreateSkySphere(100, 100, 100);
+	mSkySphere.meshBuffer.Initialize(skySphere);
+	mSkySphere.diffuseMapId = TextureManager::Get()->LoadTexture("skysphere/sky.jpg");
 
 	mAgentModelId = ModelManager::Get()->LoadModelId("../../Assets/Models/Agent/Agent.Model");
 	ModelManager::Get()->AddAnimation(mAgentModelId, "../../Assets/Models/Agent/Animations/AgentDodge.animset");
@@ -56,6 +57,66 @@ void GameState::Initialize()
 	mEventSoundIds.push_back(sem->Load("megamanx_blast.wav"));
 	mEventSoundIds.push_back(sem->Load("photongun1.wav"));
 	mEventSoundIds.push_back(sem->Load("explosion.wav"));
+	mEventSoundIds.push_back(sem->Load("hurt.wav"));
+
+	mParticleEffect.Initialize();
+	mParticleEffect.SetCamera(mCamera);
+
+	ParticleSystemInfo info;
+	info.maxParticles = 100;
+	info.particleTextureId = TextureManager::Get()->LoadTexture("Images/bullet_bill.png");
+	info.spawnPosition = Math::Vector3::Zero;
+	info.spawnDirection = -Math::Vector3::ZAxis;
+	info.spawnDelay = 0.0f;
+	info.spawnLifeTime = 999999999999999.0f;
+	info.minParticlesPerEmit = 1;
+	info.maxParticlesPerEmit = 1;
+	info.minTimeBetweenEmit = 0.25f;
+	info.maxTimeBetweenEmit = 0.5f;
+	info.minSpawnAngle = Math::Constants::Pi;
+	info.maxSpawnAngle = Math::Constants::Pi;
+	info.minSpeed = 40.0f;
+	info.maxSpeed = 40.0f;
+	info.minParticleLifetime = 5.0f;
+	info.maxParticleLifetime = 5.0f;
+	info.minStartColor = Colors::Red;
+	info.maxStartColor = Colors::Yellow;
+	info.minEndColor = Colors::White;
+	info.maxEndColor = Colors::Orange;
+	info.minStartScale = Math::Vector3::One;
+	info.maxStartScale = { 0.5f,0.5f,0.5f };
+	info.minEndScale = { 0.5f,0.5f,0.5f };
+	info.maxEndScale = { 0.5f,0.5f,0.5f };
+
+	mParticleSystem.Initialize(info);
+
+	info.maxParticles = 100;
+	info.particleTextureId = TextureManager::Get()->LoadTexture("Images/bullet_bill.png");
+	info.spawnPosition = Math::Vector3::Zero;
+	info.spawnDirection = Math::Vector3::ZAxis;
+	info.spawnDelay = 0.0f;
+	info.spawnLifeTime = 999999999999999.0f;
+	info.minParticlesPerEmit = 1;
+	info.maxParticlesPerEmit = 1;
+	info.minTimeBetweenEmit = 0.25f;
+	info.maxTimeBetweenEmit = 0.5f;
+	info.minSpawnAngle = Math::Constants::Pi;
+	info.maxSpawnAngle = Math::Constants::Pi;
+	info.minSpeed = 40.0f;
+	info.maxSpeed = 40.0f;
+	info.minParticleLifetime = 5.0f;
+	info.maxParticleLifetime = 5.0f;
+	info.minStartColor = Colors::Red;
+	info.maxStartColor = Colors::Yellow;
+	info.minEndColor = Colors::White;
+	info.maxEndColor = Colors::Orange;
+	info.minStartScale = Math::Vector3::One;
+	info.maxStartScale = { 0.5f,0.5f,0.5f };
+	info.minEndScale = { 0.5f,0.5f,0.5f };
+	info.maxEndScale = { 0.5f,0.5f,0.5f };
+
+	mParticleSystem2.Initialize(info);
+	mParticleSystem.SetCamera(mCamera);
 
 	AnimationCallback neoDodge = [&]() 
 		{
@@ -105,8 +166,15 @@ void GameState::Initialize()
 
 	AnimationCallback neoShoot = [&]()
 		{
-			//SoundEffectManager::Get()->Play(mEventSoundIds[0]);
+			//SoundEffectManager::Get()->Play(mEventSoundIds[0], true);
 			mNeoAnimator.PlayAnimation(2, true);
+		};
+
+	AnimationCallback neoShootBullets = [&]()
+		{
+			//SoundEffectManager::Get()->Play(mEventSoundIds[0], true);
+			mParticleSystem.SetPosition({ 0,1,3 });
+			emitParticles = true;
 		};
 
 	AnimationCallback neoKeepShooting = [&]()
@@ -119,9 +187,23 @@ void GameState::Initialize()
 		{
 			//SoundEffectManager::Get()->Play(mEventSoundIds[0]);
 			mNeoAnimator.PlayAnimation(4, true);
+			emitParticles = false;
 		};
 
 	AnimationCallback agentShoot = [&]()
+		{
+			//SoundEffectManager::Get()->Play(mEventSoundIds[0]);
+			mAgentAnimator.PlayAnimation(2, true);
+		};
+
+	AnimationCallback agentShootBullets = [&]()
+		{
+			//SoundEffectManager::Get()->Play(mEventSoundIds[0]);
+			mParticleSystem2.SetPosition({ 0,1,-3 });
+			emitParticles2 = true;
+		};
+
+	AnimationCallback agentShootNew = [&]()
 		{
 			//SoundEffectManager::Get()->Play(mEventSoundIds[0]);
 			mAgentAnimator.PlayAnimation(2, true);
@@ -149,6 +231,7 @@ void GameState::Initialize()
 		{
 			//SoundEffectManager::Get()->Play(mEventSoundIds[0]);
 			mNeoAnimator.PlayAnimation(5, false);
+			emitParticles2 = false;
 		};
 
 	AnimationCallback trinityShoot = [&]()
@@ -162,6 +245,25 @@ void GameState::Initialize()
 			mAgentAnimator.PlayAnimation(4, false);
 		};
 
+	AnimationCallback shootAudio = [&]()
+		{
+			SoundEffectManager::Get()->Play(mEventSoundIds[0], true);
+		};
+
+	AnimationCallback stopShootAudio = [&]()
+		{
+			SoundEffectManager::Get()->Stop(mEventSoundIds[0]);
+		};
+
+	AnimationCallback shootAudioOnce = [&]()
+		{
+			SoundEffectManager::Get()->Play(mEventSoundIds[0], false);
+		};
+
+	AnimationCallback hurtAudio = [&]()
+		{
+			SoundEffectManager::Get()->Play(mEventSoundIds[3], false);
+		};
 	mEventAnimationTime = 0.0f;
 
 	mCameraAnimation = AnimationBuilder()
@@ -214,13 +316,18 @@ void GameState::Initialize()
 		.AddRotationKey({ Quaternion::CreateFromYawPitchRoll(3.14/1.2, 0, 0) }, 0.0f)
 		.AddPositionKey({ 0.0f,0.0f,3.0f }, 0.0f)
 		.AddEventKey(neoShoot, 0.1f)
+		.AddEventKey(neoShootBullets, 2.0f)
+		.AddEventKey(shootAudio, 2.0f)
 		.AddRotationKey({ Quaternion::CreateFromYawPitchRoll(0, 0, 0) }, 4.0f)
 		.AddEventKey(neoKeepShooting, 4.0f)
 		.AddEventKey(neoSurprised, 10.0f)
+		.AddEventKey(stopShootAudio, 10.0f)
 		.AddEventKey(neoDodge, 15.0f)
 		.AddRotationKey({ Quaternion::CreateFromYawPitchRoll(0, 0, 0) }, 25.0f)
 		.AddRotationKey({ Quaternion::CreateFromYawPitchRoll(3.14 / 2, 0, 0) }, 25.00001f)
 		.AddEventKey(neoConvulsing, 25.0f)
+		.AddEventKey(hurtAudio, 25.0f)
+		.AddEventKey(stopShootAudio, 25.0f)
 
 		.Build();
 
@@ -231,18 +338,21 @@ void GameState::Initialize()
 		.AddRotationKey(Quaternion::CreateFromYawPitchRoll(3.14, 0, 0), 12.0f)
 		.AddRotationKey(Quaternion::CreateFromYawPitchRoll(1.5 * 3.14, 0, 0), 12.00001f)
 		.AddEventKey(agentShoot, 12.0002f)
+		.AddEventKey(agentShootBullets, 13.0f)
+		.AddEventKey(shootAudio, 13.0f)
 		.AddRotationKey(Quaternion::CreateFromYawPitchRoll(1.5 * 3.14, 0, 0), 15.0f)
 		.AddRotationKey(Quaternion::CreateFromYawPitchRoll(3.14, 0, 0), 15.000001)
 		.AddEventKey(agentKeepShooting, 15.000001f)
+		.AddEventKey(agentShootNew, 27.5)
 		.AddRotationKey(Quaternion::CreateFromYawPitchRoll(3.14, 0, 0), 28)
 		.AddPositionKey({ 0.0f,0.0f,-3.0f }, 28.0f)
 		.AddPositionKey({ 1.0f,0.0f,3.0f }, 28.00001f)
 		.AddRotationKey(Quaternion::CreateFromYawPitchRoll(3.14, 0, 0), 28.00001)
-		.AddEventKey(agentShoot, 28.00001)
 		.AddRotationKey(Quaternion::CreateFromYawPitchRoll(3.14, 0, 0), 29.0)
 		.AddRotationKey(Quaternion::CreateFromYawPitchRoll(0, 0, 0), 29.00001)
 		.AddEventKey(agentDying, 29)
-		.AddPositionKey({ 1.0f,0.0f,3.0f }, 29.5f)
+		.AddEventKey(hurtAudio, 29.0f)
+		.AddPositionKey({ 1.0f,0.0f,3.0f }, 29.0f)
 		.AddPositionKey({ 1.0f,0.0f,5.0f }, 30.5f)
 		.Build();
 
@@ -254,8 +364,8 @@ void GameState::Initialize()
 		.AddRotationKey(Quaternion::CreateFromYawPitchRoll(3.14, 0, 0), 29)
 		.AddPositionKey({ 1.0f,0.0f,2.0f }, 29.00001f)
 		.AddRotationKey(Quaternion::CreateFromYawPitchRoll(3.14/2, 0, 0), 29.00001)
+		.AddEventKey(shootAudioOnce, 29.0)
 		.Build();
-
 
 	EventManager* em = EventManager::Get();
 	mSpaceEventId = em->AddListener(EventType::SpacePressedEvent, std::bind(&GameState::OnSpaceEvent, this, std::placeholders::_1));
@@ -264,12 +374,15 @@ void GameState::Initialize()
 
 void GameState::Terminate()
 {
+	mParticleEffect.Terminate();
+	mParticleSystem2.Terminate();
+	mParticleSystem.Terminate();
 	mStandardEffect.Terminate();
 	CleanupRenderGroup(mNeo);
 	CleanupRenderGroup(mAgent);
 	CleanupRenderGroup(mTrinity);
 	mGround.Terminate();
-	mSkybox.Terminate();
+	mSkySphere.Terminate();
 }
 
 void GameState::Update(float deltaTime)
@@ -327,15 +440,24 @@ void GameState::Update(float deltaTime)
 
 	float prevTime = mEventAnimationTime;
 	mEventAnimationTime += deltaTime;
+	timer += deltaTime;
 	mAgentAnimation.PlayEvents(prevTime, mEventAnimationTime);
 	mNeoAnimation.PlayEvents(prevTime, mEventAnimationTime);
 	mCameraAnimation.PlayEvents(prevTime, mEventAnimationTime);
 	mTrinityAnimation.PlayEvents(prevTime, mEventAnimationTime);
 
-
+	if(emitParticles)
+	{
+		mParticleSystem.Update(deltaTime);
+	}
+	if (emitParticles2)
+	{
+		mParticleSystem2.Update(deltaTime/2);
+	}
 	while (mEventAnimationTime >= mCameraAnimation.GetDuration())
 	{
 		mEventAnimationTime -= mCameraAnimation.GetDuration();
+		timer = 0;
 	}
 }
 
@@ -378,17 +500,26 @@ void GameState::Render()
 	//SimpleDraw::AddGroundPlane(10.0f, Colors::White);
 	SimpleDraw::Render(mCamera);
 
+	mParticleEffect.Begin();
+		if (emitParticles)
+		{
+			mParticleSystem.Render(mParticleEffect);
+		}
+		if (emitParticles2)
+		{
+			mParticleSystem2.Render(mParticleEffect);
+		}
+	mParticleEffect.End();
 	if (!mDrawSkeleton)
 	{
 		mStandardEffect.Begin();
 			DrawRenderGroup(mStandardEffect, mAgent);
 			DrawRenderGroup(mStandardEffect, mNeo);
 			DrawRenderGroup(mStandardEffect, mTrinity);
-			mStandardEffect.Render(mGround);
-			//mStandardEffect.Render(mSkybox);
+			mStandardEffect.Render(mGround); 
+			mStandardEffect.Render(mSkySphere);
 		mStandardEffect.End();
 	}
-	mSkybox.meshBuffer.Render();
 }
 
 void GameState::DebugUI()
@@ -405,7 +536,11 @@ void GameState::DebugUI()
 			ImGui::ColorEdit4("Specular##Light", &mDirectionalLight.specular.r);
 		}
 
+		if (ImGui::DragFloat("Timer", &timer, 0.01f))
+		{
+		}
 		ImGui::Checkbox("DrawSkeleton", &mDrawSkeleton);
+
 		/*if (ImGui::DragInt("Animation", &mAnimIndex, 1, -1, mAgentAnimator.GetAnimationCount() - 1))
 		{
 			mAgentAnimator.PlayAnimation(mAnimIndex, true);

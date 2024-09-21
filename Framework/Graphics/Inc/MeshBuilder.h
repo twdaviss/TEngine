@@ -100,7 +100,9 @@ namespace TEngine::Graphics
 
 		//sky boxes
 		static MeshPX CreateSkySpherePX(uint32_t slices, uint32_t rings, float radius);
+		static Mesh CreateSkySphere(uint32_t slices, uint32_t rings, float radius);
 		static MeshPX CreateSkyBoxPX(float size);
+
 
 		//screen stuff
 		static MeshPX CreateScreenQuad();
