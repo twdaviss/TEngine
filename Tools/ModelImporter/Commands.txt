@@ -2,6 +2,20 @@
 
 -scale 0.01 ../../Assets/Models/Agent/Agent.fbx ../../Assets/Models/Agent/Agent.fbx
 -scale 0.01 ../../Assets/Models/Neo/Neo.fbx ../../Assets/Models/Neo/Neo.fbx
+-scale 0.01 ../../Assets/Models/Trinity/Trinity.fbx ../../Assets/Models/Trinity/Trinity.fbx
+
+
+-scale 0.01 -animOnly 1 ../../Assets/Models/Agent/AgentDodge.fbx ../../Assets/Models/Agent/Animations/AgentDodge.fbx
+-scale 0.01 -animOnly 1 ../../Assets/Models/Neo/NeoDodge.fbx ../../Assets/Models/Neo/Animations/NeoDodge.fbx
+-scale 0.01 -animOnly 1 ../../Assets/Models/Neo/ShootingGun.fbx ../../Assets/Models/Neo/Animations/NeoShootingGun.fbx
+-scale 0.01 -animOnly 1 ../../Assets/Models/Neo/Shooting.fbx ../../Assets/Models/Neo/Animations/NeoShooting.fbx
+-scale 0.01 -animOnly 1 ../../Assets/Models/Neo/Reacting.fbx ../../Assets/Models/Neo/Animations/Reacting.fbx
+-scale 0.01 -animOnly 1 ../../Assets/Models/Neo/Convulsing.fbx ../../Assets/Models/Neo/Animations/Convulsing.fbx
+
+-scale 0.01 -animOnly 1 ../../Assets/Models/Agent/AgentShootingGun.fbx ../../Assets/Models/Agent/Animations/AgentShootingGun.fbx
+-scale 0.01 -animOnly 1 ../../Assets/Models/Agent/AgentShooting.fbx ../../Assets/Models/Agent/Animations/AgentShooting.fbx
+
+-scale 0.01 -animOnly 1 ../../Assets/Models/Trinity/TrinityShootingGun.fbx ../../Assets/Models/Trinity/Animations/TrinityShootingGun.fbx
 
 
 -scale 0.01 -animOnly 1 ../../Assets/Models/Ninja/Dying.fbx ../../Assets/Models/Ninja/Animations/Dying.fbx

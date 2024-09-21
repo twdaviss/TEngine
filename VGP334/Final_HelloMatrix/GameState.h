@@ -21,14 +21,20 @@ protected:
 	TEngine::Graphics::DirectionalLight mDirectionalLight;
 	TEngine::Graphics::Camera mCamera;
 
+	TEngine::Graphics::RenderObject mGround;
+	TEngine::Graphics::RenderObject mSkybox;
+
 	TEngine::Graphics::ModelId mAgentModelId;
 	TEngine::Graphics::ModelId mNeoModelId;
+	TEngine::Graphics::ModelId mTrinityModelId;
 
 	TEngine::Graphics::RenderGroup mAgent;
 	TEngine::Graphics::RenderGroup mNeo;
+	TEngine::Graphics::RenderGroup mTrinity;
 
 	TEngine::Graphics::Animator mAgentAnimator;
 	TEngine::Graphics::Animator mNeoAnimator;
+	TEngine::Graphics::Animator mTrinityAnimator;
 
 	TEngine::Graphics::StandardEffect mStandardEffect;
 
@@ -38,11 +44,16 @@ protected:
 	std::vector<TEngine::Audio::SoundId> mEventSoundIds;
 	TEngine::Graphics::Animation mAgentAnimation;
 	TEngine::Graphics::Animation mNeoAnimation;
+	TEngine::Graphics::Animation mTrinityAnimation;
+
 	TEngine::Graphics::Animation mCameraAnimation;
+
+	Vector3 lookTarget;
 
 	float mEventAnimationTime = 0.0f;
 
 	int mAnimIndex = -1;
 	bool mDrawSkeleton = false;
+	bool slowMoEnabled = false;
 };
 

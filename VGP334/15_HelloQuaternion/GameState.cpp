@@ -16,8 +16,8 @@ void GameState::Initialize()
 
 	Model ninjaModel;
 	Model vampireModel;
-	ModelIO::LoadModel("../../Assets/Models/Ninja/Ch24_nonPBR.fbx", ninjaModel);
-	ModelIO::LoadMaterial("../../Assets/Models/Ninja/Ch24_nonPBR.fbx", ninjaModel);
+	ModelIO::LoadModel("../../Assets/Models/Ninja/ninja.model", ninjaModel);
+	ModelIO::LoadMaterial("../../Assets/Models/Ninja/ninja.material", ninjaModel);
 
 	mCharacter = CreateRenderGroup(ninjaModel);
 
