@@ -4,6 +4,8 @@
 
 namespace TEngine
 {
+	class GameWorld;
+
 	class GameObject final
 	{
 	public:
@@ -17,6 +19,9 @@ namespace TEngine
 		void SetName(std::string& name);
 		const std::string& GetName() const;
 		uint32_t GetUniqueID() const;
+		
+		GameWorld& GetWorld() { return *mWorld; }
+		const GameWorld& GetWorld() const { return *mWorld; }
 
 		template<class ComponentType>
 		ComponentType* AddComponent()
@@ -76,5 +81,8 @@ namespace TEngine
 
 		using Components = std::vector <std::unique_ptr<Component>>;
 		Components mComponents;
+
+		friend class GameWorld;
+		GameWorld* mWorld;
 	};
 }

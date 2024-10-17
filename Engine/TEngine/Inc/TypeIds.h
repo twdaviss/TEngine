@@ -10,6 +10,13 @@ namespace TEngine
 		FPSCamera,	//moves camera with fps controls	
 		Count
 	};
+
+	enum class ServiceID
+	{
+		Invalid,	//default value	
+		Camera,		//controls active camera
+		Count
+	};
 }
 
 #define SET_TYPE_ID(id)\

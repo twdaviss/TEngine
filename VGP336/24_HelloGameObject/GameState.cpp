@@ -7,40 +7,40 @@ using namespace TEngine::Audio;
 
 void GameState::Initialize()
 {
-	//add components first
-	mGameObject.AddComponent<TransformComponent>();
-	//and then initialize
-	mGameObject.Initialize();
+	mGameWorld.AddService<CameraService>();
+	mGameWorld.Initialize();
 
-	mCameraGameObject.AddComponent<CameraComponent>();
-	mCameraGameObject.AddComponent<FPSCameraComponent>();
-	mCameraGameObject.Initialize();
+	GameObject* gameObject = mGameWorld.CreateGameObject("Object0");
+	//add components first
+	gameObject->AddComponent<TransformComponent>();
+	//and then initialize
+	gameObject->Initialize();
+
+	GameObject* cameraGameObject = mGameWorld.CreateGameObject("Camera");
+
+	cameraGameObject->AddComponent<CameraComponent>();
+	cameraGameObject->AddComponent<FPSCameraComponent>();
+	cameraGameObject->Initialize();
 }
 
 void GameState::Terminate()
 {
-	mCameraGameObject.Terminate();
-	mGameObject.Terminate();
+	mGameWorld.Terminate();
 }
 
 void GameState::Update(float deltaTime)
 {
-	mGameObject.Update(deltaTime);
-	mCameraGameObject.Update(deltaTime);
+	mGameWorld.Update(deltaTime);
 }
 
 void GameState::Render()
 {
-	//TODO
+	mGameWorld.Render();
 }
 
 void GameState::DebugUI()
 {
 	ImGui::Begin("Debug Controls", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
-		mGameObject.DebugUI();
-		mCameraGameObject.DebugUI();
+		mGameWorld.DebugUI();
 	ImGui::End();
-
-	const CameraComponent* cameraComponent = mCameraGameObject.GetComponent<CameraComponent>();
-	SimpleDraw::Render(cameraComponent->GetCamera());
 }

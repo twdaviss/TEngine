@@ -1,18 +1,22 @@
 #include "Precompiled.h"
 #include "CameraComponent.h"
 
+#include "GameWorld.h"
+#include "CameraService.h"
+
 using namespace TEngine;
 using namespace TEngine::Graphics;
 
-
 void CameraComponent::Initialize()
 {
-	//TODO
+	CameraService* cameraService = GetOwner().GetWorld().GetService<CameraService>();
+	cameraService->Register(this);
 }
 
 void CameraComponent::Terminate()
 {
-	//TODO
+	CameraService* cameraService = GetOwner().GetWorld().GetService<CameraService>();
+	cameraService->Unregister(this);
 }
 
 void CameraComponent::DebugUI()

@@ -12,7 +12,6 @@ public:
 	void DebugUI() override;
 
 protected:
-	TEngine::GameObject mCameraGameObject;
-	TEngine::GameObject mGameObject;
+	TEngine::GameWorld mGameWorld;
 };
 
