@@ -30,6 +30,24 @@
     <ClInclude Include="Inc\Event.h">
       <Filter>Inc</Filter>
     </ClInclude>
+    <ClInclude Include="inc\GameObject.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Component.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\TypeIds.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\TransformComponent.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\CameraComponent.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\FPSCameraComponent.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Precompiled.cpp">
@@ -42,6 +60,18 @@
       <Filter>Src</Filter>
     </ClCompile>
     <ClCompile Include="Src\EventManager.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameObject.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TransformComponent.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CameraComponent.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FPSCameraComponent.cpp">
       <Filter>Src</Filter>
     </ClCompile>
   </ItemGroup>
