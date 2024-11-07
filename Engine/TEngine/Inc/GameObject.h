@@ -75,6 +75,8 @@ namespace TEngine
 		}
 
 	private:
+		void Save();
+
 		std::string mName = "EMPTY";
 		bool mInitialized = false;
 		uint32_t mUniqueID = 0;
@@ -83,6 +85,7 @@ namespace TEngine
 		Components mComponents;
 
 		friend class GameWorld;
+		std::filesystem::path mTemplateFilePath = "";
 		GameWorld* mWorld;
 	};
 }

@@ -12,6 +12,8 @@ namespace TEngine
 		void Initialize() override;
 		void Terminate() override;
 		void DebugUI() override;
+		void Seriliaze(rapidjson::Document& doc, rapidjson::Value& value) override;
+		void Deseriliaze(const rapidjson::Value& value) override;
 
 		Graphics::Camera& GetCamera();
 		const Graphics::Camera& GetCamera() const;

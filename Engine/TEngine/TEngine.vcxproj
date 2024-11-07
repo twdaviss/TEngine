@@ -146,7 +146,9 @@
     <ClInclude Include="Inc\EventManager.h" />
     <ClInclude Include="inc\FPSCameraComponent.h" />
     <ClInclude Include="inc\GameObject.h" />
+    <ClInclude Include="Inc\GameObjectFactory.h" />
     <ClInclude Include="inc\GameWorld.h" />
+    <ClInclude Include="inc\SaveUtil.h" />
     <ClInclude Include="inc\Service.h" />
     <ClInclude Include="Inc\TEngine.h" />
     <ClInclude Include="inc\TransformComponent.h" />
@@ -160,10 +162,12 @@
     <ClCompile Include="Src\EventManager.cpp" />
     <ClCompile Include="src\FPSCameraComponent.cpp" />
     <ClCompile Include="src\GameObject.cpp" />
+    <ClCompile Include="Src\GameObjectFactory.cpp" />
     <ClCompile Include="src\GameWorld.cpp" />
     <ClCompile Include="Src\Precompiled.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="src\SaveUtil.cpp" />
     <ClCompile Include="Src\TEngine.cpp" />
     <ClCompile Include="src\TransformComponent.cpp" />
   </ItemGroup>

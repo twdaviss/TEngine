@@ -9,6 +9,9 @@
 #include "Event.h"
 #include "EventManager.h"
 
+#include "SaveUtil.h"
+#include "GameObjectFactory.h"
+
 //Game World
 #include "GameWorld.h"
 
