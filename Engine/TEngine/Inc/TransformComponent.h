@@ -10,7 +10,7 @@ namespace TEngine
 		SET_TYPE_ID(ComponentID::Transform);
 
 		void DebugUI() override;
-		void Seriliaze(rapidjson::Document& doc, rapidjson::Value& value) override;
+		void Serialize(rapidjson::Document& doc, rapidjson::Value& value) override;
 		void Deserialize(const rapidjson::Value& value) override;
 	};
 }

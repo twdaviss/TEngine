@@ -136,6 +136,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="inc\AnimatorComponent.h" />
     <ClInclude Include="Inc\App.h" />
     <ClInclude Include="Inc\AppState.h" />
     <ClInclude Include="inc\CameraComponent.h" />
@@ -150,6 +151,7 @@
     <ClInclude Include="inc\GameObjectHandle.h" />
     <ClInclude Include="inc\GameWorld.h" />
     <ClInclude Include="inc\MeshComponent.h" />
+    <ClInclude Include="inc\ModelComponent.h" />
     <ClInclude Include="inc\RenderObjectComponent.h" />
     <ClInclude Include="inc\RenderService.h" />
     <ClInclude Include="inc\SaveUtil.h" />
@@ -160,6 +162,7 @@
     <ClInclude Include="Src\Precompiled.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\AnimatorComponent.cpp" />
     <ClCompile Include="Src\App.cpp" />
     <ClCompile Include="src\CameraComponent.cpp" />
     <ClCompile Include="Src\CameraService.cpp" />
@@ -169,6 +172,7 @@
     <ClCompile Include="Src\GameObjectFactory.cpp" />
     <ClCompile Include="src\GameWorld.cpp" />
     <ClCompile Include="src\MeshComponent.cpp" />
+    <ClCompile Include="src\ModelComponent.cpp" />
     <ClCompile Include="Src\Precompiled.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>

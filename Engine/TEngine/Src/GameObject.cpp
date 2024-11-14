@@ -90,10 +90,11 @@ void GameObject::Save()
 	rapidjson::Value components(rapidjson::kObjectType);
 	for (auto& component : mComponents)
 	{
-		component->Seriliaze(doc, components);
+		component->Serialize(doc, components);
 	}
 	doc.AddMember("Components", components, doc.GetAllocator());
 
+	//parented objects
 	FILE* file = nullptr;
 	auto err = fopen_s(&file, mTemplateFilePath.c_str(), "w");
 	ASSERT(err == 0, "GameObject: failed to open template file %s", mTemplateFilePath.c_str());

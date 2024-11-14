@@ -11,32 +11,32 @@
   },
   "GameObjects": {
     "Camera": {
-      "Template": "../../Assets/Templates/fps_camera.json"
+      "Template": "../../Assets/Templates/fps_camera.json",
+      "Components": {
+        "CameraComponent": {
+          "Position": [ 0.0, 2.0, -5.0 ],
+          "LookAt": [ 0.0, 1.0, 0.0 ]
+        }
+      }
     },
     "Object0": {
       "Template": "../../Assets/Templates/test_object.json",
       "Components": {
         "TransformComponent": {
-          "Position": [ -2.0, 0.0, 0.0 ]
+          "Position": [ 2.0, 0.0, 0.0 ]
         }
       }
     },
     "Object1": {
-      "Template": "../../Assets/Templates/test_object.json",
+      "Template": "../../Assets/Templates/test_model.json",
       "Components": {
         "TransformComponent": {
-          "Position": [ -2.0, 0.0, 0.0 ]
-        },
-        "MeshComponent": {
-          "Material": {
-            "Ambient": [ 1.0, 0.0, 0.0, 1.0 ],
-            "Diffuse": [ 1.0, 0.0, 0.0, 1.0 ],
-            "Specular": [ 1.0, 0.0, 0.0, 1.0 ]
-          }
+          "Position": [ 0.0, 0.0, 0.0 ]
         }
       }
     }
   }
 }
+
     
   

@@ -59,7 +59,7 @@ void FPSCameraComponent::Update(float deltaTime)
 	}
 }
 
-void FPSCameraComponent::Seriliaze(rapidjson::Document& doc, rapidjson::Value& value)
+void FPSCameraComponent::Serialize(rapidjson::Document& doc, rapidjson::Value& value)
 {
 	rapidjson::Value componentValue(rapidjson::kObjectType);
 	SaveUtil::SaveFloat("MoveSpeed", mMoveSpeed, doc, componentValue);

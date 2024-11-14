@@ -87,6 +87,12 @@
     <ClInclude Include="inc\GameObjectHandle.h">
       <Filter>Inc</Filter>
     </ClInclude>
+    <ClInclude Include="inc\ModelComponent.h">
+      <Filter>Inc\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\AnimatorComponent.h">
+      <Filter>Inc\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Precompiled.cpp">
@@ -133,6 +139,12 @@
     </ClCompile>
     <ClCompile Include="src\RenderService.cpp">
       <Filter>Src\Service</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AnimatorComponent.cpp">
+      <Filter>Src\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ModelComponent.cpp">
+      <Filter>Src\Component</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

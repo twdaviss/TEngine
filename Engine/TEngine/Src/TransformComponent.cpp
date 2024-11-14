@@ -13,7 +13,7 @@ void TransformComponent::DebugUI()
 	SimpleDraw::AddTransform(GetMatrix4());
 }
 
-void TransformComponent::Seriliaze(rapidjson::Document& doc, rapidjson::Value& value)
+void TransformComponent::Serialize(rapidjson::Document& doc, rapidjson::Value& value)
 {
 	rapidjson::Value componentValue(rapidjson::kObjectType);
 	SaveUtil::SaveVector3("Position", position, doc, componentValue);

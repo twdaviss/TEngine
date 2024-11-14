@@ -1,0 +1,21 @@
+{
+  "Components": {
+    "TransformComponent": {
+      "Position": [ 2.0, 0.0, 1.0 ],
+      "Rotation": [ 0.0, 0.0, 0.0, 1.0 ],
+      "Scale": [ 1.0, 1.0, 1.0 ]
+    },
+    "ModelComponent": {
+      "FileName": "../../Assets/Models/Ninja/Ninja.model",
+      "Animations": [
+        "../../Assets/Models/Ninja/Animations/BreakDance.animset",
+        "../../Assets/Models/Ninja/Animations/RumbaDancing.animset",
+        "../../Assets/Models/Ninja/Animations/BackFlip.animset"
+      ],
+      "CastShadow": false
+    },
+    "AnimatorComponent": {
+
+    }
+  }
+}

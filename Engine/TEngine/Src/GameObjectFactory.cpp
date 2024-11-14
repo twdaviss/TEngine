@@ -4,8 +4,10 @@
 #include "Component.h"
 #include "CameraComponent.h"
 #include "FPSCameraComponent.h"
-#include "MeshComponent.h"
 #include "TransformComponent.h"
+#include "MeshComponent.h"
+#include "ModelComponent.h"
+#include "AnimatorComponent.h"
 
 using namespace TEngine;
 
@@ -29,6 +31,14 @@ namespace
 		else if (componentName == "MeshComponent")
 		{
 			newComponent = gameObject.AddComponent<MeshComponent>();
+		}
+		else if (componentName == "ModelComponent")
+		{
+			newComponent = gameObject.AddComponent<ModelComponent>();
+		}
+		else if (componentName == "AnimatorComponent")
+		{
+			newComponent = gameObject.AddComponent<AnimatorComponent>();
 		}
 		else
 		{
@@ -55,6 +65,14 @@ namespace
 		else if (componentName == "MeshComponent")
 		{
 			newComponent = gameObject.GetComponent<MeshComponent>();
+		}
+		else if (componentName == "ModelComponent")
+		{
+			newComponent = gameObject.AddComponent<ModelComponent>();
+		}
+		else if (componentName == "AnimatorComponent")
+		{
+			newComponent = gameObject.AddComponent<AnimatorComponent>();
 		}
 		else
 		{

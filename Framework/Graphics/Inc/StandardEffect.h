@@ -53,7 +53,7 @@ namespace TEngine::Graphics
 			int useShadowMap = 1;
 			int useSkinning = 1;
 			float bumpWeight = 1.0f;
-			float depthBias = 0.00001f;
+			float depthBias = 0.0001f;
 			float padding[3] = { 0.0f };
 		};
 

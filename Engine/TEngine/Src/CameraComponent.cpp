@@ -31,7 +31,7 @@ void CameraComponent::DebugUI()
 	SimpleDraw::AddTransform(matTrans);
 }
 
-void CameraComponent::Seriliaze(rapidjson::Document& doc, rapidjson::Value& value)
+void CameraComponent::Serialize(rapidjson::Document& doc, rapidjson::Value& value)
 {
 	rapidjson::Value componentValue(rapidjson::kObjectType);
 	SaveUtil::SaveVector3("Position", mCamera.GetPosition(), doc, componentValue);

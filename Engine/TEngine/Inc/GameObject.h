@@ -89,6 +89,6 @@ namespace TEngine
 		friend class GameWorld;
 		std::string mTemplateFilePath = "";
 		GameObjectHandle mHandle;
-		GameWorld* mWorld;
+		GameWorld* mWorld = nullptr;
 	};
 }

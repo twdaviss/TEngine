@@ -9,6 +9,8 @@ namespace TEngine
 		Camera,		//contains a camera for viewing
 		FPSCamera,	//moves camera with fps controls
 		Mesh,
+		Model,
+		Animator,
 		Count
 	};
 

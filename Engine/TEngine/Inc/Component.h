@@ -26,7 +26,7 @@ namespace TEngine
 		GameObject& GetOwner() { return *mOwner; }
 		const GameObject& GetOwner() const { return *mOwner; }
 
-		virtual void Seriliaze(rapidjson::Document& doc, rapidjson::Value& value){}
+		virtual void Serialize(rapidjson::Document& doc, rapidjson::Value& value){}
 		virtual void Deserialize(const rapidjson::Value& value) {}
 
 	private:
