@@ -22,7 +22,7 @@ void TransformComponent::Seriliaze(rapidjson::Document& doc, rapidjson::Value& v
 	value.AddMember("TransformComponent", componentValue, doc.GetAllocator());
 }
 
-void TransformComponent::Deseriliaze(const rapidjson::Value& value)
+void TransformComponent::Deserialize(const rapidjson::Value& value)
 {
 	if (value.HasMember("Position"))
 	{

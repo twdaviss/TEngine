@@ -8,6 +8,7 @@ using namespace TEngine::Audio;
 void GameState::Initialize()
 {
 	mGameWorld.AddService<CameraService>();
+	mGameWorld.AddService<RenderService>();
 	mGameWorld.Initialize();
 
 	mGameWorld.CreateGameObject("Object0", "../../Assets/Templates/test_object.json");

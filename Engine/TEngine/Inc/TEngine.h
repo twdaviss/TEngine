@@ -18,6 +18,7 @@
 //Services
 #include "Service.h"
 #include "CameraService.h"
+#include "RenderService.h"
 
 //Game Object
 #include "GameObject.h"
@@ -25,9 +26,11 @@
 //Components
 #include "TypeIds.h"
 #include "Component.h"
-#include "TransformComponent.h"
 #include "CameraComponent.h"
+#include "MeshComponent.h"
+#include "RenderObjectComponent.h"
 #include "FPSCameraComponent.h"
+#include "TransformComponent.h"
 
 namespace TEngine
 {

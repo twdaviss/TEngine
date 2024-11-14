@@ -7,7 +7,8 @@ namespace TEngine
 		Invalid,	//default value
 		Transform,	//transform component for location data
 		Camera,		//contains a camera for viewing
-		FPSCamera,	//moves camera with fps controls	
+		FPSCamera,	//moves camera with fps controls
+		Mesh,
 		Count
 	};
 
@@ -15,6 +16,7 @@ namespace TEngine
 	{
 		Invalid,	//default value	
 		Camera,		//controls active camera
+		Render,
 		Count
 	};
 }

@@ -4,6 +4,7 @@
 #include "Component.h"
 #include "CameraComponent.h"
 #include "FPSCameraComponent.h"
+#include "MeshComponent.h"
 #include "TransformComponent.h"
 
 using namespace TEngine;
@@ -24,6 +25,10 @@ namespace
 		else if (componentName == "FPSCameraComponent")
 		{
 			newComponent = gameObject.AddComponent<FPSCameraComponent>();
+		}
+		else if (componentName == "MeshComponent")
+		{
+			newComponent = gameObject.AddComponent<MeshComponent>();
 		}
 		else
 		{
@@ -51,7 +56,7 @@ void GameObjectFactory::Make(const std::filesystem::path& templatePath, GameObje
 		Component* newComponent = AddComponent(component.name.GetString(), gameObject);
 		if (newComponent != nullptr)
 		{
-			newComponent->Deseriliaze(component.value);
+			newComponent->Deserialize(component.value);
 		}
 	}
 }

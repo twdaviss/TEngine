@@ -68,7 +68,7 @@ void FPSCameraComponent::Seriliaze(rapidjson::Document& doc, rapidjson::Value& v
 	value.AddMember("FPSCameraComponent", componentValue, doc.GetAllocator());
 }
 
-void FPSCameraComponent::Deseriliaze(const rapidjson::Value& value)
+void FPSCameraComponent::Deserialize(const rapidjson::Value& value)
 {
 	if (value.HasMember("MoveSpeed"))
 	{

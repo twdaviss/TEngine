@@ -15,7 +15,7 @@ namespace TEngine
 		void Terminate() override;
 		void Update(float deltaTime) override;
 		void Seriliaze(rapidjson::Document& doc, rapidjson::Value& value) override;
-		void Deseriliaze(const rapidjson::Value& value) override;
+		void Deserialize(const rapidjson::Value& value) override;
 
 	private:
 		CameraComponent* mCameraComponent = nullptr;

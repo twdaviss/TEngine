@@ -62,6 +62,76 @@ MeshPC MeshBuilder::CreateCubePC(float size)
 	return meshPC;
 }
 
+Mesh MeshBuilder::CreateCube(float size)
+{
+	Mesh mesh;
+	const float hs = size * 0.5f;
+	const float q = 0.25f;
+	const float q2 = 0.5f;
+	const float q3 = 0.75f;
+	const float t = 0.34f;
+	const float t2 = 0.65f;
+
+	//left
+	mesh.vertices.push_back({ { hs, -hs, -hs}, -Math::Vector3::XAxis, Math::Vector3::ZAxis, { 0.0f, t2 } });
+	mesh.vertices.push_back({ { hs,  hs, -hs}, -Math::Vector3::XAxis, Math::Vector3::ZAxis, { 0.0f, t } });
+	mesh.vertices.push_back({ { hs,  hs,  hs}, -Math::Vector3::XAxis, Math::Vector3::ZAxis, { q, t } });
+	mesh.vertices.push_back({ { hs, -hs,  hs}, -Math::Vector3::XAxis, Math::Vector3::ZAxis, { q, t2 } });
+
+	//top
+	mesh.vertices.push_back({ { hs,  hs,  hs},  Math::Vector3::YAxis, Math::Vector3::XAxis, { q, t } });
+	mesh.vertices.push_back({ { hs,  hs, -hs},  Math::Vector3::YAxis, Math::Vector3::XAxis, { q, 0.0f } });
+	mesh.vertices.push_back({ {-hs,  hs, -hs},  Math::Vector3::YAxis, Math::Vector3::XAxis, { q2, 0.0f } });
+	mesh.vertices.push_back({ {-hs,  hs,  hs},  Math::Vector3::YAxis, Math::Vector3::XAxis, { q2, t } });
+
+	//front
+	mesh.vertices.push_back({ {-hs, -hs,  hs}, -Math::Vector3::ZAxis, Math::Vector3::XAxis, { q2, t2 } });
+	mesh.vertices.push_back({ {-hs,  hs,  hs}, -Math::Vector3::ZAxis, Math::Vector3::XAxis, { q2, t } });
+	mesh.vertices.push_back({ { hs,  hs,  hs}, -Math::Vector3::ZAxis, Math::Vector3::XAxis, { q, t } });
+	mesh.vertices.push_back({ { hs, -hs,  hs}, -Math::Vector3::ZAxis, Math::Vector3::XAxis, { q, t2 } });
+
+	//bottom
+	mesh.vertices.push_back({ { hs, -hs,  hs}, -Math::Vector3::YAxis, -Math::Vector3::ZAxis, { q, t2 } });
+	mesh.vertices.push_back({ { hs, -hs, -hs}, -Math::Vector3::YAxis, -Math::Vector3::ZAxis, { q, 1.0f } });
+	mesh.vertices.push_back({ {-hs, -hs, -hs}, -Math::Vector3::YAxis, -Math::Vector3::ZAxis, { q2, 1.0f } });
+	mesh.vertices.push_back({ {-hs, -hs,  hs}, -Math::Vector3::YAxis, -Math::Vector3::ZAxis, { q2, t2 } });
+
+	//right
+	mesh.vertices.push_back({ {-hs, -hs, -hs},  Math::Vector3::XAxis, -Math::Vector3::ZAxis, { q3, t2 } });
+	mesh.vertices.push_back({ {-hs,  hs, -hs},  Math::Vector3::XAxis, -Math::Vector3::ZAxis, { q3, t } });
+	mesh.vertices.push_back({ {-hs,  hs,  hs},  Math::Vector3::XAxis, -Math::Vector3::ZAxis, { q2, t } });
+	mesh.vertices.push_back({ {-hs, -hs,  hs},  Math::Vector3::XAxis, -Math::Vector3::ZAxis, { q2, t2 } });
+
+	//back
+	mesh.vertices.push_back({ {-hs, -hs, -hs},  Math::Vector3::ZAxis, -Math::Vector3::XAxis, { q3, t2 } });
+	mesh.vertices.push_back({ {-hs,  hs, -hs},  Math::Vector3::ZAxis, -Math::Vector3::XAxis, { q3, t } });
+	mesh.vertices.push_back({ { hs,  hs, -hs},  Math::Vector3::ZAxis, -Math::Vector3::XAxis, { 1.0f, t } });
+	mesh.vertices.push_back({ { hs, -hs, -hs},  Math::Vector3::ZAxis, -Math::Vector3::XAxis, { 1.0f, t2 } });
+
+	mesh.indices = {
+		//left
+		2, 1, 0,
+		2, 0, 3,
+		//top
+		6, 5, 4,
+		6, 4, 7,
+		//front
+		8, 9, 10,
+		11, 8, 10,
+		//bottom
+		12, 13, 14,
+		15, 12, 14,
+		//right
+		16, 17, 18,
+		19, 16, 18,
+		//back
+		22, 21, 20,
+		22, 20, 23
+	};
+
+	return mesh;
+}
+
 MeshPC MeshBuilder::CreateRectPC(float width, float height, float depth)
 {
 	srand(time(nullptr));

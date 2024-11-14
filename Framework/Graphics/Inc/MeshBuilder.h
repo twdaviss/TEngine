@@ -76,6 +76,7 @@ namespace TEngine::Graphics
 
 		//cube
 		static MeshPC CreateCubePC(float size);
+		static Mesh CreateCube(float size);
 
 		//rectangle
 		static MeshPC CreateRectPC(float width, float height, float depth);

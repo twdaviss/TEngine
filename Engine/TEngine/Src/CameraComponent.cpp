@@ -39,7 +39,7 @@ void CameraComponent::Seriliaze(rapidjson::Document& doc, rapidjson::Value& valu
 	value.AddMember("CameraComponent", componentValue, doc.GetAllocator());
 }
 
-void CameraComponent::Deseriliaze(const rapidjson::Value& value)
+void CameraComponent::Deserialize(const rapidjson::Value& value)
 {
 	if (value.HasMember("Position"))
 	{
