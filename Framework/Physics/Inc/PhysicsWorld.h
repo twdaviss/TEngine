@@ -31,6 +31,9 @@ namespace TEngine::Physics
 
 		void Register(PhysicsObject* physicsObject);
 		void Unregister(PhysicsObject* physicsObject);
+
+		Settings GetSettings() { return mSettings; }
+		void UpdateSettings(Settings settings) { mSettings = settings; }
 	private:
 		using PhysicsObjects = std::vector<PhysicsObject*>;
 		PhysicsObjects mPhysicsObjects;

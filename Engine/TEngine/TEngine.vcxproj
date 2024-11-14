@@ -152,10 +152,14 @@
     <ClInclude Include="inc\GameWorld.h" />
     <ClInclude Include="inc\MeshComponent.h" />
     <ClInclude Include="inc\ModelComponent.h" />
+    <ClInclude Include="inc\PhysicsService.h" />
     <ClInclude Include="inc\RenderObjectComponent.h" />
     <ClInclude Include="inc\RenderService.h" />
+    <ClInclude Include="inc\RigidBodyComponent.h" />
     <ClInclude Include="inc\SaveUtil.h" />
     <ClInclude Include="inc\Service.h" />
+    <ClInclude Include="inc\SoundBankComponent.h" />
+    <ClInclude Include="inc\SoundEffectComponent.h" />
     <ClInclude Include="Inc\TEngine.h" />
     <ClInclude Include="inc\TransformComponent.h" />
     <ClInclude Include="inc\TypeIds.h" />
@@ -173,12 +177,16 @@
     <ClCompile Include="src\GameWorld.cpp" />
     <ClCompile Include="src\MeshComponent.cpp" />
     <ClCompile Include="src\ModelComponent.cpp" />
+    <ClCompile Include="src\PhysicsService.cpp" />
     <ClCompile Include="Src\Precompiled.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Src\RenderObjectComponent.cpp" />
     <ClCompile Include="src\RenderService.cpp" />
+    <ClCompile Include="src\RigidBodyComponent.cpp" />
     <ClCompile Include="src\SaveUtil.cpp" />
+    <ClCompile Include="src\SoundBankComponent.cpp" />
+    <ClCompile Include="src\SoundEffectComponent.cpp" />
     <ClCompile Include="Src\TEngine.cpp" />
     <ClCompile Include="src\TransformComponent.cpp" />
   </ItemGroup>

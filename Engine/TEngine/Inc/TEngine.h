@@ -32,6 +32,9 @@
 #include "MeshComponent.h"
 #include "ModelComponent.h"
 #include "RenderObjectComponent.h"
+#include "RigidBodyComponent.h"
+#include "SoundEffectComponent.h"
+#include "SoundBankComponent.h"
 #include "TransformComponent.h"
 
 namespace TEngine

@@ -6,8 +6,12 @@
     },
     "RenderService": {
 
+    },
+    "PhysicsService": {
+      "Gravity": [ 0.0, -9.81, 0.0 ],
+      "SimSteps": 10,
+      "FixedTimeStep": 0.16666666666667
     }
-
   },
   "GameObjects": {
     "Camera": {
@@ -23,7 +27,7 @@
       "Template": "../../Assets/Templates/test_object.json",
       "Components": {
         "TransformComponent": {
-          "Position": [ 2.0, 0.0, 0.0 ]
+          "Position": [ 2.0, 1.0, 0.0 ]
         }
       }
     },

@@ -11,6 +11,9 @@ namespace TEngine
 		Mesh,
 		Model,
 		Animator,
+		RigidBody,
+		SoundBank,
+		SoundEffect,
 		Count
 	};
 
@@ -19,6 +22,7 @@ namespace TEngine
 		Invalid,	//default value	
 		Camera,		//controls active camera
 		Render,
+		Physics,
 		Count
 	};
 }

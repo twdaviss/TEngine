@@ -5,6 +5,7 @@
 
 #include "CameraService.h"
 #include "RenderService.h"
+#include "PhysicsService.h"
 
 using namespace TEngine;
 
@@ -112,6 +113,10 @@ void GameWorld::LoadLevel(const std::filesystem::path& levelFile)
 		else if (serviceName == "RenderService")
 		{
 			newService = AddService<RenderService>();
+		}
+		else if (serviceName == "PhysicsService")
+		{
+			newService = AddService<PhysicsService>();
 		}
 		else
 		{
