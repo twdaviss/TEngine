@@ -84,6 +84,9 @@
     <ClInclude Include="inc\RenderService.h">
       <Filter>Inc\Service</Filter>
     </ClInclude>
+    <ClInclude Include="inc\GameObjectHandle.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Precompiled.cpp">

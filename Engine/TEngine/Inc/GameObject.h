@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Component.h"
+#include "GameObjectHandle.h"
 
 namespace TEngine
 {
@@ -22,6 +23,7 @@ namespace TEngine
 		
 		GameWorld& GetWorld() { return *mWorld; }
 		const GameWorld& GetWorld() const { return *mWorld; }
+		const GameObjectHandle& GetHandle() const { return mHandle; }
 
 		template<class ComponentType>
 		ComponentType* AddComponent()
@@ -31,7 +33,7 @@ namespace TEngine
 			ASSERT(!mInitialized, "GameObject: cannot add components once initialized");
 			ASSERT(ComponentType::StaticGetTypeID() != static_cast<uint32_t>(ComponentID::Invalid),
 				"GameObject: invalid component type id");
-			ASSERT(!HasA<ComponentType>(), "GameObjectL already has component type");
+			ASSERT(!HasA<ComponentType>(), "GameObject: already has component type");
 
 			auto& newComponent = mComponents.emplace_back(std::make_unique<ComponentType>());
 			newComponent->mOwner = this;
@@ -85,7 +87,8 @@ namespace TEngine
 		Components mComponents;
 
 		friend class GameWorld;
-		std::filesystem::path mTemplateFilePath = "";
+		std::string mTemplateFilePath = "";
+		GameObjectHandle mHandle;
 		GameWorld* mWorld;
 	};
 }

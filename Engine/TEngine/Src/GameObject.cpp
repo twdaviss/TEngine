@@ -1,5 +1,6 @@
 #include "Precompiled.h"
 #include "GameObject.h"
+#include "GameWorld.h"
 
 using namespace TEngine;
 
@@ -52,6 +53,10 @@ void GameObject::DebugUI()
 				Save();
 			}
 		}
+		if (ImGui::Button("Delete"))
+		{
+			mWorld->DestroyGameObject(mHandle);
+		}
 	}
 	
 	ImGui::PopID();
@@ -90,8 +95,8 @@ void GameObject::Save()
 	doc.AddMember("Components", components, doc.GetAllocator());
 
 	FILE* file = nullptr;
-	auto err = fopen_s(&file, mTemplateFilePath.u8string().c_str(), "w");
-	ASSERT(err == 0, "GameObject: failed to open template file %s", mTemplateFilePath.u8string().c_str());
+	auto err = fopen_s(&file, mTemplateFilePath.c_str(), "w");
+	ASSERT(err == 0, "GameObject: failed to open template file %s", mTemplateFilePath.c_str());
 
 	char writeBuffer[65536];
 	rapidjson::FileWriteStream writeStream(file, writeBuffer, sizeof(writeBuffer));

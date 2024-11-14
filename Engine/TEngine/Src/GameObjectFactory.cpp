@@ -37,6 +37,32 @@ namespace
 
 		return newComponent;
 	}
+	Component* GetComponent(const std::string& componentName, GameObject& gameObject)
+	{
+		Component* newComponent = nullptr;
+		if (componentName == "TransformComponent")
+		{
+			newComponent = gameObject.GetComponent<TransformComponent>();
+		}
+		else if (componentName == "CameraComponent")
+		{
+			newComponent = gameObject.GetComponent<CameraComponent>();
+		}
+		else if (componentName == "FPSCameraComponent")
+		{
+			newComponent = gameObject.GetComponent<FPSCameraComponent>();
+		}
+		else if (componentName == "MeshComponent")
+		{
+			newComponent = gameObject.GetComponent<MeshComponent>();
+		}
+		else
+		{
+			ASSERT(false, "GameObjectFactory: unrecognized component %s", componentName.c_str());
+		}
+
+		return newComponent;
+	}
 }
 void GameObjectFactory::Make(const std::filesystem::path& templatePath, GameObject& gameObject)
 {
@@ -57,6 +83,22 @@ void GameObjectFactory::Make(const std::filesystem::path& templatePath, GameObje
 		if (newComponent != nullptr)
 		{
 			newComponent->Deserialize(component.value);
+		}
+	}
+}
+
+void GameObjectFactory::OverrideDeserialize(const rapidjson::Value& value, GameObject& gameObject)
+{
+	if (value.HasMember("Components"))
+	{
+		auto components = value["Components"].GetObj();
+		for (auto& component : components)
+		{
+			Component* ownedComponent = GetComponent(component.name.GetString(), gameObject);
+			if (ownedComponent != nullptr)
+			{
+				ownedComponent->Deserialize(component.value);
+			}
 		}
 	}
 }
