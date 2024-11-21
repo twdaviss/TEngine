@@ -135,6 +135,15 @@
     <ClInclude Include="Inc\ParticleSystemEffect.h">
       <Filter>Inc</Filter>
     </ClInclude>
+    <ClInclude Include="inc\UIFont.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\UISprite.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\UISpriteRenderer.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Precompiled.cpp">
@@ -222,6 +231,15 @@
       <Filter>Src</Filter>
     </ClCompile>
     <ClCompile Include="Src\ParticleSystemEffect.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UIFont.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UISprite.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UISpriteRenderer.cpp">
       <Filter>Src</Filter>
     </ClCompile>
   </ItemGroup>

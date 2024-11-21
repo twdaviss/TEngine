@@ -67,7 +67,7 @@ void RigidBodyComponent::Deserialize(const rapidjson::Value& value)
 			}
 			else if (shape == "Hull")
 			{
-				const auto halfExtents = colliderData["HalfExtends"].GetArray();
+				const auto halfExtents = colliderData["HalfExtents"].GetArray();
 				const float hx = halfExtents[0].GetFloat();
 				const float hy = halfExtents[1].GetFloat();
 				const float hz = halfExtents[2].GetFloat();
