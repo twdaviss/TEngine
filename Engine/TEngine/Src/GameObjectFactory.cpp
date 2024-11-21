@@ -16,6 +16,9 @@ using namespace TEngine;
 
 namespace
 {
+	CustomMake TryMake;
+	CustomGet TryGet;
+
 	Component* AddComponent(const std::string& componentName, GameObject& gameObject)
 	{
 		Component* newComponent = nullptr;
@@ -57,7 +60,8 @@ namespace
 		}
 		else
 		{
-			ASSERT(false, "GameObjectFactory: unrecognized component %s", componentName.c_str());
+			newComponent = TryMake(componentName, gameObject);
+			ASSERT(newComponent != nullptr, "GameObjectFactory: unrecognized component %s", componentName.c_str());
 		}
 
 		return newComponent;
@@ -103,12 +107,24 @@ namespace
 		}
 		else
 		{
-			ASSERT(false, "GameObjectFactory: unrecognized component %s", componentName.c_str());
+			newComponent = TryGet(componentName, gameObject);
+			ASSERT(newComponent != nullptr, "GameObjectFactory: unrecognized component %s", componentName.c_str());
 		}
 
 		return newComponent;
 	}
 }
+
+void GameObjectFactory::SetCustomMake(CustomMake customMake)
+{
+	TryMake = customMake;
+}
+
+void GameObjectFactory::SetCustomGet(CustomGet customGet)
+{
+	TryGet = customGet;
+}
+
 void GameObjectFactory::Make(const std::filesystem::path& templatePath, GameObject& gameObject)
 {
 	FILE* file = nullptr;

@@ -2,9 +2,14 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="CustomDebugDrawComponent.h" />
+    <ClInclude Include="CustomTypeIds.h" />
+    <ClInclude Include="CustomDebugDrawService.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp" />
     <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="CustomDebugDrawComponent.cpp" />
+    <ClCompile Include="CustomDebugDrawService.cpp" />
   </ItemGroup>
 </Project>

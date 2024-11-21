@@ -20,7 +20,7 @@ namespace TEngine
 		void Stop();
 	private:
 		std::string mFileName;
-		Audio::SoundId mSoundId;
 		bool mLooping = false;
+		Audio::SoundId mSoundId;
 	};
 }
