@@ -20,12 +20,12 @@ void RigidBody::Initialize(TEngine::Graphics::Transform& graphicsTransform, cons
 
 	mMotionState = new btDefaultMotionState(ConvertTobtTransform(graphicsTransform));
 	mRigidBody = new btRigidBody(mMass, mMotionState, shape.GetCollisionShape());
-	PhysicsWorld::Get()->Register(this);
+	//PhysicsWorld::Get()->Register(this);
 }
 
 void RigidBody::Terminate()
 {
-	PhysicsWorld::Get()->Unregister(this);
+	//PhysicsWorld::Get()->Unregister(this);
 	SafeDelete(mRigidBody);
 	SafeDelete(mMotionState);
 	mGraphicsTransform == nullptr;

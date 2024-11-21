@@ -53,7 +53,7 @@ namespace TEngine::Physics
 		btSoftBodyWorldInfo& GetSoftBodyWorldInfo() { return mDynamicWorld->getWorldInfo(); }
 #else
 		btDiscreteDynamicsWorld* mDynamicWorld = nullptr;
-		btSoftBodyWorldInfo& GetSoftBodyWorldInfo() { return btSoftBodyWorldInfo(); }
+		//btSoftBodyWorldInfo& GetSoftBodyWorldInfo() { return btSoftBodyWorldInfo(); }
 #endif
 	};
 }

@@ -49,7 +49,7 @@ void PhysicsWorld::Initialize(const Settings& settings)
 #else
 	mCollisionConfiguraton = new btDefaultCollisionConfiguration();
 	mDispatcher = new btCollisionDispatcher(mCollisionConfiguraton);
-	mDynamicWorld = new btDiscreteDynamicsWorld(mCollisionConfiguraton);
+	mDynamicWorld = new btDiscreteDynamicsWorld(mDispatcher, mInterface, mSolver, mCollisionConfiguraton);
 #endif
 	mDynamicWorld->setGravity(ConvertTobtVector3(settings.gravity));
 	mDynamicWorld->setDebugDrawer(&mDebugDrawer);

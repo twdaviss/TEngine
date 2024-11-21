@@ -87,23 +87,23 @@ namespace
 		}
 		else if (componentName == "ModelComponent")
 		{
-			newComponent = gameObject.AddComponent<ModelComponent>();
+			newComponent = gameObject.GetComponent<ModelComponent>();
 		}
 		else if (componentName == "AnimatorComponent")
 		{
-			newComponent = gameObject.AddComponent<AnimatorComponent>();
+			newComponent = gameObject.GetComponent<AnimatorComponent>();
 		}
 		else if (componentName == "RigidBodyComponent")
 		{
-			newComponent = gameObject.AddComponent<RigidBodyComponent>();
+			newComponent = gameObject.GetComponent<RigidBodyComponent>();
 		}
 		else if (componentName == "SoundEffectComponent")
 		{
-			newComponent = gameObject.AddComponent<SoundEffectComponent>();
+			newComponent = gameObject.GetComponent<SoundEffectComponent>();
 		}
 		else if (componentName == "SoundBankComponent")
 		{
-			newComponent = gameObject.AddComponent<SoundBankComponent>();
+			newComponent = gameObject.GetComponent<SoundBankComponent>();
 		}
 		else
 		{
