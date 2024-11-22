@@ -37,7 +37,7 @@ void TransformComponent::Deserialize(const rapidjson::Value& value)
 		rotation.x = rot[0].GetFloat();
 		rotation.y = rot[1].GetFloat();
 		rotation.z = rot[2].GetFloat();
-		rotation.w = rot[2].GetFloat();
+		rotation.w = rot[3].GetFloat();
 	}
 	if (value.HasMember("Scale"))
 	{

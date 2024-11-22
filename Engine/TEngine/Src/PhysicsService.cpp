@@ -55,7 +55,6 @@ void PhysicsService::Deserialize(const rapidjson::Value& value)
 	PhysicsWorld::Get()->UpdateSettings(settings);
 }
 
-
 void PhysicsService::Register(RigidBodyComponent* rigidBodyComponent)
 {
 	PhysicsWorld::Get()->Register(&rigidBodyComponent->mRigidBody);
@@ -68,4 +67,5 @@ void PhysicsService::Unregister(RigidBodyComponent* rigidBodyComponent)
 
 void PhysicsService::SetEnabled(bool enabled)
 {
+	mEnabled = enabled;
 }

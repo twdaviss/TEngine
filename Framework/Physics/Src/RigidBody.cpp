@@ -10,7 +10,7 @@ using namespace TEngine::Graphics;
 
 RigidBody::~RigidBody()
 {
-	ASSERT(mRigidBody == nullptr && mMotionState == nullptr, "RigidBody: termiante must be called");
+	ASSERT(mRigidBody == nullptr && mMotionState == nullptr, "RigidBody: terminate must be called");
 }
 
 void RigidBody::Initialize(TEngine::Graphics::Transform& graphicsTransform, const CollisionShape& shape, float mass)
@@ -20,12 +20,17 @@ void RigidBody::Initialize(TEngine::Graphics::Transform& graphicsTransform, cons
 
 	mMotionState = new btDefaultMotionState(ConvertTobtTransform(graphicsTransform));
 	mRigidBody = new btRigidBody(mMass, mMotionState, shape.GetCollisionShape());
-	//PhysicsWorld::Get()->Register(this);
+#ifndef USE_PHYSICS_SERVICE
+	PhysicsWorld::Get()->Register(this);
+#endif
 }
 
 void RigidBody::Terminate()
 {
-	//PhysicsWorld::Get()->Unregister(this);
+#ifndef USE_PHYSICS_SERVICE
+	PhysicsWorld::Get()->Unregister(this);
+#endif
+
 	SafeDelete(mRigidBody);
 	SafeDelete(mMotionState);
 	mGraphicsTransform == nullptr;
