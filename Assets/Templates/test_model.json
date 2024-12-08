@@ -38,7 +38,13 @@
       "Rings": 30,
       "Radius": 1.0,
       "Position": [ 0.0, 1.0, 0.0 ],
-      "Color": [1.0,0.0,0.0,1.0]
+      "Color": [ 1.0, 0.0, 0.0, 1.0 ]
+    },
+    "UITextComponent": {
+      "Text": "Hello There Class",
+      "Size": 30.0,
+      "Position": [ 250.0, 250.0 ],
+      "Color": [1.0,1.0,1.0,1.0]
     }
   }
 }

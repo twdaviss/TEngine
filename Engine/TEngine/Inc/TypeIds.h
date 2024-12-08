@@ -12,8 +12,11 @@ namespace TEngine
 		Model,		// creates a model render object
 		Animator,	// manages and controls animations
 		RigidBody,	// physics object that gets added to the physics world
-		SoundBank,	// addsa a single sound effect to an object
 		SoundEffect,// adds an array of sound effects to an object
+		SoundBank,	// adds a single sound effect to an object
+		UIText,		// adds a text UI component
+		UISprite,	// adds a sprite to the UI
+		UIButton,	// adds a button to the UI
 		Count
 	};
 
@@ -23,6 +26,7 @@ namespace TEngine
 		Camera,		//controls active camera
 		Render,
 		Physics,
+		UIRender,
 		Count
 	};
 }
