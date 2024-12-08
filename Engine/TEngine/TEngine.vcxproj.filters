@@ -117,6 +117,9 @@
     <ClInclude Include="inc\UITextComponent.h">
       <Filter>Inc\Component</Filter>
     </ClInclude>
+    <ClInclude Include="inc\UIButtonComponent.h">
+      <Filter>Inc\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Precompiled.cpp">
@@ -189,6 +192,9 @@
       <Filter>Src\Component</Filter>
     </ClCompile>
     <ClCompile Include="src\UITextComponent.cpp">
+      <Filter>Src\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UIButtonComponent.cpp">
       <Filter>Src\Component</Filter>
     </ClCompile>
   </ItemGroup>

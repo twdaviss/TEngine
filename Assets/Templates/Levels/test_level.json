@@ -48,23 +48,8 @@
         }
       }
     },
-    "BarBackground": {
-      "Template": "../../Assets/Templates/UI/BarBackground.json",
-      "Components": {
-        "UISpriteComponent": {
-          "Position": [ 10.0, 10.0 ],
-          "Pivot": "TopLeft"
-        }
-      }
-    },
-    "BarFull": {
-      "Template": "../../Assets/Templates/UI/BarFull.json",
-      "Components": {
-        "UISpriteComponent": {
-          "Position": [ 10.0, 10.0 ],
-          "Pivot": "TopLeft"
-        }
-      }
+    "TestScreen": {
+      "Template": "../../Assets/Templates/UI/test_screen.json"
     }
   }
 }

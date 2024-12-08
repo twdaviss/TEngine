@@ -48,7 +48,7 @@ void RenderService::Render()
 	{
 		for (RenderObject& renderObject : entry.renderGroup)
 		{
-			renderObject.transform = *entry.transformComponent;
+			renderObject.transform = entry.transformComponent->GetWorldTransform();
 		}
 	}
 

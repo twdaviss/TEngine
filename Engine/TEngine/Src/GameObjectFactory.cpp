@@ -13,6 +13,8 @@
 #include "SoundBankComponent.h"
 #include "UITextComponent.h"
 #include "UISpriteComponent.h"
+#include "UIButtonComponent.h"
+#include "GameWorld.h"
 
 using namespace TEngine;
 
@@ -67,6 +69,10 @@ namespace
 		else if (componentName == "UISpriteComponent")
 		{
 			newComponent = gameObject.AddComponent<UISpriteComponent>();
+		}
+		else if (componentName == "UIButtonComponent")
+		{
+			newComponent = gameObject.AddComponent<UIButtonComponent>();
 		}
 		else
 		{
@@ -123,6 +129,10 @@ namespace
 		{
 			newComponent = gameObject.GetComponent<UISpriteComponent>();
 		}
+		else if (componentName == "UIButtonComponent")
+		{
+			newComponent = gameObject.GetComponent<UIButtonComponent>();
+		}
 		else
 		{
 			newComponent = TryGet(componentName, gameObject);
@@ -143,7 +153,7 @@ void GameObjectFactory::SetCustomGet(CustomGet customGet)
 	TryGet = customGet;
 }
 
-void GameObjectFactory::Make(const std::filesystem::path& templatePath, GameObject& gameObject)
+void GameObjectFactory::Make(const std::filesystem::path& templatePath, GameObject& gameObject, GameWorld& gameWorld)
 {
 	FILE* file = nullptr;
 	auto err = fopen_s(&file, templatePath.u8string().c_str(), "r");
@@ -162,6 +172,20 @@ void GameObjectFactory::Make(const std::filesystem::path& templatePath, GameObje
 		if (newComponent != nullptr)
 		{
 			newComponent->Deserialize(component.value);
+		}
+	}
+	if (doc.HasMember("Children"))
+	{
+		auto children = doc["Children"].GetObj();
+		for (auto& child : children)
+		{
+			std::string name = child.name.GetString();
+			std::filesystem::path childTemplate = child.value["Template"].GetString();
+			GameObject* go = gameWorld.CreateGameObject(name, childTemplate);
+			GameObjectFactory::OverrideDeserialize(child.value, *go);
+
+			gameObject.AddChild(go);
+			go->SetParent(&gameObject);
 		}
 	}
 }

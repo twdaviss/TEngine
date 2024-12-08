@@ -163,6 +163,7 @@
     <ClInclude Include="Inc\TEngine.h" />
     <ClInclude Include="inc\TransformComponent.h" />
     <ClInclude Include="inc\TypeIds.h" />
+    <ClInclude Include="inc\UIButtonComponent.h" />
     <ClInclude Include="inc\UIRenderService.h" />
     <ClInclude Include="inc\UISpriteComponent.h" />
     <ClInclude Include="inc\UITextComponent.h" />
@@ -193,6 +194,7 @@
     <ClCompile Include="src\SoundEffectComponent.cpp" />
     <ClCompile Include="Src\TEngine.cpp" />
     <ClCompile Include="src\TransformComponent.cpp" />
+    <ClCompile Include="src\UIButtonComponent.cpp" />
     <ClCompile Include="src\UIRenderService.cpp" />
     <ClCompile Include="src\UISpriteComponent.cpp" />
     <ClCompile Include="src\UITextComponent.cpp" />

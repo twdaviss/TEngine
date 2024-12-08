@@ -19,6 +19,7 @@
 #include "Service.h"
 #include "CameraService.h"
 #include "RenderService.h"
+#include "UIRenderService.h"
 
 //Game Object
 #include "GameObject.h"
@@ -36,6 +37,10 @@
 #include "SoundEffectComponent.h"
 #include "SoundBankComponent.h"
 #include "TransformComponent.h"
+#include "UIComponent.h"
+#include "UISpriteComponent.h"
+#include "UITextComponent.h"
+#include "UIButtonComponent.h"
 
 namespace TEngine
 {

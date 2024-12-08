@@ -1,5 +1,6 @@
 #include "Precompiled.h"
 #include "UISpriteComponent.h"
+#include "UIButtonComponent.h"
 
 #include "GameWorld.h"
 #include "UIRenderService.h"
@@ -11,6 +12,10 @@ void UISpriteComponent::Initialize()
 {
 	ASSERT(!mTexturePath.empty(), "UISpriteComponent: texture path is not set");
 	mUISprite.Initialize(mTexturePath);
+	if (mRect.right - mRect.left > 0)
+	{
+		mUISprite.SetRect(mRect.top, mRect.left, mRect.right, mRect.bottom);
+	}
 	UIRenderService* renderService = GetOwner().GetWorld().GetService<UIRenderService>();
 	renderService->Register(this);
 }
@@ -24,6 +29,26 @@ void UISpriteComponent::Terminate()
 
 void UISpriteComponent::Render()
 {
+	Math::Vector2 worldPosition = GetPosition(false);
+	GameObject* parent = GetOwner().GetParent();
+	while (parent != nullptr)
+	{
+		UISpriteComponent* spriteComponent = parent->GetComponent<UISpriteComponent>();
+		if (spriteComponent != nullptr)
+		{
+			worldPosition += spriteComponent->GetPosition();
+		}
+		else 
+		{
+			UIButtonComponent* uiButtonComponent = parent->GetComponent<UIButtonComponent>();
+			if (uiButtonComponent != nullptr)
+			{
+				worldPosition += uiButtonComponent->GetPosition();
+			}
+		}
+		parent = parent->GetParent();
+	}
+	mUISprite.SetPosition({ worldPosition.x, worldPosition.y });
 	UISpriteRenderer::Get()->Render(&mUISprite);
 }
 
@@ -128,4 +153,23 @@ void UISpriteComponent::Deserialize(const rapidjson::Value& value)
 			ASSERT(false, "UISpriteComponent: invalid flip %s", flip.c_str());
 		}
 	}
+	if (value.HasMember("Rect"))
+	{
+		auto rect = value["Rect"].GetArray();
+		mRect.top = rect[0].GetInt();
+		mRect.left = rect[1].GetInt();
+		mRect.right = rect[2].GetInt();
+		mRect.bottom = rect[3].GetInt();
+	}
+}
+
+Math::Vector2 TEngine::UISpriteComponent::GetPosition(bool includeOrigin)
+{
+	float x = 0.0f;
+	float y = 0.0f;
+	if (includeOrigin)
+	{
+		mUISprite.GetOrigin(x, y);
+	}
+	return { mPosition.x - x, mPosition.y - y };
 }

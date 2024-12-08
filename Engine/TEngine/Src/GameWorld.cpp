@@ -232,7 +232,7 @@ GameObject* GameWorld::CreateGameObject(std::string name, const std::filesystem:
 	newGameObject->mHandle.mGeneration = slot.generation;
 	if (!templatePath.empty())
 	{
-		GameObjectFactory::Make(templatePath, *newGameObject);
+		GameObjectFactory::Make(templatePath, *newGameObject, *this);
 		newGameObject->mTemplateFilePath = templatePath.u8string();
 		if(initialize)
 		{

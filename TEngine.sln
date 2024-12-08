@@ -130,7 +130,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{
 	ProjectSection(SolutionItems) = preProject
 		Assets\Templates\fps_camera.json = Assets\Templates\fps_camera.json
 		Assets\Templates\ground.json = Assets\Templates\ground.json
-		Assets\Templates\Levels\test_level.json = Assets\Templates\Levels\test_level.json
+		Assets\Templates\test_carry_obj.json = Assets\Templates\test_carry_obj.json
 		Assets\Templates\test_model.json = Assets\Templates\test_model.json
 		Assets\Templates\test_object.json = Assets\Templates\test_object.json
 	EndProjectSection
@@ -145,6 +145,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{8FFE5249-C928-
 	ProjectSection(SolutionItems) = preProject
 		Assets\Templates\UI\BarBackground.json = Assets\Templates\UI\BarBackground.json
 		Assets\Templates\UI\BarFull.json = Assets\Templates\UI\BarFull.json
+		Assets\Templates\UI\Button.json = Assets\Templates\UI\Button.json
+		Assets\Templates\UI\test_screen.json = Assets\Templates\UI\test_screen.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Levels", "Levels", "{3FD1C5BD-8FF6-4C94-BB6F-B1B5EA254746}"
+	ProjectSection(SolutionItems) = preProject
+		Assets\Templates\Levels\test_level.json = Assets\Templates\Levels\test_level.json
 	EndProjectSection
 EndProject
 Global
@@ -541,7 +548,8 @@ Global
 		{F8DE388D-F995-49AD-8EB7-1F19E5386C80} = {94895D59-B49B-4C72-BE80-D477A8E152F8}
 		{980BF05B-4D33-4D29-910A-D9E90D41934A} = {94895D59-B49B-4C72-BE80-D477A8E152F8}
 		{0D034612-14E2-44E7-993A-72344A2CA7BD} = {8B8D3985-83A1-4CC3-BCF6-0B45CE8F8FA6}
-		{8FFE5249-C928-453E-810C-5FAF388A66CC} = {96A8100A-9392-4B14-A8FC-98695208229E}
+		{8FFE5249-C928-453E-810C-5FAF388A66CC} = {30C9810F-CD00-404F-ABAD-247E667C9E32}
+		{3FD1C5BD-8FF6-4C94-BB6F-B1B5EA254746} = {30C9810F-CD00-404F-ABAD-247E667C9E32}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E4FB7743-29E0-4790-9AF3-4645E035E654}

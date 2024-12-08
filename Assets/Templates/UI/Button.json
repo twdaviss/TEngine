@@ -1,0 +1,24 @@
+{
+  "Components": {
+    "UIButtonComponent": {
+      "Position": [ 0, 0 ],
+      "Default": {
+        "Texture": "../../Assets/Images/Images/button_off.png"
+      },
+      "Hover": {
+        "Texture": "../../Assets/Images/Images/button_on.png",
+        "Scale": [1.25,1.25]
+      },
+      "Click": {
+        "Texture": "../../Assets/Images/Images/button_off.png",
+        "Scale": [ 1.25, 1.25 ],
+        "Color": [ 1.0, 1.0, 0.0, 1.0 ]
+      },
+      "Disabled": {
+        "Texture": "../../Assets/Images/Images/button_off.png",
+        "Scale": [ 0.9, 0.9 ],
+        "Color": [0.4,0.4,0.4,1.0]
+      }
+    }
+  }
+}

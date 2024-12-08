@@ -32,6 +32,7 @@ void UISprite::SetScale(const Math::Vector2& scale)
 {
 	mScale.x = scale.x;
 	mScale.y = scale.y;
+	UpdateOrigin();
 }
 
 void UISprite::SetRect(uint32_t top, uint32_t left, uint32_t right, uint32_t bottom)
@@ -81,6 +82,12 @@ bool UISprite::IsInSprite(float x, float y)
 	const float height = mRect.bottom - mRect.top;
 	return x >= mPosition.x - mOrigin.x && x <= mPosition.x + width - mOrigin.x &&
 		   y >= mPosition.y - mOrigin.y && y <= mPosition.y + height - mOrigin.y;
+}
+
+void UISprite::GetOrigin(float& x, float& y)
+{
+	x = mOrigin.x;
+	y = mOrigin.y;
 }
 
 void UISprite::UpdateOrigin()

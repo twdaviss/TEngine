@@ -1,6 +1,8 @@
 #include "Precompiled.h"
 #include "TransformComponent.h"
 #include "SaveUtil.h"
+#include "GameObject.h"
+
 using namespace TEngine;
 using namespace TEngine::Graphics;
 
@@ -46,4 +48,25 @@ void TransformComponent::Deserialize(const rapidjson::Value& value)
 		scale.y = s[1].GetFloat();
 		scale.z = s[2].GetFloat();
 	}
+}
+
+Transform TEngine::TransformComponent::GetWorldTransform() const
+{
+	Transform worldTransform = *this;
+	const GameObject* parent = GetOwner().GetParent();
+	if (parent != nullptr)
+	{
+		Matrix4 matWorld = GetMatrix4();
+		while (parent != nullptr)
+		{
+			const TransformComponent* transformComponent = parent->GetComponent<TransformComponent>();
+			ASSERT(transformComponent != nullptr, "TransformComponent: parent does not have transform");
+			matWorld = matWorld * transformComponent->GetMatrix4();
+			parent = parent->GetParent();
+		}
+		worldTransform.position = Math::GetTranslation(matWorld);
+		//get quaternion from matWorld
+		worldTransform.scale = Math::GetScale(matWorld);
+	}
+	return worldTransform;
 }

@@ -44,6 +44,7 @@ namespace TEngine::Graphics
 		void SetRotation(float rotation);
 
 		bool IsInSprite(float x, float y);
+		void GetOrigin(float& x, float& y);
 
 	private:
 		void UpdateOrigin();

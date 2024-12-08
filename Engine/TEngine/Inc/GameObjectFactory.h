@@ -3,6 +3,7 @@
 namespace TEngine
 {
 	class GameObject;
+	class GameWorld;
 	class Component;
 
 	using CustomMake = std::function<Component* (const std::string&, GameObject&)>;
@@ -13,7 +14,7 @@ namespace TEngine
 		void SetCustomMake(CustomMake customMake);
 		void SetCustomGet(CustomGet customMake);
 
-		void Make(const std::filesystem::path& templatePath, GameObject& gameObject);
+		void Make(const std::filesystem::path& templatePath, GameObject& gameObject, GameWorld& gameWorld);
 		void OverrideDeserialize(const rapidjson::Value& value, GameObject& gameObject);
 	}
 }
