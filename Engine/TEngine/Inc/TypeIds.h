@@ -8,6 +8,7 @@ namespace TEngine
 		Transform,	// transform component for location data
 		Camera,		// contains a camera for viewing
 		FPSCamera,	// moves camera with fps controls
+		StationaryCamera, // same as fps but cannot move position
 		Mesh,		// creates a mesh render object
 		Model,		// creates a model render object
 		Animator,	// manages and controls animations

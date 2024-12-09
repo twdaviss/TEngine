@@ -120,6 +120,9 @@
     <ClInclude Include="inc\UIButtonComponent.h">
       <Filter>Inc\Component</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\StationaryCameraComponent.h">
+      <Filter>Inc\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Precompiled.cpp">
@@ -195,6 +198,9 @@
       <Filter>Src\Component</Filter>
     </ClCompile>
     <ClCompile Include="src\UIButtonComponent.cpp">
+      <Filter>Src\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\StationaryCameraComponent.cpp">
       <Filter>Src\Component</Filter>
     </ClCompile>
   </ItemGroup>

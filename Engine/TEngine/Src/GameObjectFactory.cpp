@@ -4,6 +4,7 @@
 #include "Component.h"
 #include "CameraComponent.h"
 #include "FPSCameraComponent.h"
+#include "StationaryCameraComponent.h"
 #include "TransformComponent.h"
 #include "MeshComponent.h"
 #include "ModelComponent.h"
@@ -37,6 +38,10 @@ namespace
 		else if (componentName == "FPSCameraComponent")
 		{
 			newComponent = gameObject.AddComponent<FPSCameraComponent>();
+		}
+		else if (componentName == "StationaryCameraComponent")
+		{
+			newComponent = gameObject.AddComponent<StationaryCameraComponent>();
 		}
 		else if (componentName == "MeshComponent")
 		{
@@ -96,6 +101,10 @@ namespace
 		else if (componentName == "FPSCameraComponent")
 		{
 			newComponent = gameObject.GetComponent<FPSCameraComponent>();
+		}
+		else if (componentName == "StationaryCameraComponent")
+		{
+			newComponent = gameObject.GetComponent<StationaryCameraComponent>();
 		}
 		else if (componentName == "MeshComponent")
 		{

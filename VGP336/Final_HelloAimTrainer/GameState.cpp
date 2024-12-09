@@ -41,7 +41,7 @@ void GameState::Initialize()
 	GameObjectFactory::SetCustomGet(CustomComponentGet);
 	GameWorld::SetCustomService(CustomServiceMake);
 
-	mGameWorld.LoadLevel(L"../../Assets/Templates/Levels/test_level.json");
+	mGameWorld.LoadLevel(L"../../Assets/Templates/Levels/aim_trainer_level.json");
 }
 
 void GameState::Terminate()

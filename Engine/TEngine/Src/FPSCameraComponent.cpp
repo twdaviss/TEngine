@@ -76,10 +76,10 @@ void FPSCameraComponent::Deserialize(const rapidjson::Value& value)
 	}
 	if (value.HasMember("ShiftSpeed"))
 	{
-		mMoveSpeed = value["ShiftSpeed"].GetFloat();
+		mShiftSpeed = value["ShiftSpeed"].GetFloat();
 	}
 	if (value.HasMember("TurnSpeed"))
 	{
-		mMoveSpeed = value["TurnSpeed"].GetFloat();
+		mTurnSpeed = value["TurnSpeed"].GetFloat();
 	}
 }

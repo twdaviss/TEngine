@@ -1,0 +1,58 @@
+{
+  "Capacity": 100,
+  "Services": {
+    "CameraService": {
+
+    },
+    "RenderService": {
+
+    },
+    "CustomDebugDrawService": {
+
+    },
+    "UIRenderService": {
+
+    },
+    "PhysicsService": {
+      "Gravity": [ 0.0, -9.81, 0.0 ],
+      "SimSteps": 10,
+      "FixedTimeStep": 0.16666666666667
+    }
+  },
+  "GameObjects": {
+    "Camera": {
+      "Template": "../../Assets/Templates/stationary_camera.json",
+      "Components": {
+        "CameraComponent": {
+          "Position": [ 0.0, 2.0, -5.0 ],
+          "LookAt": [ 0.0, 1.0, 0.0 ]
+        }
+      }
+    },
+    "Ground": {
+      "Template": "../../Assets/Templates/ground.json"
+    },
+    "Object0": {
+      "Template": "../../Assets/Templates/test_object.json",
+      "Components": {
+        "TransformComponent": {
+          "Position": [ 2.0, 1.0, 0.0 ]
+        }
+      }
+    },
+    "Object1": {
+      "Template": "../../Assets/Templates/test_model.json",
+      "Components": {
+        "TransformComponent": {
+          "Position": [ 0.0, 0.0, 0.0 ]
+        }
+      }
+    },
+    "TestScreen": {
+      "Template": "../../Assets/Templates/UI/test_screen.json"
+    }
+  }
+}
+
+    
+  
