@@ -45,6 +45,12 @@ namespace TEngine::Input
 		void SetMouseClipToWindow(bool clip);
 		bool IsMouseClipToWindow() const;
 
+		void SetMouseLockPosition(bool lock);
+		bool IsMouseLockPosition() const;
+
+		void ToggleMouseLockPosition() const;
+
+		void LockMouseToCenter() const;
 	private:
 		static LRESULT CALLBACK InputSystemMessageHandler(HWND window, UINT message, WPARAM wParam, LPARAM lParam);
 
@@ -55,6 +61,7 @@ namespace TEngine::Input
 		bool mPressedKeys[512]{};
 
 		bool mClipMouseToWindow = false;
+		bool mLockMousePosition = false;
 
 		int mCurrMouseX = -1;
 		int mCurrMouseY = -1;

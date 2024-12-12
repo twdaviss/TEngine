@@ -1,28 +1,25 @@
-#include "CustomDebugDrawComponent.h"
-#include "CustomDebugDrawService.h"
+#include "CustomAimTrainerComponent.h"
+#include "CustomAimTrainerService.h"
 
 using namespace TEngine;
 using namespace TEngine::Graphics;
 using namespace TEngine::Math;
 
-void CustomDebugDrawComponent::Initialize()
+void CustomAimTrainerComponent::Initialize()
 {
-	mTransformComponent = GetOwner().GetComponent<TransformComponent>();
-	CustomDebugDrawService* drawServices = GetOwner().GetWorld().GetService<CustomDebugDrawService>();
-	drawServices->Register(this);
+	
 }
 
-void CustomDebugDrawComponent::Terminate()
+void CustomAimTrainerComponent::Terminate()
 {
-	CustomDebugDrawService* drawServices = GetOwner().GetWorld().GetService<CustomDebugDrawService>();
-	drawServices->Unregister(this);
+	
 }
 
-void CustomDebugDrawComponent::Update(float deltaTime)
+void CustomAimTrainerComponent::Update(float deltaTime)
 {
 }
 
-void CustomDebugDrawComponent::Deserialize(const rapidjson::Value& value)
+void CustomAimTrainerComponent::Deserialize(const rapidjson::Value& value)
 {
 	if (value.HasMember("Slices"))
 	{
@@ -53,7 +50,7 @@ void CustomDebugDrawComponent::Deserialize(const rapidjson::Value& value)
 	}
 }
 
-void CustomDebugDrawComponent::AddDebugDraw()
+void CustomAimTrainerComponent::AddDebugDraw()
 {
 	Vector3 worldSpace = mPosition;
 	if (mTransformComponent != nullptr)

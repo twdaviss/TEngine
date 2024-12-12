@@ -1,7 +1,7 @@
 #include "GameState.h"
 
-#include "CustomDebugDrawComponent.h"
-#include "CustomDebugDrawService.h"
+#include "CustomAimTrainerComponent.h"
+#include "CustomAimTrainerService.h"
 
 using namespace TEngine;
 using namespace TEngine::Graphics;
@@ -10,33 +10,34 @@ using namespace TEngine::Audio;
 
 Component* CustomComponentMake(const std::string& componentName, GameObject& gameObject)
 {
-	if (componentName == "CustomDebugDrawComponent")
+	if (componentName == "CustomAimTrainerComponent")
 	{
-		return gameObject.AddComponent<CustomDebugDrawComponent>();
+		return gameObject.AddComponent<CustomAimTrainerComponent>();
 	}
 	return nullptr;
 }
 
 Component* CustomComponentGet(const std::string& componentName, GameObject& gameObject)
 {
-	if (componentName == "CustomDebugDrawComponent")
+	if (componentName == "CustomAimTrainerComponent")
 	{
-		return gameObject.AddComponent<CustomDebugDrawComponent>();
+		return gameObject.AddComponent<CustomAimTrainerComponent>();
 	}
 	return nullptr;
 }
 
 Service* CustomServiceMake(const std::string& serviceName, GameWorld& gameWorld)
 {
-	if (serviceName == "CustomDebugDrawService")
+	if (serviceName == "CustomAimTrainerService")
 	{
-		return gameWorld.AddService<CustomDebugDrawService>();
+		return gameWorld.AddService<CustomAimTrainerService>();
 	}
 	return nullptr;
 }
 
 void GameState::Initialize()
 {
+	InputSystem::Get()->SetMouseLockPosition(true);
 	GameObjectFactory::SetCustomMake(CustomComponentMake);
 	GameObjectFactory::SetCustomGet(CustomComponentGet);
 	GameWorld::SetCustomService(CustomServiceMake);

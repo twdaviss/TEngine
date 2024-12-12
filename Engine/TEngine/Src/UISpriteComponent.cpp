@@ -160,6 +160,13 @@ void UISpriteComponent::Deserialize(const rapidjson::Value& value)
 		mRect.right = rect[2].GetInt();
 		mRect.bottom = rect[3].GetInt();
 	}
+	if (value.HasMember("Centered"))
+	{
+		centered = value["Centered"].GetBool();
+
+		mPosition.x = GraphicsSystem::Get()->GetBackBufferWidth() / 2;
+		mPosition.y = GraphicsSystem::Get()->GetBackBufferHeight() / 2;
+	}
 }
 
 Math::Vector2 TEngine::UISpriteComponent::GetPosition(bool includeOrigin)

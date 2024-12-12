@@ -20,5 +20,6 @@ namespace TEngine
 		DirectX::XMFLOAT2 mPosition;
 		RECT mRect = { 0,0,0,0 };
 		Graphics::UISprite mUISprite;
+		bool centered = false;
 	};
 }

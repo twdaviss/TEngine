@@ -165,11 +165,11 @@
     <ClInclude Include="inc\TransformComponent.h" />
     <ClInclude Include="inc\TypeIds.h" />
     <ClInclude Include="inc\UIButtonComponent.h" />
+    <ClInclude Include="Inc\UIComponent.h" />
     <ClInclude Include="inc\UIRenderService.h" />
     <ClInclude Include="inc\UISpriteComponent.h" />
     <ClInclude Include="inc\UITextComponent.h" />
     <ClInclude Include="Src\Precompiled.h" />
-    <ClInclude Include="UIComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\AnimatorComponent.cpp" />

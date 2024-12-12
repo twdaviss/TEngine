@@ -2,15 +2,16 @@
 
 #include "CustomTypeIds.h"
 
-class CustomDebugDrawComponent : public TEngine::Component
+class CustomAimTrainerComponent : public TEngine::Component
 {
 public:
-	SET_TYPE_ID(CustomComponentId::CustomDebugDraw);
+	SET_TYPE_ID(CustomComponentId::CustomAimTrainer);
 
 	void Initialize() override;
 	void Terminate() override;
 	void Update(float deltaTime) override;
 	void Deserialize(const rapidjson::Value& value) override;
+	void SpawnTarget();
 
 	void AddDebugDraw();
 
@@ -21,6 +22,6 @@ private:
 	uint32_t mSlices = 0;
 	uint32_t mRings = 0;
 	float mRadius = 0.0f;
-
+	using targets = GameObject[10];
 };
 

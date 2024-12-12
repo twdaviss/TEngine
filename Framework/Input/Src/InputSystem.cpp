@@ -21,7 +21,7 @@ namespace
 		POINT lr;
 		lr.x = rect.right;
 		lr.y = rect.bottom;
-
+		
 		MapWindowPoints(window, nullptr, &ul, 1);
 		MapWindowPoints(window, nullptr, &lr, 1);
 
@@ -30,9 +30,25 @@ namespace
 
 		rect.right = lr.x;
 		rect.bottom = lr.y;
-
 		ClipCursor(&rect);
 	}
+}
+
+void InputSystem::LockMouseToCenter() const
+{
+	RECT rect;
+	GetClientRect(mWindow, &rect);
+
+	sInputSystem->mPrevMouseX = (rect.right - rect.left) / 2;
+	sInputSystem->mPrevMouseY = (rect.bottom - rect.top) / 2;
+
+	const int screenWidth = GetSystemMetrics(SM_CXSCREEN);
+	const int screenHeight = GetSystemMetrics(SM_CYSCREEN);
+	const int winWidth = std::min(static_cast<int>(rect.right - rect.left), screenWidth);
+	const int winHeight = std::min(static_cast<int>(rect.bottom - rect.top), screenHeight);
+	const int left = (screenWidth - winWidth) / 2;
+	const int top = (screenHeight - winHeight) / 2;
+	SetCursorPos(left + (winWidth / 2), top + (winHeight / 2) + 11);
 }
 
 LRESULT CALLBACK InputSystem::InputSystemMessageHandler(HWND window, UINT message, WPARAM wParam, LPARAM lParam)
@@ -99,6 +115,7 @@ LRESULT CALLBACK InputSystem::InputSystemMessageHandler(HWND window, UINT messag
 
 				sInputSystem->mCurrMouseX = mouseX;
 				sInputSystem->mCurrMouseY = mouseY;
+				
 				if (sInputSystem->mPrevMouseX == -1)
 				{
 					sInputSystem->mPrevMouseX = mouseX;
@@ -111,6 +128,7 @@ LRESULT CALLBACK InputSystem::InputSystemMessageHandler(HWND window, UINT messag
 				sInputSystem->mMouseRightEdge = mouseX + 1 >= rect.right;
 				sInputSystem->mMouseTopEdge = mouseY <= rect.top;
 				sInputSystem->mMouseBottomEdge = mouseY + 1 >= rect.bottom;
+
 				break;
 			}
 			case WM_KEYDOWN:
@@ -131,7 +149,6 @@ LRESULT CALLBACK InputSystem::InputSystemMessageHandler(HWND window, UINT messag
 			}
 		}
 	}
-
 	return sWindowMessageHandler.ForwardMessage(window, message, wParam, lParam);
 }
 
@@ -175,9 +192,12 @@ void InputSystem::Initialize(HWND window)
 	
 	// Hook application to window's procedure
 	sWindowMessageHandler.Hook(window, InputSystemMessageHandler);
-
+	mWindow = window;
+	if(mLockMousePosition)
+	{
+		LockMouseToCenter();
+	}
 	mInitialized = true;
-
 	LOG("InputSystem -- System initialized.");
 }
 
@@ -213,10 +233,19 @@ void InputSystem::Update()
 	memcpy(mPrevKeys, mCurrKeys, sizeof(mCurrKeys));
 
 	// Update mouse movement
+	if(mLockMousePosition)
+	{
+		LockMouseToCenter();
+	}
 	mMouseMoveX = mCurrMouseX - mPrevMouseX;
 	mMouseMoveY = mCurrMouseY - mPrevMouseY;
 	mPrevMouseX = mCurrMouseX;
 	mPrevMouseY = mCurrMouseY;
+	if(mLockMousePosition)
+	{
+		mCurrMouseX = mPrevMouseX;
+		mCurrMouseY = mPrevMouseY;
+	}
 
 	// Store the previous mouse state
 	for (int i = 0; i < 3; ++i)
@@ -304,4 +333,21 @@ void InputSystem::SetMouseClipToWindow(bool clip)
 bool InputSystem::IsMouseClipToWindow() const
 {
 	return mClipMouseToWindow;
+}
+
+void InputSystem::SetMouseLockPosition(bool lock)
+{
+	ShowCursor(!lock);
+	mLockMousePosition = lock;
+}
+
+bool InputSystem::IsMouseLockPosition() const
+{
+	return mLockMousePosition;
+}
+
+void InputSystem::ToggleMouseLockPosition() const
+{
+	ShowCursor(mLockMousePosition);
+	sInputSystem->SetMouseLockPosition(!mLockMousePosition);
 }

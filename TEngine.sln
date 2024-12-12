@@ -147,6 +147,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{8FFE5249-C928-
 		Assets\Templates\UI\BarBackground.json = Assets\Templates\UI\BarBackground.json
 		Assets\Templates\UI\BarFull.json = Assets\Templates\UI\BarFull.json
 		Assets\Templates\UI\Button.json = Assets\Templates\UI\Button.json
+		Assets\Templates\UI\Crosshair.json = Assets\Templates\UI\Crosshair.json
 		Assets\Templates\UI\test_screen.json = Assets\Templates\UI\test_screen.json
 	EndProjectSection
 EndProject
@@ -562,6 +563,7 @@ Global
 		{0D034612-14E2-44E7-993A-72344A2CA7BD} = {8B8D3985-83A1-4CC3-BCF6-0B45CE8F8FA6}
 		{8FFE5249-C928-453E-810C-5FAF388A66CC} = {30C9810F-CD00-404F-ABAD-247E667C9E32}
 		{3FD1C5BD-8FF6-4C94-BB6F-B1B5EA254746} = {30C9810F-CD00-404F-ABAD-247E667C9E32}
+		{9B49278D-B734-4D7A-84DC-11C85F66229A} = {94895D59-B49B-4C72-BE80-D477A8E152F8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E4FB7743-29E0-4790-9AF3-4645E035E654}

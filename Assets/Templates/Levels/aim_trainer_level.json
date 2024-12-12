@@ -7,9 +7,6 @@
     "RenderService": {
 
     },
-    "CustomDebugDrawService": {
-
-    },
     "UIRenderService": {
 
     },
@@ -29,24 +26,18 @@
         }
       }
     },
+    "Crosshair": {
+      "Template": "../../Assets/Templates/UI/Crosshair.json",
+      "Components": {
+        "UISpriteComponent": {
+          "Position": [ 10.0, 10.0 ],
+          "Pivot": "Center",
+          "Centered": true
+        }
+      }
+    },
     "Ground": {
       "Template": "../../Assets/Templates/ground.json"
-    },
-    "Object0": {
-      "Template": "../../Assets/Templates/test_object.json",
-      "Components": {
-        "TransformComponent": {
-          "Position": [ 2.0, 1.0, 0.0 ]
-        }
-      }
-    },
-    "Object1": {
-      "Template": "../../Assets/Templates/test_model.json",
-      "Components": {
-        "TransformComponent": {
-          "Position": [ 0.0, 0.0, 0.0 ]
-        }
-      }
     },
     "TestScreen": {
       "Template": "../../Assets/Templates/UI/test_screen.json"

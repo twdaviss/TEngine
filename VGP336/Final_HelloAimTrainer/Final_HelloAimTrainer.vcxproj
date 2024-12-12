@@ -131,14 +131,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="CustomDebugDrawComponent.cpp" />
-    <ClCompile Include="CustomDebugDrawService.cpp" />
+    <ClCompile Include="CustomAimTrainerComponent.cpp" />
+    <ClCompile Include="CustomAimTrainerService.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CustomDebugDrawComponent.h" />
-    <ClInclude Include="CustomDebugDrawService.h" />
+    <ClInclude Include="CustomAimTrainerComponent.h" />
+    <ClInclude Include="CustomAimTrainerService.h" />
     <ClInclude Include="CustomTypeIds.h" />
     <ClInclude Include="GameState.h" />
   </ItemGroup>

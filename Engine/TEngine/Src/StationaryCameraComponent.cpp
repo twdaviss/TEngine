@@ -26,8 +26,14 @@ void StationaryCameraComponent::Update(float deltaTime)
 
 	auto input = Input::InputSystem::Get();
 	const float turnSpeed = 0.1f;
-	camera.Yaw(input->GetMouseMoveX() * turnSpeed * deltaTime);
-	camera.Pitch(input->GetMouseMoveY() * turnSpeed * deltaTime);
+	int moveX = input->GetMouseMoveX();
+	int moveY = input->GetMouseMoveY();
+	if (InputSystem::Get()->IsKeyPressed(KeyCode::TAB))
+	{
+		InputSystem::Get()->ToggleMouseLockPosition();
+	}
+	camera.Yaw(moveX * turnSpeed * deltaTime );
+	camera.Pitch(moveY * turnSpeed * deltaTime);
 }
 
 void StationaryCameraComponent::Serialize(rapidjson::Document& doc, rapidjson::Value& value)
