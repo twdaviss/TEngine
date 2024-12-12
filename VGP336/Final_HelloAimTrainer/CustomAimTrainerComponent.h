@@ -22,6 +22,7 @@ private:
 	uint32_t mSlices = 0;
 	uint32_t mRings = 0;
 	float mRadius = 0.0f;
-	using targets = GameObject[10];
+	using Targets = GameObject[10];
+	Targets mTargets;
 };
 

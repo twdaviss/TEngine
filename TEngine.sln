@@ -145,6 +145,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{8FFE5249-C928-453E-810C-5FAF388A66CC}"
 	ProjectSection(SolutionItems) = preProject
 		Assets\Templates\UI\BarBackground.json = Assets\Templates\UI\BarBackground.json
+		Assets\Templates\UI\AimTrainerScreen.json = Assets\Templates\UI\AimTrainerScreen.json
 		Assets\Templates\UI\BarFull.json = Assets\Templates\UI\BarFull.json
 		Assets\Templates\UI\Button.json = Assets\Templates\UI\Button.json
 		Assets\Templates\UI\Crosshair.json = Assets\Templates\UI\Crosshair.json

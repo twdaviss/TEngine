@@ -40,7 +40,7 @@
       "Template": "../../Assets/Templates/ground.json"
     },
     "TestScreen": {
-      "Template": "../../Assets/Templates/UI/test_screen.json"
+      "Template": "../../Assets/Templates/UI/AimTrainerScreen.json"
     }
   }
 }

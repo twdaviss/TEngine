@@ -2,18 +2,38 @@
   "Components": {
     "UISpriteComponent": {
       "Texture": "../../Assets/Images/Images/cyan.jpg",
-      "Position": [ 0.0, 0.0 ],
-      "Pivot": "TopLeft",
-      "Rect": [ 0, 0, 320, 320 ]
-    },
-    "UITextComponent": {
-      "Text": "Accuracy:",
-      "Color": [ 255, 0, 0, 0 ],
-      "Size": 32,
-      "Position": [320,320]
+      "Position": [ 500.0, 500.0 ],
+      "Pivot": "Top",
+      "Rect": [ 100, 100, 320, 320 ]
     }
   },
   "Children": {
-    
+    "BarBackground": {
+      "Template": "../../Assets/Templates/UI/BarBackground.json",
+      "Components": {
+        "UISpriteComponent": {
+          "Position": [ 10.0, 10.0 ],
+          "Pivot": "TopLeft"
+        }
+      }
+    },
+    "BarFull": {
+      "Template": "../../Assets/Templates/UI/BarFull.json",
+      "Components": {
+        "UISpriteComponent": {
+          "Position": [ 10.0, 10.0 ],
+          "Pivot": "TopLeft"
+        }
+      }
+    },
+    "Button1": {
+      "Template": "../../Assets/Templates/UI/Button.json",
+      "Components": {
+        "UIButtonComponent": {
+          "Position": [ 10.0, 100.0 ],
+          "Pivot": "TopLeft"
+        }
+      }
+    }
   }
 }
