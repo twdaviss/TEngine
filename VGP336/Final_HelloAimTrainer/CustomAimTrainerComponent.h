@@ -12,7 +12,6 @@ public:
 	void Update(float deltaTime) override;
 
 	void Deserialize(const rapidjson::Value& value) override;
-	//void SpawnTarget();
 
 	void AddDebugDraw();
 

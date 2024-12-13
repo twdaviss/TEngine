@@ -7,13 +7,7 @@ using namespace TEngine::Math;
 
 void CustomAimTrainerComponent::Initialize()
 {
-	for (GameObject* target : mTargets)
-	{
-		target = GetOwner().GetWorld().CreateGameObject("Target");
-
-		RigidBodyComponent rb;
-		rb.
-	}
+	
 }
 
 void CustomAimTrainerComponent::Terminate()
