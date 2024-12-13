@@ -1,11 +1,6 @@
 {
   "Components": {
-    "UITextComponent": {
-      "Text": "Accuracy:",
-      "Size": 24.0,
-      "Position": [ 0.0, 0.0 ],
-      "Color": [ 1.0, 1.0, 1.0, 1.0 ]
-    }
+    
   },
   "Children": {
     

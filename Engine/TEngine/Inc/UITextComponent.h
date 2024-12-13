@@ -13,6 +13,7 @@ namespace TEngine
 		void Terminate() override;
 		void Render() override;
 		void Deserialize(const rapidjson::Value& value) override;
+		void SetText(std::string text, Math::Vector2 position, float size, Color color) { mText = text; mPosition = position; mSize = size; mColor = color; }
 
 	private:
 		std::filesystem::path mText;

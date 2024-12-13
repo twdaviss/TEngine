@@ -10,6 +10,9 @@
     "UIRenderService": {
 
     },
+    "CustomAimTrainerService": {
+      
+    },
     "PhysicsService": {
       "Gravity": [ 0.0, -9.81, 0.0 ],
       "SimSteps": 10,

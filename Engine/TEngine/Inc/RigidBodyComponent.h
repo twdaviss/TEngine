@@ -15,6 +15,7 @@ namespace TEngine
 
 		void Deserialize(const rapidjson::Value& value) override;
 
+		void SetParameters(Physics::CollisionShape collisionShape, float mass) { mCollisionShape = collisionShape; mMass = mass; }
 		void SetPosition(const Math::Vector3& position);
 		void SetVelocity(const Math::Vector3& velocity);
 

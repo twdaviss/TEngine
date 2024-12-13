@@ -7,16 +7,22 @@ using namespace TEngine::Math;
 
 void CustomAimTrainerComponent::Initialize()
 {
-	
+	for (GameObject* target : mTargets)
+	{
+		target = GetOwner().GetWorld().CreateGameObject("Target");
+
+		RigidBodyComponent rb;
+		rb.
+	}
 }
 
 void CustomAimTrainerComponent::Terminate()
 {
-	
 }
 
 void CustomAimTrainerComponent::Update(float deltaTime)
 {
+	
 }
 
 void CustomAimTrainerComponent::Deserialize(const rapidjson::Value& value)
