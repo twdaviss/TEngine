@@ -21,10 +21,10 @@ private:
 	UITextComponent mTextComponent;
 
 	TEngine::Color mColor = TEngine::Colors::White;
-	uint32_t mSlices = 0;
-	uint32_t mRings = 0;
-	float mRadius = 0.0f;
-	using Targets = GameObject * [10];
+	uint32_t mSlices = 10.0;
+	uint32_t mRings = 10.0;
+	float mRadius = 1.0f;
+	using Targets = GameObject*[10];
 	Targets mTargets;
 	bool initialized = false;
 };

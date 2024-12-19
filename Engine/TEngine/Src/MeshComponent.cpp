@@ -128,3 +128,11 @@ const Graphics::Model& TEngine::MeshComponent::GetModel() const
 {
 	return mModel;
 }
+
+void MeshComponent::SetModelMesh(Model::MeshData meshData, Model::MaterialData matData)
+{
+	mModel.meshData.emplace_back(meshData);
+	mModel.materialData.emplace_back(matData);
+	return;
+}
+

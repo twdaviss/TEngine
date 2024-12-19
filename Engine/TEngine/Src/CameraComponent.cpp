@@ -47,7 +47,7 @@ void CameraComponent::Deserialize(const rapidjson::Value& value)
 		float x = pos[0].GetFloat();
 		float y = pos[1].GetFloat();
 		float z = pos[2].GetFloat();
-		mCamera.SetPosition({ z,y,z });
+		mCamera.SetPosition({ x,y,z });
 	}
 	if (value.HasMember("LookAt"))
 	{
@@ -55,7 +55,7 @@ void CameraComponent::Deserialize(const rapidjson::Value& value)
 		float x = pos[0].GetFloat();
 		float y = pos[1].GetFloat();
 		float z = pos[2].GetFloat();
-		mCamera.SetLookAt({ z,y,z });
+		mCamera.SetLookAt({ x,y,z });
 	}
 }
 

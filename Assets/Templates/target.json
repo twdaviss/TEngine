@@ -1,0 +1,22 @@
+{
+  "Components": {
+    "MeshComponent": {
+      "Shape": {
+        "Type": "Sphere",
+        "Slices": 0,
+        "Rings": 0,
+        "Radius": 0
+      },
+      "Material": {
+        "Ambient": [ 0.5, 0.5, 0.5, 1.0 ],
+        "Diffuse": [ 0.8, 0.8, 0.8, 1.0 ],
+        "Specular": [ 1.0, 1.0, 1.0, 1.0 ],
+        "Emissive": [ 0.0, 0.0, 0.0, 1.0 ],
+        "SpecularPower": 10.0
+      },
+      "Textures": {
+        "DiffuseMap": "../../Assets/Images/misc/concrete.jpg"
+      }
+    }
+  }
+}

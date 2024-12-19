@@ -11,6 +11,8 @@ namespace TEngine
 
 		void Deserialize(const rapidjson::Value& value) override;
 		const Graphics::Model& GetModel() const override;
+		void SetModelMesh(Graphics::Model::MeshData meshData, Graphics::Model::MaterialData matData);
+
 
 	private:
 		Graphics::Model mModel;
