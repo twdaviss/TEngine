@@ -20,6 +20,7 @@
 #include "CameraService.h"
 #include "RenderService.h"
 #include "UIRenderService.h"
+#include "PhysicsService.h"
 
 //Game Object
 #include "GameObject.h"

@@ -35,11 +35,11 @@ namespace TEngine::Physics
 		Settings GetSettings() { return mSettings; }
 		void UpdateSettings(Settings settings) { mSettings = settings; }
 
-		bool PerformRayCast(btVector3 start, btVector3 end)
+		const btCollisionObject* PerformRayCast(btVector3 start, btVector3 end)
 		{
 			btCollisionWorld::ClosestRayResultCallback rayCallback(start, end);
 			mDynamicWorld->rayTest(start, end, rayCallback);
-			return rayCallback.hasHit();
+			return rayCallback.m_collisionObject;
 		}
 
 	private:
